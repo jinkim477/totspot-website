@@ -12,3 +12,8 @@ export async function getStaff() {
   const entries = await client.getEntries({ content_type: 'staff' })
   return entries.items
 }
+
+export async function getFacility() {
+    const entries = await client.getEntries({ content_type: 'facility' })
+    return entries.items
+}

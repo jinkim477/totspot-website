@@ -9,7 +9,13 @@ import { CardContent } from "@/components/ui/card";
 import { CardHeader } from "@/components/ui/card";
 import { CardTitle } from "@/components/ui/card";
 
-export default function AboutPageClient({ content }: { content: any }) {
+export default function AboutPageClient({
+	staff,
+	facilities,
+}: {
+	staff: any[];
+	facilities: any[];
+}) {
 	const container = {
 		hidden: { opacity: 0 },
 		show: {
@@ -129,8 +135,8 @@ export default function AboutPageClient({ content }: { content: any }) {
 							<p className="text-gray-600">
 								We realize that it is not always possible for you to help in the
 								classroom, so you are welcome to have other significant people
-								in your child&apos;s life, such as grandparents, aunts, uncles, or
-								nannies, participate.
+								in your child&apos;s life, such as grandparents, aunts, uncles,
+								or nannies, participate.
 							</p>
 						</motion.div>
 					</div>
@@ -156,7 +162,7 @@ export default function AboutPageClient({ content }: { content: any }) {
 					</motion.div>
 
 					<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-						{content.map((staff: any, index: number) => {
+						{staff.map((staff: any, index: number) => {
 							const { name, role, photo } = staff.fields;
 							const imageUrl = `https:${photo.fields.file.url}`;
 
@@ -208,71 +214,38 @@ export default function AboutPageClient({ content }: { content: any }) {
 							well-equipped preschool facilities in south Calgary.
 						</p>
 					</motion.div>
-
 					<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-						{[
-							{
-								title: "Bright Classrooms",
-								description:
-									"Our large, sunny classrooms provide plenty of space for learning centers, group activities, and creative play.",
-								image: "/placeholder.svg?height=250&width=400",
-							},
-							{
-								title: "Learning Centers",
-								description:
-									"Each classroom features dedicated areas for art, literacy, science, dramatic play, and building to support different types of learning.",
-								image: "/placeholder.svg?height=250&width=400",
-							},
-							{
-								title: "Outdoor Playground",
-								description:
-									"Our secure outdoor play area allows children to develop gross motor skills and enjoy fresh air during good weather.",
-								image: "/placeholder.svg?height=250&width=400",
-							},
-							{
-								title: "Library Corner",
-								description:
-									"A cozy reading nook filled with books encourages early literacy and a love of reading.",
-								image: "/placeholder.svg?height=250&width=400",
-							},
-							{
-								title: "Art Studio",
-								description:
-									"A dedicated space for creative expression with a variety of materials and tools for artistic exploration.",
-								image: "/placeholder.svg?height=250&width=400",
-							},
-							{
-								title: "Parent Lounge",
-								description:
-									"A comfortable waiting area for parents during drop-off and pick-up times, with information about our programs and activities.",
-								image: "/placeholder.svg?height=250&width=400",
-							},
-						].map((facility, index) => (
-							<motion.div
-								key={index}
-								initial={{ opacity: 0, y: 20 }}
-								whileInView={{ opacity: 1, y: 0 }}
-								viewport={{ once: true }}
-								transition={{ delay: index * 0.1 }}
-							>
-								<Card className="overflow-hidden h-full">
-									<div className="h-48 relative">
-										<Image
-											src={facility.image || "/placeholder.svg"}
-											alt={facility.title}
-											fill
-											className="object-cover"
-										/>
-									</div>
-									<CardHeader>
-										<CardTitle className="text-xl">{facility.title}</CardTitle>
-									</CardHeader>
-									<CardContent>
-										<p className="text-gray-600">{facility.description}</p>
-									</CardContent>
-								</Card>
-							</motion.div>
-						))}
+						{facilities.map((facility, index) => {
+							const { title, description, photo } = facility.fields;
+							const imageUrl = `https:${photo.fields.file.url}`;
+
+							return (
+								<motion.div
+									key={index}
+									initial={{ opacity: 0, y: 20 }}
+									whileInView={{ opacity: 1, y: 0 }}
+									viewport={{ once: true }}
+									transition={{ delay: index * 0.1 }}
+								>
+									<Card className="overflow-hidden h-full transform transition-transform duration-300 hover:scale-105">
+										<div className="h-48 relative">
+											<Image
+												src={imageUrl}
+												alt={title}
+												fill
+												className="object-cover"
+											/>
+										</div>
+										<CardHeader>
+											<CardTitle className="text-xl">{title}</CardTitle>
+										</CardHeader>
+										<CardContent>
+											<p className="text-gray-600">{description}</p>
+										</CardContent>
+									</Card>
+								</motion.div>
+							);
+						})}
 					</div>
 				</div>
 			</section>

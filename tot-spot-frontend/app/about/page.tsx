@@ -1,9 +1,10 @@
 // app/about/page.tsx
-import { getStaff } from "@/lib/contentful"
+import { getStaff, getFacility } from "@/lib/contentful"
 import AboutPageClient from "./AboutPageClient"
 
 export default async function AboutPage() {
-  const content = await getStaff() // fetch contentful content
+  const staff = await getStaff() // fetch contentful staff content
+  const facilities = await getFacility()
 
-  return <AboutPageClient content={content} />
+  return <AboutPageClient staff={staff} facilities={facilities} />
 }
