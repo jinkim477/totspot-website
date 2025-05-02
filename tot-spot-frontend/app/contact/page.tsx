@@ -1,10 +1,13 @@
-
+"use client"
 
 import { motion } from "framer-motion"
 import { Mail, MapPin, Phone } from "lucide-react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card } from "@/components/ui/card"
+import { CardContent } from "@/components/ui/card"
+import { CardHeader } from "@/components/ui/card"
+import { CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
@@ -203,7 +206,7 @@ export default function ContactPage() {
             className="h-[400px] relative rounded-lg overflow-hidden shadow-lg"
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2514.6453297768267!2d-114.05158882348178!3d50.93027755269981!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x537176ec66fef76b%3A0x9e725e944c64587a!2sTot%20Spot%20Preschool!5e0!3m2!1sen!2sca!4v1746071846929!5m2!1sen!2sca"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2508.2583356582307!2d-114.06427522322591!3d50.95167035578447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x537170f7d9d7aa33%3A0x5ef8b1d9a47ae745!2s1401%20Acadia%20Dr%20SE%2C%20Calgary%2C%20AB%20T2J%204C6%2C%20Canada!5e0!3m2!1sen!2sus!4v1714503600000!5m2!1sen!2sus"
               width="100%"
               height="100%"
               style={{ border: 0 }}

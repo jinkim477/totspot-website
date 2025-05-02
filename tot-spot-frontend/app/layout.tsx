@@ -7,7 +7,7 @@ import { Footer } from "@/components/footer"
 export const metadata = {
   title: "Tot Spot Preschool | Lake Bonavista, Calgary",
   description: "Quality early education for your children in Lake Bonavista, south Calgary.",
-    generator: 'v0.dev'
+    author: 'Jin Kim'
 }
 
 export default function RootLayout({

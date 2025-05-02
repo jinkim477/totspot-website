@@ -1,13 +1,17 @@
-
+"use client"
 
 import { motion } from "framer-motion"
 import { Calendar, Clock, Users } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Card } from "@/components/ui/card"
+import { CardContent } from "@/components/ui/card"
+import { CardDescription } from "@/components/ui/card"
+import { CardHeader } from "@/components/ui/card"
+import { CardTitle } from "@/components/ui/card"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
 
 export default function ProgramsPage() {
   return (
@@ -466,7 +470,6 @@ export default function ProgramsPage() {
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   className="relative pl-16 pb-10"
                 >
@@ -816,7 +819,7 @@ export default function ProgramsPage() {
                 <Button size="lg" className="bg-white text-pink-600 hover:bg-pink-50">
                   Register Now
                 </Button>
-                <Button size="lg" variant="outline" className="text-pink-600 bg-white hover:bg-pink-50" asChild>
+                <Button size="lg" variant="outline" className="text-white border-white hover:bg-pink-700" asChild>
                   <Link href="/contact">Contact Us</Link>
                 </Button>
               </div>

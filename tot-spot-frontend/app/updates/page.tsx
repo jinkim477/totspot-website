@@ -1,11 +1,15 @@
-
+"use client"
 
 import { motion } from "framer-motion"
 import { ArrowRight, Calendar } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card } from "@/components/ui/card"
+import { CardContent } from "@/components/ui/card"
+import { CardDescription } from "@/components/ui/card"
+import { CardHeader } from "@/components/ui/card"
+import { CardTitle } from "@/components/ui/card"
 
 export default function UpdatesPage() {
   return (
@@ -173,39 +177,8 @@ export default function UpdatesPage() {
         </div>
       </section>
 
-      {/* Newsletter Signup */}
-      <section className="py-16 bg-gray-50">
-        <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="space-y-6"
-            >
-              <h2 className="text-3xl font-bold text-gray-900">Stay Updated</h2>
-              <p className="text-gray-600 text-lg">
-                Subscribe to our newsletter to receive the latest news and updates from Tot Spot Preschool.
-              </p>
-              <div className="pt-4">
-                <div className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
-                  <input
-                    type="email"
-                    placeholder="Your email address"
-                    className="flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 flex-1"
-                  />
-                  <Button className="bg-pink-600 hover:bg-pink-700">Subscribe</Button>
-                </div>
-                <p className="text-xs text-gray-500 mt-2">We respect your privacy. Unsubscribe at any time.</p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       {/* Calendar */}
-      <section className="py-16">
+      <section className="py-16 bg-gray-50">
         <div className="container">
           <motion.div
             initial={{ opacity: 0 }}

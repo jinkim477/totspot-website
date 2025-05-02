@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -14,14 +14,12 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card } from "@/components/ui/card";
+import { CardContent } from "@/components/ui/card";
+import { CardDescription } from "@/components/ui/card";
+import { CardHeader } from "@/components/ui/card";
+import { CardTitle } from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 export default function Home() {
 	const [scrollY, setScrollY] = useState(0);
@@ -84,11 +82,9 @@ export default function Home() {
 							<Button
 								size="lg"
 								variant="outline"
-								className="text-black border-white hover:bg-white/20"
+								className="text-pink-600 border-white hover:bg-white/20"
 							>
-                <Link href="/about">
-								Our Philosophy
-                </Link>
+								<Link href="/about">Our Philosophy</Link>
 							</Button>
 						</div>
 					</motion.div>
@@ -157,7 +153,7 @@ export default function Home() {
 							transition={{ duration: 0.5 }}
 						>
 							<Image
-								src="https://totspotpreschool.ca/wp-content/uploads/tot-spot-preschool-calgary-1536x864.jpg"
+								src="/placeholder.svg?height=400&width=600"
 								alt="Tot Spot Classroom"
 								width={600}
 								height={400}
@@ -175,19 +171,16 @@ export default function Home() {
 								A Nurturing Environment for Early Learning
 							</h3>
 							<p className="text-gray-600">
-								Located in Lake Bonavista, we have one of the best, brightest
-								and most spacious preschools in south Calgary. We offer programs
-								for three and four year-olds to enrich your little one’s
-								learning process through interest-based, fun activities. We
-								welcome your children to come and learn through play.
+								Tot Spot Preschool provides a warm, nurturing environment where
+								children can explore, learn, and grow. Our spacious facility in
+								Lake Bonavista offers the perfect setting for early childhood
+								education.
 							</p>
 							<p className="text-gray-600">
-								Your child will benefit from our targeted learning spaces and
-								participate in a wide variety of activities daily: sand play,
-								building materials, water play, books, listening centre,
-								puzzles, crafts, play dough, stories, songs, gym and imaginative
-								play! Our teachers have Alberta certification and 75 collective
-								years of teaching experience. Come check us out!
+								Our experienced teachers are dedicated to creating a positive
+								first school experience that fosters a love of learning. Through
+								play-based activities and age-appropriate curriculum, we help
+								children develop essential skills while having fun.
 							</p>
 							<div className="pt-4">
 								<Link
@@ -223,27 +216,27 @@ export default function Home() {
 					<div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
 						{[
 							{
-								title: "3 Year Olds",
+								title: "3 Year Old Program",
 								description:
 									"A gentle introduction to preschool with focus on social skills and creative play.",
 								icon: <Users className="h-10 w-10 text-pink-600" />,
 								details: [
-									"3 different scheduling options",
-									"Info...",
-									"Info...",
-									"Info...",
+									"Tuesday & Thursday mornings",
+									"2.5 hour sessions",
+									"8:1 student-teacher ratio",
+									"Play-based learning",
 								],
 							},
 							{
-								title: "4 Year Olds",
+								title: "4 Year Old Program",
 								description:
 									"Preparation for kindergarten with literacy, numeracy, and social development.",
 								icon: <Users className="h-10 w-10 text-pink-600" />,
 								details: [
-									"3 different scheduling options",
-									"Info...",
-									"Info...",
-									"Info...",
+									"Mon/Wed/Fri mornings or afternoons",
+									"3 hour sessions",
+									"10:1 student-teacher ratio",
+									"Kindergarten readiness focus",
 								],
 							},
 						].map((program, index) => (
@@ -300,7 +293,7 @@ export default function Home() {
 
 					<div className="mt-12 text-center">
 						<Button asChild size="lg" className="bg-pink-600 hover:bg-pink-700">
-							<Link href="/programs">View Program Details</Link>
+							<Link href="/programs">View All Programs</Link>
 						</Button>
 					</div>
 				</div>

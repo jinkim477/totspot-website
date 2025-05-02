@@ -1,5 +1,6 @@
 // lib/contentful.ts
 'use server'
+
 import { createClient } from 'contentful'
 
 const client = createClient({
