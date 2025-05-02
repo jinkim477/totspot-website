@@ -55,58 +55,6 @@ export default function AboutPageClient({ content }: { content: any }) {
 				</div>
 			</section>
 
-			{/* Our Story */}
-			<section className="py-16 md:py-24">
-				<div className="container">
-					<div className="grid md:grid-cols-2 gap-12 items-center">
-						<motion.div
-							initial={{ opacity: 0, x: -20 }}
-							whileInView={{ opacity: 1, x: 0 }}
-							viewport={{ once: true }}
-							transition={{ duration: 0.5 }}
-							className="space-y-6"
-						>
-							<h2 className="text-3xl font-bold text-gray-900">Our Story</h2>
-							<div className="h-1 w-20 bg-pink-600 rounded-full"></div>
-							<p className="text-gray-600">
-								Tot Spot Preschool was founded in 2005 with a vision to create a
-								nurturing, stimulating environment where children could develop
-								a love for learning from an early age. What began as a small
-								program with just a handful of students has grown into one of
-								the most respected preschools in south Calgary.
-							</p>
-							<p className="text-gray-600">
-								Located in the heart of Lake Bonavista, our preschool has
-								evolved over the years, but our core mission remains unchanged:
-								to provide quality early education that prepares children
-								socially, emotionally, and academically for their future
-								schooling.
-							</p>
-							<p className="text-gray-600">
-								Today, Tot Spot continues to be a place where children thrive,
-								parents feel confident, and our dedicated staff work
-								passionately to create meaningful learning experiences every
-								day.
-							</p>
-						</motion.div>
-						<motion.div
-							initial={{ opacity: 0, x: 20 }}
-							whileInView={{ opacity: 1, x: 0 }}
-							viewport={{ once: true }}
-							transition={{ duration: 0.5 }}
-						>
-							<Image
-								src="/placeholder.svg?height=400&width=600"
-								alt="Tot Spot Preschool Story"
-								width={600}
-								height={400}
-								className="rounded-lg shadow-lg"
-							/>
-						</motion.div>
-					</div>
-				</div>
-			</section>
-
 			{/* Our Philosophy */}
 			<section className="py-16 bg-gray-50">
 				<div className="container">
@@ -144,28 +92,45 @@ export default function AboutPageClient({ content }: { content: any }) {
 							className="space-y-6"
 						>
 							<p className="text-gray-600">
-								At Tot Spot, we believe that children learn best through play
-								and hands-on experiences. Our play-based approach to learning
-								encourages curiosity, creativity, and critical thinking skills.
+								Tot Spot is a nurturing school. We take pride in providing
+								children with a warm and caring atmosphere. We firmly believe
+								that play is of utmost importance at this stage of your
+								child&apos;s life. We work hard to achieve an appropriate
+								balance between free play, which is so vital to your
+								preschooler&apos;s development, and structure, which provides
+								the tools and organization by which your child learns.
 							</p>
 							<p className="text-gray-600">
-								We view each child as a unique individual with their own
-								strengths, interests, and learning style. Our curriculum is
-								designed to be flexible and responsive to children's needs while
-								providing structure and consistency.
+								In recent years, educators have discussed the damage that can be
+								done when children are pressured too early to do
+								non-age-appropriate activities. They stress that learning should
+								be interest-based, fun, and should happen naturally through
+								participation in a wide variety of activities. Indeed, through
+								“just play,” these young children learn and develop intellectual
+								and emotional and social skills. We offer a separate program for
+								our three-year-olds and four-year-olds to address their
+								different developmental needs. We have created several distinct
+								play areas for children to experience each day.
 							</p>
 							<p className="text-gray-600">
-								We strive to create a community where children feel safe,
-								valued, and empowered. By fostering positive relationships and
-								building self-confidence, we help children develop the
-								social-emotional skills they need for success in school and
-								life.
+								Each space provides various activities designed to develop a
+								wide variety of skills. We also include gym time, snacks,
+								stories and songs each day. Tot Spot is a pre-school that values
+								and requires family participation. Your active assistance
+								enriches our program and delights your child. We hope that one
+								of the reasons you chose Tot Spot as your children&apos;s
+								pre-school is your desire to be actively involved in your
+								child&apos;s educational experience. Studies have shown that
+								early and constant parental involvement increases your
+								child&apos;s degree of success in school. We suggest you try to
+								volunteer in your child&apos;s class about once a month or as
+								needed.
 							</p>
 							<p className="text-gray-600">
-								Parent partnerships are essential to our approach. We believe
-								that families are children's first and most important teachers,
-								and we work closely with parents to support each child's
-								development.
+								We realize that it is not always possible for you to help in the
+								classroom, so you are welcome to have other significant people
+								in your child&apos;s life, such as grandparents, aunts, uncles, or
+								nannies, participate.
 							</p>
 						</motion.div>
 					</div>
@@ -203,7 +168,7 @@ export default function AboutPageClient({ content }: { content: any }) {
 									viewport={{ once: true }}
 									transition={{ delay: index * 0.1 }}
 								>
-									<Card className="overflow-hidden h-full">
+									<Card className="overflow-hidden h-full transform transition-transform duration-300 hover:scale-105">
 										<div className="aspect-square relative">
 											<Image
 												src={imageUrl}
@@ -218,9 +183,6 @@ export default function AboutPageClient({ content }: { content: any }) {
 												{role}
 											</p>
 										</CardHeader>
-										{/* <CardContent>
-											<p className="text-gray-600">{bio}</p>
-										</CardContent> */}
 									</Card>
 								</motion.div>
 							);
