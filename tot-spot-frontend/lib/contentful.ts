@@ -17,3 +17,8 @@ export async function getFacility() {
     const entries = await client.getEntries({ content_type: 'facility' })
     return entries.items
 }
+
+export async function getContact() {
+    const entries = await client.getEntries({ content_type: 'contact' })
+    return entries.items
+}

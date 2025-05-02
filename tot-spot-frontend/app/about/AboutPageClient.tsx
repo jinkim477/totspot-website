@@ -210,8 +210,10 @@ export default function AboutPageClient({
 						<h2 className="text-3xl font-bold text-gray-900">Our Facility</h2>
 						<div className="mt-2 h-1 w-20 bg-pink-600 mx-auto rounded-full"></div>
 						<p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-							Tot Spot is proud to offer one of the most spacious and
-							well-equipped preschool facilities in south Calgary.
+							Tot Spot has several distinct play/learning areas for children to
+							experience each day. Each provides different activities designed
+							to develop a wide variety of skills. We provide a theme-based
+							program and our toys are rotated monthly.
 						</p>
 					</motion.div>
 					<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -271,18 +273,19 @@ export default function AboutPageClient({
 							<div className="pt-4 flex flex-wrap justify-center gap-4">
 								<Button
 									size="lg"
-									className="bg-white text-pink-600 hover:bg-pink-50"
+                  variant="outline"
+									className="text-pink-600 border-white hover:bg-white/20"
 								>
-									Schedule a Tour
+                  <Link href="/contact">Contact Us</Link>
 								</Button>
-								<Button
+								{/* <Button
 									size="lg"
 									variant="outline"
 									className="text-black border-white hover:bg-pink-700 hover:text-white"
 									asChild
 								>
 									<Link href="/contact">Contact Us</Link>
-								</Button>
+								</Button> */}
 							</div>
 						</motion.div>
 					</div>

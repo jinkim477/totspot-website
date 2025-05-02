@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react"
+import { getContact } from "@/lib/contentful"
 
 export function Footer() {
   return (
