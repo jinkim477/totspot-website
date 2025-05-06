@@ -1,8 +1,10 @@
 import Link from "next/link"
 import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react"
-import { getContact } from "@/lib/contentful"
+import { getContactInfo } from "@/lib/contentful"
 
-export function Footer() {
+export function Footer({ contactInfo }: { contactInfo: any }) {
+  const { addressLineOne, addressLineTwo, phone, email, mapsLink } = contactInfo.fields;
+
   return (
     <footer className="bg-gray-50 border-t">
       <div className="container py-12">
@@ -99,15 +101,21 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-2">
                 <MapPin className="h-5 w-5 text-pink-600 flex-shrink-0 mt-0.5" />
-                <span className="text-sm text-gray-600">1401 Acadia Drive SE, Calgary, AB T2J 4C6</span>
+                <Link href={mapsLink} target="_blank" rel="noopener noreferrer">
+                <span className="text-sm text-gray-600 hover:text-pink-600">{addressLineOne}, {addressLineTwo}</span>
+                </Link>
               </li>
               <li className="flex items-start gap-2">
                 <Phone className="h-5 w-5 text-pink-600 flex-shrink-0 mt-0.5" />
-                <span className="text-sm text-gray-600">(403) 236-1268</span>
+                <Link href={`tel:${phone}`}>
+                <span className="text-sm text-gray-600 hover:text-pink-600">{phone}</span>
+                </Link>
               </li>
               <li className="flex items-start gap-2">
                 <Mail className="h-5 w-5 text-pink-600 flex-shrink-0 mt-0.5" />
-                <span className="text-sm text-gray-600">info@totspotpreschool.ca</span>
+                <Link href={`mailto:${email}`}>
+                <span className="text-sm text-gray-600 hover:text-pink-600">{email}</span>
+                </Link>
               </li>
             </ul>
           </div>

@@ -3,6 +3,7 @@ import "@/app/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { getContactInfo } from "@/lib/contentful"
 
 export const metadata = {
   title: "Tot Spot Preschool | Lake Bonavista, Calgary",
@@ -10,11 +11,13 @@ export const metadata = {
     author: 'Jin Kim'
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const contactInfo = await getContactInfo();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -25,7 +28,7 @@ export default function RootLayout({
           <div className="flex min-h-screen flex-col">
             <Header />
             <main className="flex-1">{children}</main>
-            <Footer />
+            <Footer contactInfo={contactInfo}/>
           </div>
         </ThemeProvider>
       </body>

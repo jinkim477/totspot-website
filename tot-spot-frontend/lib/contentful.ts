@@ -18,7 +18,12 @@ export async function getFacility() {
     return entries.items
 }
 
-export async function getContact() {
-    const entries = await client.getEntries({ content_type: 'contact' })
+export async function getContactInfo() {
+    const entries = await client.getEntries({ content_type: 'contactInfo' })
+    return entries.items[0]
+}
+
+export async function getPrograms() {
+    const entries = await client.getEntries({ content_type: 'program' })
     return entries.items
 }
