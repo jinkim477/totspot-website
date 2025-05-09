@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Calendar, Clock, Users, AlertCircle } from "lucide-react";
+import { Calendar, Clock, Users, AlertCircle, DollarSign } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,13 @@ import {
 } from "@/components/ui/accordion";
 import { Progress } from "@/components/ui/progress";
 
-export default function ProgramPageClient({ programs }: { programs: any[] }) {
+export default function ProgramPageClient({
+	programs,
+	programsPagePhotos,
+}: {
+	programs: any[];
+	programsPagePhotos: any[];
+}) {
 	const threeYearPrograms = programs
 		.filter((program) => program.fields.age === 3)
 		.sort((a, b) => a.fields.option - b.fields.option);
@@ -27,13 +33,16 @@ export default function ProgramPageClient({ programs }: { programs: any[] }) {
 	const fourYearPrograms = programs
 		.filter((program) => program.fields.age === 4)
 		.sort((a, b) => a.fields.option - b.fields.option);
+
+	const landingPhotoUrl = programsPagePhotos[0].fields.landingPhoto.fields.file.url;	
+
 	return (
 		<div className="min-h-screen">
 			{/* Hero Section */}
 			<section className="relative h-[400px] overflow-hidden">
 				<div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30 z-10" />
 				<Image
-					src="/placeholder.svg?height=400&width=1920"
+					src={landingPhotoUrl}
 					alt="Tot Spot Programs"
 					fill
 					className="object-cover"
@@ -121,7 +130,7 @@ export default function ProgramPageClient({ programs }: { programs: any[] }) {
 													className="border rounded-lg p-5 h-full flex flex-col"
 												>
 													<h3 className="text-xl font-bold text-gray-900 mb-4">
-														{age} Years / Option {option}
+														Option {option}
 													</h3>
 													<div className="space-y-4 flex-grow">
 														<div className="flex items-start gap-2">
@@ -145,7 +154,7 @@ export default function ProgramPageClient({ programs }: { programs: any[] }) {
 															</div>
 														</div>
 														<div className="flex items-start gap-2">
-															<Users className="h-5 w-5 text-pink-600 mt-0.5" />
+															<DollarSign className="h-5 w-5 text-pink-600 mt-0.5" />
 															<div>
 																<h4 className="font-medium text-gray-900">
 																	Price
@@ -170,8 +179,8 @@ export default function ProgramPageClient({ programs }: { programs: any[] }) {
 																{remainingSpots === 0
 																	? "Waitlist Only"
 																	: remainingSpots <= 3
-																	? "Limited Spots"
-																	: "Available"}
+																		? "Limited Spots"
+																		: "Available"}
 															</span>
 														</div>
 														<Progress
@@ -390,15 +399,16 @@ export default function ProgramPageClient({ programs }: { programs: any[] }) {
 																		: "text-green-600"
 																}`}
 															>
-																{remainingSpots === 0
-																	? (
-                                    <span className="text-sm text-red-600 font-medium flex items-center gap-1">
-                                      <AlertCircle className="h-3 w-3" /> Waitlist Only
-                                    </span>
-                                  )
-																	: remainingSpots <= 3
-																	? "Limited Spots"
-																	: "Available"}
+																{remainingSpots === 0 ? (
+																	<span className="text-sm text-red-600 font-medium flex items-center gap-1">
+																		<AlertCircle className="h-3 w-3" /> Waitlist
+																		Only
+																	</span>
+																) : remainingSpots <= 3 ? (
+																	"Limited Spots"
+																) : (
+																	"Available"
+																)}
 															</span>
 														</div>
 														<Progress
@@ -891,131 +901,6 @@ export default function ProgramPageClient({ programs }: { programs: any[] }) {
 				</div>
 			</section>
 
-			{/* Calendar */}
-			<section id="calendar" className="py-16">
-				<div className="container">
-					<motion.div
-						initial={{ opacity: 0 }}
-						whileInView={{ opacity: 1 }}
-						viewport={{ once: true }}
-						transition={{ duration: 0.5 }}
-						className="text-center mb-12"
-					>
-						<h2 className="text-3xl font-bold text-gray-900">
-							School Calendar
-						</h2>
-						<div className="mt-2 h-1 w-20 bg-pink-500 mx-auto rounded-full"></div>
-						<p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-							Important dates for the 2025-2026 school year.
-						</p>
-					</motion.div>
-
-					<div className="max-w-4xl mx-auto">
-						<Card>
-							<CardContent className="pt-6">
-								<div className="space-y-6">
-									{[
-										{
-											month: "September 2025",
-											events: [
-												{
-													date: "September 2-3",
-													title: "Parent Orientation",
-													description:
-														"Meet the teachers and learn about the program",
-												},
-												{
-													date: "September 8",
-													title: "First Day of Classes",
-													description: "Welcome to Tot Spot!",
-												},
-											],
-										},
-										{
-											month: "October 2025",
-											events: [
-												{
-													date: "October 13",
-													title: "Thanksgiving",
-													description: "No classes - Statutory Holiday",
-												},
-												{
-													date: "October 30-31",
-													title: "Halloween Celebrations",
-													description: "Costume parties in class",
-												},
-											],
-										},
-										{
-											month: "November 2025",
-											events: [
-												{
-													date: "November 11",
-													title: "Remembrance Day",
-													description: "No classes - Statutory Holiday",
-												},
-												{
-													date: "November 25-26",
-													title: "Parent-Teacher Conferences",
-													description: "Progress updates for all students",
-												},
-											],
-										},
-										{
-											month: "December 2025",
-											events: [
-												{
-													date: "December 18",
-													title: "Winter Celebration",
-													description: "Holiday performance and party",
-												},
-												{
-													date: "December 19-January 5",
-													title: "Winter Break",
-													description: "No classes - School closed",
-												},
-											],
-										},
-									].map((month, index) => (
-										<div key={index}>
-											<h3 className="text-xl font-bold text-gray-900 mb-3">
-												{month.month}
-											</h3>
-											<div className="space-y-3">
-												{month.events.map((event, eventIndex) => (
-													<div
-														key={eventIndex}
-														className="flex gap-4 pb-3 border-b last:border-0"
-													>
-														<div className="w-32 flex-shrink-0 font-medium text-pink-600">
-															{event.date}
-														</div>
-														<div>
-															<div className="font-medium text-gray-900">
-																{event.title}
-															</div>
-															<div className="text-sm text-gray-600">
-																{event.description}
-															</div>
-														</div>
-													</div>
-												))}
-											</div>
-										</div>
-									))}
-								</div>
-
-								<div className="mt-6 flex justify-center">
-									<Button className="bg-pink-500 hover:bg-pink-700">
-										Download Full Calendar
-									</Button>
-								</div>
-							</CardContent>
-						</Card>
-					</div>
-				</div>
-			</section>
-
 			{/* CTA Section */}
 			<section className="py-16 bg-pink-600 text-white">
 				<div className="container">
@@ -1037,14 +922,14 @@ export default function ProgramPageClient({ programs }: { programs: any[] }) {
 							<div className="pt-4 flex flex-wrap justify-center gap-4">
 								<Button
 									size="lg"
-									className="bg-white text-pink-600 hover:bg-pink-50"
+									className="bg-white text-pink-600 hover:bg-pink-100"
 								>
 									Register Now
 								</Button>
 								<Button
 									size="lg"
 									variant="outline"
-									className="text-white border-white hover:bg-pink-700"
+									className="text-black border-white hover:bg-pink-700 hover:text-white"
 									asChild
 								>
 									<Link href="/contact">Contact Us</Link>

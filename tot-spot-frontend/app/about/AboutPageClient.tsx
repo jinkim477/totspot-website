@@ -12,9 +12,11 @@ import { CardTitle } from "@/components/ui/card";
 export default function AboutPageClient({
 	staff,
 	facilities,
+	aboutPagePhotos,
 }: {
 	staff: any[];
 	facilities: any[];
+	aboutPagePhotos: any[];
 }) {
 	const container = {
 		hidden: { opacity: 0 },
@@ -31,13 +33,16 @@ export default function AboutPageClient({
 		show: { opacity: 1, y: 0 },
 	};
 
+	const landingPhotoUrl = aboutPagePhotos[0].fields.landingPhoto.fields.file.url;
+	const philosophyPhotoUrl = aboutPagePhotos[0].fields.philosophyPhoto.fields.file.url;
+
 	return (
 		<div className="min-h-screen">
 			{/* Hero Section */}
 			<section className="relative h-[400px] overflow-hidden">
 				<div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30 z-10" />
 				<Image
-					src="/placeholder.svg?height=400&width=1920"
+					src={landingPhotoUrl}
 					alt="About Tot Spot Preschool"
 					fill
 					className="object-cover"
@@ -83,7 +88,7 @@ export default function AboutPageClient({
 							transition={{ duration: 0.5 }}
 						>
 							<Image
-								src="/placeholder.svg?height=400&width=600"
+								src={philosophyPhotoUrl}
 								alt="Tot Spot Philosophy"
 								width={600}
 								height={400}
@@ -273,19 +278,11 @@ export default function AboutPageClient({
 							<div className="pt-4 flex flex-wrap justify-center gap-4">
 								<Button
 									size="lg"
-                  variant="outline"
-									className="text-pink-600 border-white hover:bg-white/20"
-								>
-                  <Link href="/contact">Contact Us</Link>
-								</Button>
-								{/* <Button
-									size="lg"
 									variant="outline"
 									className="text-black border-white hover:bg-pink-700 hover:text-white"
-									asChild
 								>
 									<Link href="/contact">Contact Us</Link>
-								</Button> */}
+								</Button>
 							</div>
 						</motion.div>
 					</div>

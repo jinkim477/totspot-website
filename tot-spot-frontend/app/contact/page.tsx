@@ -1,9 +1,10 @@
 // app/about/page.tsx
-import { getStaff, getFacility, getContactInfo } from "@/lib/contentful"
+import { getContactInfo, getContactPagePhotos } from "@/lib/contentful"
 import ContactPageClient from "./ContactPageClient"
 
 export default async function AboutPage() {
   const contactInfo = await getContactInfo() // fetch contentful contact info content
+  const contactPagePhotos = await getContactPagePhotos()
 
-  return <ContactPageClient contactInfo={contactInfo}/>
+  return <ContactPageClient contactInfo={contactInfo} contactPagePhotos={contactPagePhotos}/>
 }
