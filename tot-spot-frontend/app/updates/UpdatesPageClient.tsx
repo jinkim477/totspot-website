@@ -43,7 +43,8 @@ export default function UpdatesPage({
 		}
 	);
 
-	const landingPhotoUrl = updatePagePhotos[0].fields.landingPhoto.fields.file.url;
+	const landingPhotoUrl =
+		updatePagePhotos[0].fields.landingPhoto.fields.file.url;
 
 	return (
 		<div className="min-h-screen">
@@ -91,7 +92,7 @@ export default function UpdatesPage({
 						<div className="mt-2 h-1 w-20 bg-pink-600 mx-auto rounded-full"></div>
 					</motion.div>
 
-          {/* Featured Monthly Update */}
+					{/* Featured Monthly Update */}
 					<div className="grid gap-8">
 						<motion.div
 							initial={{ opacity: 0, y: 20 }}
@@ -158,7 +159,7 @@ export default function UpdatesPage({
 						</motion.div>
 					</div>
 
-          {/* Rest of Monthly Updates List */}
+					{/* Rest of Monthly Updates List */}
 					<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
 						{[...monthlyUpdates]
 							.filter((entry) => entry.sys.id !== latestUpdate.sys.id) // Exclude the featured update
@@ -217,9 +218,11 @@ export default function UpdatesPage({
 													</DialogTrigger>
 													<DialogContent className="max-w-4xl w-[90vw] max-h-[90vh] overflow-y-auto p-6 bg-white rounded-lg shadow-xl">
 														<DialogHeader className="text-center">
-                              <div className="flex justify-center">
-                                <DialogTitle>{date} – Monthly Update</DialogTitle>
-                              </div>
+															<div className="flex justify-center">
+																<DialogTitle>
+																	{date} – Monthly Update
+																</DialogTitle>
+															</div>
 														</DialogHeader>
 														<div className="space-y-4">
 															<div className="flex justify-center">

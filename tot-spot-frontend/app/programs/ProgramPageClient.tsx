@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Calendar, Clock, Users, AlertCircle, DollarSign } from "lucide-react";
 import Image from "next/image";
@@ -18,6 +19,7 @@ import {
 	AccordionContent,
 } from "@/components/ui/accordion";
 import { Progress } from "@/components/ui/progress";
+import { RegistrationDialog } from "@/components/registration-dialog";
 
 export default function ProgramPageClient({
 	programs,
@@ -26,6 +28,19 @@ export default function ProgramPageClient({
 	programs: any[];
 	programsPagePhotos: any[];
 }) {
+
+	const [registrationOpen, setRegistrationOpen] = useState(false);
+	const [selectedProgram, setSelectedProgram] = useState("");
+
+	const openRegistration = (programName: string) => {
+		setSelectedProgram(programName);
+		setRegistrationOpen(true);
+	}
+
+	const closeRegistration = () => {
+		setRegistrationOpen(false);
+	}
+
 	const threeYearPrograms = programs
 		.filter((program) => program.fields.age === 3)
 		.sort((a, b) => a.fields.option - b.fields.option);
@@ -38,6 +53,9 @@ export default function ProgramPageClient({
 
 	return (
 		<div className="min-h-screen">
+			{/* Registration Dialog */}
+			<RegistrationDialog isOpen={registrationOpen} onClose={closeRegistration} programName={selectedProgram}/>
+
 			{/* Hero Section */}
 			<section className="relative h-[400px] overflow-hidden">
 				<div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30 z-10" />
@@ -197,7 +215,7 @@ export default function ProgramPageClient({
 														</p>
 													</div>
 													<div className="pt-4 mt-auto">
-														<Button className="w-full bg-pink-500 hover:bg-pink-700">
+														<Button className="w-full bg-pink-500 hover:bg-pink-700" onClick={() => openRegistration("3 Year Old Program Option " + option)}>
 															{buttonText}
 														</Button>
 													</div>
@@ -425,7 +443,7 @@ export default function ProgramPageClient({
 														</p>
 													</div>
 													<div className="pt-4 mt-auto">
-														<Button className="w-full bg-pink-500 hover:bg-pink-700">
+														<Button className="w-full bg-pink-500 hover:bg-pink-700" onClick={() => openRegistration("4 Year Old Program Option " + option)}>
 															{buttonText}
 														</Button>
 													</div>
