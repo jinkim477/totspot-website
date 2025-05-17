@@ -7,10 +7,17 @@ export function RegistrationDialog({
   isOpen,
   onClose,
   programName,
+  programDays,
+  programTime,
+  programPrice,
 }: {
   isOpen: boolean
   onClose: () => void
   programName: string
+  programDays: string
+  programTime: string
+  programPrice: string
+  
 }) {
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
@@ -20,7 +27,7 @@ export function RegistrationDialog({
             Registration for {programName}
           </DialogTitle>
         </DialogHeader>
-        <RegistrationForm programName={programName} onClose={onClose} />
+        <RegistrationForm programName={programName} programDays={programDays} programTime={programTime} programPrice={programPrice} onClose={onClose} />
       </DialogContent>
     </Dialog>
   )

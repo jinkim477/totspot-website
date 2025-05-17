@@ -1,484 +1,255 @@
 "use client";
 
 import type React from "react";
-
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronRight, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
+import SignatureField from "./ui/signature-field";
 
 export function RegistrationForm({
-	programName,
-	onClose,
+  programName,
+  programDays,
+  programTime,
+  programPrice,
+  onClose,
 }: {
-	programName: string;
-	onClose: () => void;
+  programName: string;
+  programDays: string;
+  programTime: string;
+  programPrice: string;
+  onClose: () => void;
 }) {
-	const [step, setStep] = useState(1);
-	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [isComplete, setIsComplete] = useState(false);
-	const totalSteps = 4;
+  const [step, setStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-		setIsSubmitting(true);
+  // Step 1 states
+  const [childFirstName, setChildFirstName] = useState("");
+  const [childLastName, setChildLastName] = useState("");
+  const [dob, setDob] = useState("");
+  const [gender, setGender] = useState("Female");
 
-		// Simulate form submission
-		setTimeout(() => {
-			setIsSubmitting(false);
-			setIsComplete(true);
+  // Step 2 states
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [province, setProvince] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [parent1, setParent1] = useState("");
+  const [parent1Phone, setParent1Phone] = useState("");
+  const [parent2, setParent2] = useState("");
+  const [parent2Phone, setParent2Phone] = useState("");
+  const [email, setEmail] = useState("");
+  const [returningFamily, setReturningFamily] = useState("Yes");
+  const [hearAboutUs, setHearAboutUs] = useState("");
 
-			// Close the modal after showing success message
-			setTimeout(() => {
-				onClose();
-			}, 3000);
-		}, 2000);
-	};
+  // Step 3 states
+  const [regFeeMethod, setRegFeeMethod] = useState("E-Transfer");
+  const [monthlyFeeMethod, setMonthlyFeeMethod] = useState("Pre-authorized Debit");
+  const [date, setDate] = useState("");
+  const [signature, setSignature] = useState("");
 
-	const nextStep = () => {
-		if (step < totalSteps) {
-			setStep(step + 1);
-		}
-	};
+  const totalSteps = 3;
 
-	const prevStep = () => {
-		if (step > 1) {
-			setStep(step - 1);
-		}
-	};
+  const handleSubmit = async (e: React.FormEvent) => {
+    console.log("Handle Submit Triggered at Step:", step);
+    e.preventDefault();
+    setIsSubmitting(true);
 
-	return (
-		<div className="max-w-3xl">
-			{!isComplete ? (
-				<>
-					<div className="mb-6">
-						<div className="flex justify-between items-center mb-2">
-							<h3 className="text-sm font-medium text-gray-500">
-								Step {step} of {totalSteps}
-							</h3>
-							<button
-								type="button"
-								onClick={onClose}
-								className="text-gray-400 hover:text-gray-500 text-sm"
-							>
-								Cancel
-							</button>
-						</div>
-						<div className="w-full bg-gray-200 rounded-full h-2.5">
-							<div
-								className="bg-pink-600 h-2.5 rounded-full transition-all duration-300 ease-in-out"
-								style={{ width: `${(step / totalSteps) * 100}%` }}
-							></div>
-						</div>
-					</div>
+    try {
+      const programChoice = `${programDays} ${programTime.includes("AM") ? "AM" : "PM"} (${programPrice})`;
+      const isThreeYearOld = programName.toLowerCase().includes("3 year");
 
-					<form onSubmit={handleSubmit}>
-						<AnimatePresence mode="wait">
-							{step === 1 && (
-								<motion.div
-									key="step1"
-									initial={{ opacity: 0, x: 20 }}
-									animate={{ opacity: 1, x: 0 }}
-									exit={{ opacity: 0, x: -20 }}
-									transition={{ duration: 0.3 }}
-								>
-									<h2 className="text-xl font-bold text-gray-900 mb-6">
-										Child Information
-									</h2>
+      const payload: Record<string, string> = {
+        Child_s_First_Name: `${childFirstName} ${childLastName}`,
+        datetime: dob,
+        input_radio: gender,
+        input_text: street,
+        input_text_2: city,
+        input_text_3: province,
+        input_text_4: postalCode,
+        input_text_5: parent1,
+        input_text_6: parent2,
+        phone: parent1Phone,
+        phone_1: parent2Phone,
+        email,
+        input_radio_1: returningFamily,
+        input_text_7: hearAboutUs,
+        input_radio_3: isThreeYearOld ? programChoice : "",
+        input_radio_4: isThreeYearOld ? "" : programChoice,
+        input_radio_7: regFeeMethod,
+        input_radio_8: monthlyFeeMethod,
+        signature,
+        datetime_1: date,
+      };
 
-									<div className="space-y-4">
-										<div className="grid grid-cols-2 gap-4">
-											<div className="space-y-2">
-												<Label htmlFor="child-first-name">First Name</Label>
-												<Input
-													id="child-first-name"
-													placeholder="Child's first name"
-													required
-												/>
-											</div>
-											<div className="space-y-2">
-												<Label htmlFor="child-last-name">Last Name</Label>
-												<Input
-													id="child-last-name"
-													placeholder="Child's last name"
-													required
-												/>
-											</div>
-										</div>
+      console.log("📝 Registration Payload:", payload);
 
-										<div className="space-y-2">
-											<Label htmlFor="child-dob">Date of Birth</Label>
-											<Input id="child-dob" type="date" required />
-										</div>
+      setIsSubmitting(false);
+      setIsComplete(true);
+      setTimeout(() => onClose(), 3000);
+    } catch (err) {
+      console.error("❌ Submission Error:", err);
+      setIsSubmitting(false);
+      alert("Something went wrong. Please try again.");
+    }
+  };
 
-										<div className="space-y-2">
-											<Label>Gender</Label>
-											<RadioGroup defaultValue="female">
-												<div className="flex items-center space-x-6">
-													<div className="flex items-center space-x-2">
-														<RadioGroupItem value="female" id="female" />
-														<Label htmlFor="female">Female</Label>
-													</div>
-													<div className="flex items-center space-x-2">
-														<RadioGroupItem value="male" id="male" />
-														<Label htmlFor="male">Male</Label>
-													</div>
-												</div>
-											</RadioGroup>
-										</div>
-									</div>
-								</motion.div>
-							)}
+  const nextStep = () => {
+    if (step < totalSteps) setStep(step + 1);
+  };
 
-							{step === 2 && (
-								<motion.div
-									key="step2"
-									initial={{ opacity: 0, x: 20 }}
-									animate={{ opacity: 1, x: 0 }}
-									exit={{ opacity: 0, x: -20 }}
-									transition={{ duration: 0.3 }}
-								>
-									<h2 className="text-xl font-bold text-gray-900 mb-6">
-										Address/Parent Details
-									</h2>
+  const prevStep = () => {
+    if (step > 1) setStep(step - 1);
+  };
 
-									<div className="space-y-4">
-										<div className="grid grid-cols-4 gap-4">
-											<div className="space-y-2">
-												<Label htmlFor="street-address">Street Address</Label>
-												<Input
-													id="street-address"
-													placeholder="1234 Main Street"
-													required
-												/>
-											</div>
-											<div className="space-y-2">
-												<Label htmlFor="city">City</Label>
-												<Input id="city" placeholder="e.g. Calgary" required />
-											</div>
-											<div className="space-y-2">
-												<Label htmlFor="province">Province</Label>
-												<Input
-													id="province"
-													placeholder="e.g. Alberta"
-													required
-												/>
-											</div>
-											<div className="space-y-2">
-												<Label htmlFor="postal-code">Postal Code</Label>
-												<Input
-													id="postal-code"
-													placeholder="e.g. T2J 5C4"
-													required
-												/>
-											</div>
-										</div>
-										<div className="grid grid-cols-2 gap-4">
-											<div className="space-y-2">
-												<Label htmlFor="parent1-name">
-													Parent/Guardian #1 Name
-												</Label>
-												<Input
-													id="parent1-name"
-													placeholder="e.g. Jane Doe"
-													required
-												/>
-											</div>
-											<div className="space-y-2">
-												<Label htmlFor="parent1-phone">
-													Parent/Guardian #1 Phone
-												</Label>
-												<Input
-													id="parent1-phone"
-													type="tel"
-													placeholder="e.g. 4039876543"
-													required
-												/>
-											</div>
-											<div className="space-y-2">
-												<Label htmlFor="parent2-name">
-													Parent/Guardian #1 Name
-												</Label>
-												<Input
-													id="parent2-name"
-													placeholder="e.g. John Doe"
-													required
-												/>
-											</div>
-											<div className="space-y-2">
-												<Label htmlFor="parent2-phone">
-													Parent/Guardian #1 Phone
-												</Label>
-												<Input
-													id="parent2-phone"
-													type="tel"
-													placeholder="e.g. 4031234567"
-													required
-												/>
-											</div>
-										</div>
+  return (
+    <div className="max-w-3xl">
+      {!isComplete ? (
+        <>
+          <div className="mb-6">
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-sm font-medium text-gray-500">
+                Step {step} of {totalSteps}
+              </h3>
+              <button
+                type="button"
+                onClick={onClose}
+                className="text-gray-400 hover:text-gray-500 text-sm"
+              >
+                Cancel
+              </button>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2.5">
+              <div
+                className="bg-pink-600 h-2.5 rounded-full transition-all duration-300 ease-in-out"
+                style={{ width: `${(step / totalSteps) * 100}%` }}
+              ></div>
+            </div>
+          </div>
 
-										<div className="space-y-2">
-											<Label>Returning Tot Spot Family?</Label>
-											<RadioGroup defaultValue="yes">
-												<div className="flex items-center space-x-6">
-													<div className="flex items-center space-x-2">
-														<RadioGroupItem
-															value="returning-yes"
-															id="returning-yes"
-														/>
-														<Label htmlFor="returning-yes">Yes</Label>
-													</div>
-													<div className="flex items-center space-x-2">
-														<RadioGroupItem
-															value="returning-no"
-															id="returning-no"
-														/>
-														<Label htmlFor="returning-no">No</Label>
-													</div>
-												</div>
-											</RadioGroup>
-										</div>
+          <AnimatePresence mode="wait">
+            {step === 1 && (
+              <motion.div
+                key="step1"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <h2 className="text-xl font-bold text-gray-900 mb-6">Child Information</h2>
+                <div className="space-y-4">
+                  <Input value={childFirstName} onChange={(e) => setChildFirstName(e.target.value)} placeholder="First Name" required />
+                  <Input value={childLastName} onChange={(e) => setChildLastName(e.target.value)} placeholder="Last Name" required />
+                  <Input value={dob} onChange={(e) => setDob(e.target.value)} type="date" placeholder="Date of Birth" required />
+                  <div className="flex space-x-4">
+                    <label><input type="radio" name="gender" value="Female" checked={gender === "Female"} onChange={() => setGender("Female")} /> Female</label>
+                    <label><input type="radio" name="gender" value="Male" checked={gender === "Male"} onChange={() => setGender("Male")} /> Male</label>
+                  </div>
+                </div>
+              </motion.div>
+            )}
 
-										<div className="space-y-2">
-											<Label htmlFor="hear-about-us">
-												How did you hear about our preschool?
-											</Label>
-											<Input
-												id="hear-about-us"
-												placeholder="e.g. Friend, Social Media, etc."
-												required
-											/>
-										</div>
-									</div>
-								</motion.div>
-							)}
+            {step === 2 && (
+              <motion.div
+                key="step2"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <h2 className="text-xl font-bold text-gray-900 mb-6">Parent & Address Info</h2>
+                <div className="space-y-2">
+                  <Input value={street} onChange={(e) => setStreet(e.target.value)} placeholder="Street Address" required />
+                  <Input value={city} onChange={(e) => setCity(e.target.value)} placeholder="City" required />
+                  <Input value={province} onChange={(e) => setProvince(e.target.value)} placeholder="Province" required />
+                  <Input value={postalCode} onChange={(e) => setPostalCode(e.target.value)} placeholder="Postal Code" required />
+                  <Input value={parent1} onChange={(e) => setParent1(e.target.value)} placeholder="Parent 1 Name" required />
+                  <Input value={parent1Phone} onChange={(e) => setParent1Phone(e.target.value)} placeholder="Parent 1 Phone" required />
+                  <Input value={parent2} onChange={(e) => setParent2(e.target.value)} placeholder="Parent 2 Name" required />
+                  <Input value={parent2Phone} onChange={(e) => setParent2Phone(e.target.value)} placeholder="Parent 2 Phone" required />
+                  <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" required />
+                  <div className="flex space-x-4">
+                    <label><input type="radio" name="returning" value="Yes" checked={returningFamily === "Yes"} onChange={() => setReturningFamily("Yes")} /> Yes</label>
+                    <label><input type="radio" name="returning" value="No" checked={returningFamily === "No"} onChange={() => setReturningFamily("No")} /> No</label>
+                  </div>
+                  <Input value={hearAboutUs} onChange={(e) => setHearAboutUs(e.target.value)} placeholder="How did you hear about us?" required />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-							{step === 3 && (
-								<motion.div
-									key="step3"
-									initial={{ opacity: 0, x: 20 }}
-									animate={{ opacity: 1, x: 0 }}
-									exit={{ opacity: 0, x: -20 }}
-									transition={{ duration: 0.3 }}
-								>
-									<h2 className="text-xl font-bold text-gray-900 mb-6">
-										Program Details
-									</h2>
-
-									<div className="space-y-4">
-										<div className="space-y-2">
-											<Label>Please confirm your desired class</Label>
-											<RadioGroup defaultValue="yes">
-												<div className="flex items-center space-x-6">
-													<div className="flex items-center space-x-2">
-														<RadioGroupItem
-															value="confirm-yes"
-															id="confirm-yes"
-														/>
-														<Label htmlFor="confirm-yes">Yes, this is the correct class</Label>
-													</div>
-													<div className="flex items-center space-x-2">
-														<RadioGroupItem
-															value="confirm-no"
-															id="confirm-no"
-														/>
-														<Label htmlFor="confirm-no">No, this is not the correct class</Label>
-													</div>
-												</div>
-											</RadioGroup>
-										</div>
-										<div className="space-y-2">
-											<Label>Please select a method to pay the $100 non-refundable Registration Fee</Label>
-											<RadioGroup defaultValue="yes">
-												<div className="flex items-center space-x-6">
-													<div className="flex items-center space-x-2">
-														<RadioGroupItem
-															value="returning-yes"
-															id="returning-yes"
-														/>
-														<Label htmlFor="returning-yes">Yes</Label>
-													</div>
-													<div className="flex items-center space-x-2">
-														<RadioGroupItem
-															value="returning-no"
-															id="returning-no"
-														/>
-														<Label htmlFor="returning-no">No</Label>
-													</div>
-                                                    <div className="flex items-center space-x-2">
-														<RadioGroupItem
-															value="returning-no"
-															id="returning-no"
-														/>
-														<Label htmlFor="returning-no">No</Label>
-													</div>
-												</div>
-											</RadioGroup>
-										</div>
-									</div>
-								</motion.div>
-							)}
-
-							{step === 4 && (
-								<motion.div
-									key="step4"
-									initial={{ opacity: 0, x: 20 }}
-									animate={{ opacity: 1, x: 0 }}
-									exit={{ opacity: 0, x: -20 }}
-									transition={{ duration: 0.3 }}
-								>
-									<h2 className="text-xl font-bold text-gray-900 mb-6">
-										Additional Information & Consent
-									</h2>
-
-									<div className="space-y-4">
-										<div className="space-y-2">
-											<Label htmlFor="additional-info">
-												Additional Information
-											</Label>
-											<Textarea
-												id="additional-info"
-												placeholder="Please share any additional information that would help us better understand your child"
-												className="min-h-[100px]"
-											/>
-										</div>
-
-										<div className="space-y-4 pt-2">
-											<div className="flex items-start space-x-2">
-												<Checkbox id="consent-photos" />
-												<div className="grid gap-1.5 leading-none">
-													<Label
-														htmlFor="consent-photos"
-														className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-													>
-														I give permission for Tot Spot to take and use
-														photos of my child for educational and promotional
-														purposes.
-													</Label>
-												</div>
-											</div>
-
-											<div className="flex items-start space-x-2">
-												<Checkbox id="consent-trips" />
-												<div className="grid gap-1.5 leading-none">
-													<Label
-														htmlFor="consent-trips"
-														className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-													>
-														I give permission for my child to participate in
-														field trips and outings.
-													</Label>
-												</div>
-											</div>
-
-											<div className="flex items-start space-x-2">
-												<Checkbox id="consent-emergency" required />
-												<div className="grid gap-1.5 leading-none">
-													<Label
-														htmlFor="consent-emergency"
-														className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-													>
-														I authorize Tot Spot staff to seek emergency medical
-														treatment for my child if necessary.
-													</Label>
-												</div>
-											</div>
-
-											<div className="flex items-start space-x-2">
-												<Checkbox id="terms" required />
-												<div className="grid gap-1.5 leading-none">
-													<Label
-														htmlFor="terms"
-														className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-													>
-														I have read and agree to Tot Spot's terms and
-														conditions, including the payment and cancellation
-														policies.
-													</Label>
-												</div>
-											</div>
-										</div>
-
-										<div className="pt-4 text-sm text-gray-500">
-											<p>
-												By submitting this form, you acknowledge that a
-												non-refundable registration fee of $100 will be required
-												to secure your child's spot.
-											</p>
-										</div>
-									</div>
-								</motion.div>
-							)}
-						</AnimatePresence>
-
-						<div className="mt-8 flex justify-between">
-							{step > 1 ? (
-								<Button type="button" variant="outline" onClick={prevStep}>
-									Back
-								</Button>
-							) : (
-								<div></div>
-							)}
-
-							{step < totalSteps ? (
-								<Button
-									type="button"
-									onClick={nextStep}
-									className="bg-pink-600 hover:bg-pink-700"
-								>
-									Continue <ChevronRight className="ml-1 h-4 w-4" />
-								</Button>
-							) : (
-								<Button
-									type="submit"
-									className="bg-pink-600 hover:bg-pink-700"
-									disabled={isSubmitting}
-								>
-									{isSubmitting ? (
-										<>
-											<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-											Submitting...
-										</>
-									) : (
-										"Submit Registration"
-									)}
-								</Button>
-							)}
-						</div>
-					</form>
-				</>
-			) : (
-				<motion.div
-					initial={{ opacity: 0, scale: 0.9 }}
-					animate={{ opacity: 1, scale: 1 }}
-					className="text-center py-10"
-				>
-					<div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-						<Check className="h-8 w-8 text-green-600" />
-					</div>
-					<h2 className="mt-6 text-2xl font-bold text-gray-900">
-						Registration Submitted!
-					</h2>
-					<p className="mt-2 text-gray-600">
-						Thank you for registering with Tot Spot Preschool. We've sent a
-						confirmation email with next steps to the email address you
-						provided.
-					</p>
-				</motion.div>
-			)}
-		</div>
-	);
+          {step < totalSteps ? (
+            <div className="mt-8 flex justify-between">
+              {step > 1 ? (
+                <Button type="button" variant="outline" onClick={prevStep}>Back</Button>
+              ) : (<div />)}
+              <Button type="button" onClick={nextStep} className="bg-pink-600 hover:bg-pink-700">Continue <ChevronRight className="ml-1 h-4 w-4" /></Button>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              <motion.div
+                key="step3"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <h2 className="text-xl font-bold text-gray-900 mb-6">Program Details</h2>
+                <p>Selected Class: <strong>{programName}</strong></p>
+                <div className="space-y-4">
+                  <div>
+                    <Label>Registration Fee Payment Method</Label>
+                    <div className="flex space-x-4">
+                      <label><input type="radio" name="reg-fee-method" value="E-Transfer" checked={regFeeMethod === "E-Transfer"} onChange={() => setRegFeeMethod("E-Transfer")} /> E-Transfer</label>
+                      <label><input type="radio" name="reg-fee-method" value="Cheque" checked={regFeeMethod === "Cheque"} onChange={() => setRegFeeMethod("Cheque")} /> Cheque</label>
+                      <label><input type="radio" name="reg-fee-method" value="Cash" checked={regFeeMethod === "Cash"} onChange={() => setRegFeeMethod("Cash")} /> Cash</label>
+                    </div>
+                  </div>
+                  <div>
+                    <Label>Monthly Fee Payment Method</Label>
+                    <div className="flex space-x-4">
+                      <label><input type="radio" name="monthly-fee-method" value="Pre-authorized Debit" checked={monthlyFeeMethod === "Pre-authorized Debit"} onChange={() => setMonthlyFeeMethod("Pre-authorized Debit")} /> Pre-authorized Debit</label>
+                      <label><input type="radio" name="monthly-fee-method" value="Postdated Cheques" checked={monthlyFeeMethod === "Postdated Cheques"} onChange={() => setMonthlyFeeMethod("Postdated Cheques")} /> Postdated Cheques</label>
+                    </div>
+                  </div>
+                  <SignatureField onChange={setSignature} />
+                  <div className="space-y-2">
+                    <Label htmlFor="date">Date</Label>
+                    <Input id="date" name="date" type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+                  </div>
+                </div>
+              </motion.div>
+              <div className="mt-8 flex justify-between">
+                <Button type="button" variant="outline" onClick={prevStep}>Back</Button>
+                <Button type="submit" className="bg-pink-600 hover:bg-pink-700" disabled={isSubmitting}>
+                  {isSubmitting ? (<><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting...</>) : ("Submit Registration")}
+                </Button>
+              </div>
+            </form>
+          )}
+        </>
+      ) : (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-center py-10"
+        >
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+            <Check className="h-8 w-8 text-green-600" />
+          </div>
+          <h2 className="mt-6 text-2xl font-bold text-gray-900">
+            Registration Submitted!
+          </h2>
+          <p className="mt-2 text-gray-600">
+            Thank you for registering with Tot Spot Preschool. We've sent a confirmation email with next steps to the email address you provided.
+          </p>
+        </motion.div>
+      )}
+    </div>
+  );
 }
+
+export default RegistrationForm;

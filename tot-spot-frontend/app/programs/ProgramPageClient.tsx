@@ -28,18 +28,28 @@ export default function ProgramPageClient({
 	programs: any[];
 	programsPagePhotos: any[];
 }) {
-
 	const [registrationOpen, setRegistrationOpen] = useState(false);
 	const [selectedProgram, setSelectedProgram] = useState("");
+	const [selectedProgramDays, setSelectedProgramDays] = useState("");
+	const [selectedProgramTime, setSelectedProgramTime] = useState("");
+	const [selectedProgramPrice, setSelectedProgramPrice] = useState("");
 
-	const openRegistration = (programName: string) => {
+	const openRegistration = (
+		programName: string,
+		programDays: string,
+		programTime: string,
+		programPrice: string
+	) => {
 		setSelectedProgram(programName);
+		setSelectedProgramDays(programDays);
+		setSelectedProgramTime(programTime);
+		setSelectedProgramPrice(programPrice);
 		setRegistrationOpen(true);
-	}
+	};
 
 	const closeRegistration = () => {
 		setRegistrationOpen(false);
-	}
+	};
 
 	const threeYearPrograms = programs
 		.filter((program) => program.fields.age === 3)
@@ -49,12 +59,20 @@ export default function ProgramPageClient({
 		.filter((program) => program.fields.age === 4)
 		.sort((a, b) => a.fields.option - b.fields.option);
 
-	const landingPhotoUrl = programsPagePhotos[0].fields.landingPhoto.fields.file.url;	
+	const landingPhotoUrl =
+		programsPagePhotos[0].fields.landingPhoto.fields.file.url;
 
 	return (
 		<div className="min-h-screen">
 			{/* Registration Dialog */}
-			<RegistrationDialog isOpen={registrationOpen} onClose={closeRegistration} programName={selectedProgram}/>
+			<RegistrationDialog
+				isOpen={registrationOpen}
+				onClose={closeRegistration}
+				programName={selectedProgram}
+				programDays={selectedProgramDays}
+				programTime={selectedProgramTime}
+				programPrice={selectedProgramPrice}
+			/>
 
 			{/* Hero Section */}
 			<section className="relative h-[400px] overflow-hidden">
@@ -158,7 +176,7 @@ export default function ProgramPageClient({
 																	Days
 																</h4>
 																<p className="text-gray-600">
-																	{days.join(", ")}
+																	{days.join("/")}
 																</p>
 															</div>
 														</div>
@@ -215,7 +233,17 @@ export default function ProgramPageClient({
 														</p>
 													</div>
 													<div className="pt-4 mt-auto">
-														<Button className="w-full bg-pink-500 hover:bg-pink-700" onClick={() => openRegistration("3 Year Old Program Option " + option)}>
+														<Button
+															className="w-full bg-pink-500 hover:bg-pink-700"
+															onClick={() =>
+																openRegistration(
+																	"3 Year Old Program Option " + option,
+																	days,
+																	time,
+																	price
+																)
+															}
+														>
 															{buttonText}
 														</Button>
 													</div>
@@ -381,7 +409,7 @@ export default function ProgramPageClient({
 																	Days
 																</h4>
 																<p className="text-gray-600">
-																	{days.join(", ")}
+																	{days.join("/")}
 																</p>
 															</div>
 														</div>
@@ -443,7 +471,17 @@ export default function ProgramPageClient({
 														</p>
 													</div>
 													<div className="pt-4 mt-auto">
-														<Button className="w-full bg-pink-500 hover:bg-pink-700" onClick={() => openRegistration("4 Year Old Program Option " + option)}>
+														<Button
+															className="w-full bg-pink-500 hover:bg-pink-700"
+															onClick={() =>
+																openRegistration(
+																	"4 Year Old Program Option " + option,
+																	days,
+																	time,
+																	price
+																)
+															}
+														>
 															{buttonText}
 														</Button>
 													</div>
