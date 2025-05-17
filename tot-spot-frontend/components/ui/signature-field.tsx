@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import SignatureCanvas from "react-signature-canvas";
 
 export default function SignatureField({
@@ -7,6 +7,22 @@ export default function SignatureField({
   onChange: (dataUrl: string) => void;
 }) {
   const sigCanvas = useRef<SignatureCanvas>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [canvasWidth, setCanvasWidth] = useState(500);
+
+  // Resize on mount and window resize
+  useEffect(() => {
+    const updateWidth = () => {
+      if (containerRef.current) {
+        const newWidth = containerRef.current.offsetWidth;
+        setCanvasWidth(newWidth);
+      }
+    };
+
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
 
   const clear = () => {
     sigCanvas.current?.clear();
@@ -21,15 +37,15 @@ export default function SignatureField({
   };
 
   return (
-    <div>
+    <div ref={containerRef}>
       <label className="block font-medium text-sm mb-2">Signature</label>
-      <div className="border border-gray-300 rounded-md overflow-hidden">
+      <div className="border border-gray-300 rounded-md overflow-hidden w-full">
         <SignatureCanvas
           penColor="black"
           canvasProps={{
-            width: 500,
+            width: canvasWidth,
             height: 200,
-            className: "bg-white"
+            className: "bg-white w-full",
           }}
           ref={sigCanvas}
           onEnd={save}
