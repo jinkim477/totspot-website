@@ -53,67 +53,65 @@ export function RegistrationForm({
 	const [date, setDate] = useState("");
 	const [signature, setSignature] = useState("");
 
-	const wpApiKey = process.env.WP_API_KEY;
-
 	const totalSteps = 3;
 
 	const handleSubmit = async (e: React.FormEvent) => {
-		console.log("Handle Submit Triggered at Step:", step);
+		// console.log("Handle Submit Triggered at Step:", step);
 		e.preventDefault();
 		setIsSubmitting(true);
 
+		const programChoice = `${programDays} ${programTime.includes("AM") ? "AM" : "PM"} (${programPrice})`;
+		const isThreeYearOld = programName.toLowerCase().includes("3 year");
+
+		const payload: Record<string, string> = {
+			childFullName: `${childFirstName} ${childLastName}`,
+			dateOfBirth: dob,
+			gender: gender,
+
+			addressStreet: street,
+			addressCity: city,
+			addressProvince: province,
+			addressPostalCode: postalCode,
+
+			parent1Name: parent1,
+			parent2Name: parent2,
+			parent1Phone: parent1Phone,
+			parent2Phone: parent2Phone,
+			parentEmail: email,
+
+			isReturningFamily: returningFamily,
+			referralSource: hearAboutUs,
+
+			programChoice3Yr: isThreeYearOld ? programChoice : "",
+			programChoice4Yr: isThreeYearOld ? "" : programChoice,
+
+			registrationFeeMethod: regFeeMethod,
+			monthlyFeeMethod: monthlyFeeMethod,
+
+			signature: signature,
+			submissionDate: date,
+		};
+
+		console.log("📝 Registration Payload:", payload); // for debugging
+
 		try {
-			const programChoice = `${programDays} ${programTime.includes("AM") ? "AM" : "PM"} (${programPrice})`;
-			const isThreeYearOld = programName.toLowerCase().includes("3 year");
-
-			const payload: Record<string, string> = {
-				Child_s_First_Name: `${childFirstName} ${childLastName}`,
-				datetime: dob,
-				input_radio: gender,
-				input_text: street,
-				input_text_2: city,
-				input_text_3: province,
-				input_text_4: postalCode,
-				input_text_5: parent1,
-				input_text_6: parent2,
-				phone: parent1Phone,
-				phone_1: parent2Phone,
-				email,
-				input_radio_1: returningFamily,
-				input_text_7: hearAboutUs,
-				input_radio_3: isThreeYearOld ? programChoice : "",
-				input_radio_4: isThreeYearOld ? "" : programChoice,
-				input_radio_7: regFeeMethod,
-				input_radio_8: monthlyFeeMethod,
-				signature,
-				datetime_1: date,
-			};
-
-			console.log("📝 Registration Payload:", payload); // for debugging
-
 			// Fluent Forms API
-			const response = await fetch("https://totspotpreschool.ca/wp-json/fluentform/v1/forms/4/submit", {
+			const response = await fetch("/api/submit-registration", {
 				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: "Basic " + btoa("info@totspotpreschool.ca:" + wpApiKey)
-				},
-				body: JSON.stringify({
-					form_id: 4,
-					fields: payload,
-				}),
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(payload),
 			});
 
 			const result = await response.json();
 
 			if (!response.ok) {
-				console.error("❌ Fluent Forms Error:", result);
+				console.error("❌ Submission Error:", result);
 				alert("Submission Failed. Please try again.");
 				setIsSubmitting(false);
 				return;
 			}
 
-			console.log("✅ Fluent Forms Submission Success:", result);
+			console.log("✅ Submission Successful:", result);
 			setIsSubmitting(false);
 			setIsComplete(true);
 			setTimeout(() => onClose(), 3000);
