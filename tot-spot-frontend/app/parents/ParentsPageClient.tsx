@@ -668,7 +668,7 @@ export default function ParentsPage({
 								whileInView={{ opacity: 1, y: 0 }}
 								viewport={{ once: true }}
 								transition={{ delay: index * 0.1 }}
-								className="bg-white p-6 rounded-lg shadow-sm border border-gray-100"
+								className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-lg transition"
 							>
 								<div className="text-3xl mb-4">{opportunity.icon}</div>
 								<h3 className="text-xl font-bold text-gray-900 mb-2">
@@ -755,7 +755,7 @@ export default function ParentsPage({
 									viewport={{ once: true }}
 									transition={{ delay: index * 0.1 }}
 								>
-									<Card>
+									<Card className="hover:scale-105 transition-transform transform duration-300">
 										<CardContent className="pt-6">
 											<h3 className="text-lg font-bold text-gray-900 mb-2">
 												{faq.question}

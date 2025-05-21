@@ -100,7 +100,7 @@ export default function UpdatesPage({
 							viewport={{ once: true }}
 							transition={{ duration: 0.5 }}
 						>
-							<Card className="overflow-hidden">
+							<Card className="overflow-hidden hover:scale-105 transition-transform transform duration-300">
 								<div className="md:flex">
 									<div className="md:w-1/3 h-[200px] md:h-auto relative">
 										<Image
@@ -185,7 +185,7 @@ export default function UpdatesPage({
 										viewport={{ once: true }}
 										transition={{ delay: index * 0.1 }}
 									>
-										<Card className="overflow-hidden h-full flex flex-col">
+										<Card className="overflow-hidden h-full flex flex-col hover:scale-105 transition-transform transform duration-300">
 											<div className="h-48 relative">
 												<Image
 													src={entry.fields.photo.fields.file.url}
