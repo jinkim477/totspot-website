@@ -64,7 +64,7 @@ export default function ParentsPage({
 			</section>
 
 			{/* Resources Tabs */}
-			<section className="py-16">
+			<section id="resources" className="py-16">
 				<div className="container">
 					<motion.div
 						initial={{ opacity: 0 }}

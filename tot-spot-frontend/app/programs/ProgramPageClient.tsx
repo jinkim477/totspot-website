@@ -642,9 +642,9 @@ export default function ProgramPageClient({
 								{
 									step: "Step 1",
 									title: "Submit Registration Form",
-									description:
-										"Complete our online registration form or download a PDF version to fill out and email to us.",
+									description: "Complete our online registration form.",
 									action: "Register Online",
+									href: "/programs#programs",
 								},
 								{
 									step: "Step 2",
@@ -652,6 +652,7 @@ export default function ProgramPageClient({
 									description:
 										"A non-refundable registration fee of $100 is required to secure your child's spot.",
 									action: "View Fee Details",
+									href: "/programs#programs",
 								},
 								{
 									step: "Step 3",
@@ -659,20 +660,23 @@ export default function ProgramPageClient({
 									description:
 										"Once your registration is processed, you'll receive a confirmation email with additional information.",
 									action: null,
+									href: null,
 								},
 								{
 									step: "Step 4",
 									title: "Complete Required Forms",
 									description:
-										"You'll need to complete medical forms, emergency contact information, and other required documentation.",
+										"You'll need to complete and submit the Pre-Authorized Debit form if that is your payment method.",
 									action: "Download Forms",
+									href: "/parents#resources",
 								},
 								{
 									step: "Step 5",
-									title: "Attend Orientation",
+									title: "Start Classes",
 									description:
-										"Join us for a parent orientation session before the school year begins to meet teachers and learn about our program.",
+										"Your child is ready to start their preschool journey at Tot Spot!",
 									action: null,
+									href: null,
 								},
 							].map((step, index) => (
 								<motion.div
@@ -691,12 +695,14 @@ export default function ProgramPageClient({
 										</h3>
 										<p className="text-gray-600 mb-4">{step.description}</p>
 										{step.action && (
-											<Button
-												variant="outline"
-												className="text-pink-600 border-pink-600 hover:bg-pink-50"
-											>
-												{step.action}
-											</Button>
+											<Link href={step.href}>
+												<Button
+													variant="outline"
+													className="text-pink-600 border-pink-600 hover:bg-pink-50"
+												>
+													{step.action}
+												</Button>
+											</Link>
 										)}
 									</div>
 								</motion.div>
