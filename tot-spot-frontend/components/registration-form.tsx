@@ -55,6 +55,31 @@ export function RegistrationForm({
 
 	const totalSteps = 3;
 
+	// ...existing code...
+
+	const isStep1Valid = () =>
+		childFirstName.trim() &&
+		dob.trim() &&
+		gender.trim();
+
+	const isStep2Valid = () =>
+		street.trim() &&
+		city.trim() &&
+		province.trim() &&
+		postalCode.trim() &&
+		parent1.trim() &&
+		parent1Phone.trim() &&
+		email.trim() &&
+		returningFamily.trim();
+
+	const isStep3Valid = () =>
+		regFeeMethod.trim() &&
+		monthlyFeeMethod.trim() &&
+		signature.trim() &&
+		date.trim();
+
+	// ...existing code...
+
 	const handleSubmit = async (e: React.FormEvent) => {
 		// console.log("Handle Submit Triggered at Step:", step);
 		e.preventDefault();
@@ -170,7 +195,9 @@ export function RegistrationForm({
 								<div className="space-y-4">
 									<div className="grid grid-cols-2 gap-4">
 										<div className="space-y-2">
-											<Label className="px-2">First Name</Label>
+											<Label className="px-2">
+												First Name <span className="text-pink-600">*</span>
+											</Label>
 											<Input
 												value={childFirstName}
 												onChange={(e) => setChildFirstName(e.target.value)}
@@ -190,7 +217,9 @@ export function RegistrationForm({
 									</div>
 									<div className="grid grid-cols-2 gap-4">
 										<div className="space-y-2">
-											<Label className="px-2">Date of Birth</Label>
+											<Label className="px-2">
+												Date of Birth <span className="text-pink-600">*</span>
+											</Label>
 											<Input
 												value={dob}
 												onChange={(e) => setDob(e.target.value)}
@@ -200,7 +229,9 @@ export function RegistrationForm({
 											/>
 										</div>
 										<div className="space-y-2">
-											<Label className="px-2">Gender</Label>
+											<Label className="px-2">
+												Gender <span className="text-pink-600">*</span>
+											</Label>
 											<div className="flex space-x-4 px-2">
 												<label>
 													<input
@@ -243,7 +274,9 @@ export function RegistrationForm({
 								<div className="space-y-4">
 									<div className="grid grid-cols-4 gap-4">
 										<div className="space-y-2">
-											<Label className="px-2">Street Address</Label>
+											<Label className="px-2">
+												Street Address <span className="text-pink-600">*</span>
+											</Label>
 											<Input
 												value={street}
 												onChange={(e) => setStreet(e.target.value)}
@@ -252,7 +285,9 @@ export function RegistrationForm({
 											/>
 										</div>
 										<div className="space-y-2">
-											<Label className="px-2">City</Label>
+											<Label className="px-2">
+												City <span className="text-pink-600">*</span>
+											</Label>
 											<Input
 												value={city}
 												onChange={(e) => setCity(e.target.value)}
@@ -261,7 +296,9 @@ export function RegistrationForm({
 											/>
 										</div>
 										<div className="space-y-2">
-											<Label className="px-2">Province</Label>
+											<Label className="px-2">
+												Province <span className="text-pink-600">*</span>
+											</Label>
 											<Input
 												value={province}
 												onChange={(e) => setProvince(e.target.value)}
@@ -270,7 +307,9 @@ export function RegistrationForm({
 											/>
 										</div>
 										<div className="space-y-2">
-											<Label className="px-2">Postal Code</Label>
+											<Label className="px-2">
+												Postal Code <span className="text-pink-600">*</span>
+											</Label>
 											<Input
 												value={postalCode}
 												onChange={(e) => setPostalCode(e.target.value)}
@@ -281,7 +320,9 @@ export function RegistrationForm({
 									</div>
 									<div className="grid grid-cols-2 gap-4">
 										<div className="space-y-2">
-											<Label className="px-2">Parent 1 Name</Label>
+											<Label className="px-2">
+												Parent 1 Name <span className="text-pink-600">*</span>
+											</Label>
 											<Input
 												value={parent1}
 												onChange={(e) => setParent1(e.target.value)}
@@ -290,7 +331,9 @@ export function RegistrationForm({
 											/>
 										</div>
 										<div className="space-y-2">
-											<Label className="px-2">Parent 1 Phone</Label>
+											<Label className="px-2">
+												Parent 1 Phone <span className="text-pink-600">*</span>
+											</Label>
 											<Input
 												value={parent1Phone}
 												onChange={(e) => setParent1Phone(e.target.value)}
@@ -319,7 +362,9 @@ export function RegistrationForm({
 									</div>
 									<div className="grid grid-cols-2 gap-4">
 										<div className="space-y-2">
-											<Label className="px-2">Email</Label>
+											<Label className="px-2">
+												Email <span className="text-pink-600">*</span>
+											</Label>
 											<Input
 												value={email}
 												onChange={(e) => setEmail(e.target.value)}
@@ -329,7 +374,10 @@ export function RegistrationForm({
 											/>
 										</div>
 										<div className="space-y-2">
-											<Label className="px-2">Returning Tot Spot Family?</Label>
+											<Label className="px-2">
+												Returning Tot Spot Family?{" "}
+												<span className="text-pink-600">*</span>
+											</Label>
 											<div className="flex space-x-4 px-2">
 												<label>
 													<input
@@ -381,6 +429,10 @@ export function RegistrationForm({
 								type="button"
 								onClick={nextStep}
 								className="bg-pink-600 hover:bg-pink-700"
+								disabled={
+									(step === 1 && !isStep1Valid()) ||
+									(step === 2 && !isStep2Valid())
+								}
 							>
 								Continue <ChevronRight className="ml-1 h-4 w-4" />
 							</Button>
@@ -401,9 +453,12 @@ export function RegistrationForm({
 									Selected Class: <strong>{programName}</strong>
 								</p>
 
-								<div className="space-y-4">
+								<div className="grid grid-cols-2 gap-4 mb-6">
 									<div className="space-y-2">
-										<Label>Registration Fee Payment Method</Label>
+										<Label className="font-bold">
+											Registration Fee Payment Method{" "}
+											<span className="text-pink-600">*</span>
+										</Label>
 										<div className="flex space-x-4">
 											<label>
 												<input
@@ -438,7 +493,10 @@ export function RegistrationForm({
 										</div>
 									</div>
 									<div>
-										<Label>Monthly Fee Payment Method</Label>
+										<Label className="font-bold">
+											Monthly Fee Payment Method{" "}
+											<span className="text-pink-600">*</span>
+										</Label>
 										<div className="flex space-x-4">
 											<label>
 												<input
@@ -466,27 +524,33 @@ export function RegistrationForm({
 											</label>
 										</div>
 									</div>
-									<div>
-										<p className="font-bold">Note:</p>
-										<ul className="break-words whitespace-normal list-disc mx-6">
-											<li>
-												The $100 non-refundable Registration Fee is payable on
-												the day of registration.
-											</li>
-											<li>
-												The Monthly School Fees are drawn on the 1st business
-												day of each month from September to June.
-											</li>
-										</ul>
-									</div>
+								</div>
+								<div className="mb-4">
+									<p className="font-bold">Note:</p>
+									<ul className="break-words whitespace-normal list-disc mx-6">
+										<li>
+											The $100 non-refundable Registration Fee is payable on the
+											day of registration.
+										</li>
+										<li>
+											The Monthly School Fees are drawn on the 1st business day
+											of each month from September to June.
+										</li>
+									</ul>
+								</div>
+								<div className="space-y-4">
 									<div className="space-y-2">
-										<Label className="font-bold">Signature</Label>
+										<Label className="font-bold">
+											Signature <span className="text-pink-600">*</span>
+										</Label>
 										<div className="w-full max-w-full overflow-hidden">
 											<SignatureField onChange={setSignature} />
 										</div>
 									</div>
 									<div className="space-y-2">
-										<Label htmlFor="date">Date</Label>
+										<Label htmlFor="date">
+											Date <span className="text-pink-600">*</span>
+										</Label>
 										<Input
 											id="date"
 											name="date"
