@@ -467,18 +467,20 @@ export function RegistrationForm({
 										</div>
 									</div>
 									<div>
-										<p className="font-bold">Note</p>
-										<p className="break-words whitespace-normal">
-											* The $100 non-refundable Registration Fee is payable on
-											the day of registration.
-										</p>
-										<p className="break-words whitespace-normal">
-											* The Monthly School Fees are drawn on the 1st business
-											day of each month from September to June.
-										</p>
+										<p className="font-bold">Note:</p>
+										<ul className="break-words whitespace-normal list-disc mx-6">
+											<li>
+												The $100 non-refundable Registration Fee is payable on
+												the day of registration.
+											</li>
+											<li>
+												The Monthly School Fees are drawn on the 1st business
+												day of each month from September to June.
+											</li>
+										</ul>
 									</div>
 									<div className="space-y-2">
-										<Label>Signature</Label>
+										<Label className="font-bold">Signature</Label>
 										<div className="w-full max-w-full overflow-hidden">
 											<SignatureField onChange={setSignature} />
 										</div>

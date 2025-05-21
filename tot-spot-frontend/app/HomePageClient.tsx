@@ -124,16 +124,20 @@ export default function Home({
 							and most spacious preschools in south Calgary.
 						</p>
 						<div className="mt-10 flex flex-wrap gap-4">
-							<Button size="lg" className="bg-pink-600 hover:bg-pink-700">
-								Register Now
-							</Button>
-							<Button
-								size="lg"
-								variant="outline"
-								className="text-pink-600 border-white hover:bg-white/20 hover:text-white"
-							>
-								<Link href="/about">Our Philosophy</Link>
-							</Button>
+							<Link href="/programs">
+								<Button size="lg" className="bg-pink-600 hover:bg-pink-700">
+									Register Now
+								</Button>
+							</Link>
+							<Link href="/about">
+								<Button
+									size="lg"
+									variant="outline"
+									className="text-pink-600 border-white hover:bg-white/20 hover:text-white"
+								>
+									Our Philosophy
+								</Button>
+							</Link>
 						</div>
 					</motion.div>
 				</div>
@@ -432,6 +436,11 @@ export default function Home({
 									</motion.div>
 								);
 							})}
+					</div>
+					<div className="mt-12 text-center">
+						<Button asChild size="lg" className="bg-pink-600 hover:bg-pink-700">
+							<Link href="/updates">View All Updates</Link>
+						</Button>
 					</div>
 				</div>
 			</section>

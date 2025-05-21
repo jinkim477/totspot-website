@@ -38,7 +38,6 @@ export default function SignatureField({
 
   return (
     <div ref={containerRef}>
-      <label className="block font-medium text-sm mb-2">Signature</label>
       <div className="border border-gray-300 rounded-md overflow-hidden w-full">
         <SignatureCanvas
           penColor="black"

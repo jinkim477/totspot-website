@@ -33,8 +33,10 @@ export default function AboutPageClient({
 		show: { opacity: 1, y: 0 },
 	};
 
-	const landingPhotoUrl = aboutPagePhotos[0].fields.landingPhoto.fields.file.url;
-	const philosophyPhotoUrl = aboutPagePhotos[0].fields.philosophyPhoto.fields.file.url;
+	const landingPhotoUrl =
+		aboutPagePhotos[0].fields.landingPhoto.fields.file.url;
+	const philosophyPhotoUrl =
+		aboutPagePhotos[0].fields.philosophyPhoto.fields.file.url;
 
 	return (
 		<div className="min-h-screen">
@@ -276,13 +278,15 @@ export default function AboutPageClient({
 								wonderful teachers.
 							</p>
 							<div className="pt-4 flex flex-wrap justify-center gap-4">
-								<Button
-									size="lg"
-									variant="outline"
-									className="text-black border-white hover:bg-pink-700 hover:text-white"
-								>
-									<Link href="/contact">Contact Us</Link>
-								</Button>
+								<Link href="/contact">
+									<Button
+										size="lg"
+										variant="outline"
+										className="text-black border-white hover:bg-pink-700 hover:text-white"
+									>
+										Contact Us
+									</Button>
+								</Link>
 							</div>
 						</motion.div>
 					</div>

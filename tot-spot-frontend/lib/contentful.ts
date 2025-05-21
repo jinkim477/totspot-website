@@ -72,3 +72,8 @@ export async function getUpdatePagePhotos() {
   const entries = await client.getEntries({ content_type: 'updatePagePhotos' })
   return entries.items
 }
+
+export async function getDownloadableDocs() {
+  const entries = await client.getEntries({ content_type: 'downloadableDocument' })
+  return entries.items
+}

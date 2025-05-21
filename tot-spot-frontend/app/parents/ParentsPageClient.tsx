@@ -24,10 +24,12 @@ export default function ParentsPage({
 	dates,
 	testimonials,
 	parentsPagePhotos,
+	downloadableDocs,
 }: {
 	dates: any[];
 	testimonials: any[];
 	parentsPagePhotos: any[];
+	downloadableDocs: any[];
 }) {
 	const landingPhotoUrl =
 		parentsPagePhotos[0].fields.landingPhoto.fields.file.url;
@@ -79,9 +81,9 @@ export default function ParentsPage({
 
 					<Tabs defaultValue="forms" className="max-w-4xl mx-auto">
 						<TabsList className="grid w-full grid-cols-3">
-							<TabsTrigger value="forms">Forms & Documents</TabsTrigger>
-							<TabsTrigger value="calendar">Calendar & Events</TabsTrigger>
-							<TabsTrigger value="policies">Tot Spot Policies</TabsTrigger>
+							<TabsTrigger value="forms">Documents</TabsTrigger>
+							<TabsTrigger value="calendar">Calendar</TabsTrigger>
+							<TabsTrigger value="policies">Policies</TabsTrigger>
 						</TabsList>
 
 						<TabsContent value="forms" className="mt-6">
@@ -94,62 +96,47 @@ export default function ParentsPage({
 								</CardHeader>
 								<CardContent>
 									<div className="grid gap-4">
-										{[
-											{
-												title: "Registration Form",
-												description: "Required for all new students",
-												icon: <FileText className="h-5 w-5 text-pink-600" />,
-											},
-											{
-												title: "Medical Information Form",
-												description:
-													"Health information and emergency contacts",
-												icon: <FileText className="h-5 w-5 text-pink-600" />,
-											},
-											{
-												title: "Parent Handbook",
-												description:
-													"Policies, procedures, and important information",
-												icon: <FileText className="h-5 w-5 text-pink-600" />,
-											},
-											{
-												title: "Media Release Form",
-												description: "Permission for photos and videos",
-												icon: <FileText className="h-5 w-5 text-pink-600" />,
-											},
-											{
-												title: "Field Trip Permission Form",
-												description: "Required for off-site activities",
-												icon: <FileText className="h-5 w-5 text-pink-600" />,
-											},
-											{
-												title: "Authorized Pick-up Form",
-												description:
-													"List of people authorized to pick up your child",
-												icon: <FileText className="h-5 w-5 text-pink-600" />,
-											},
-										].map((document, index) => (
-											<div
-												key={index}
-												className="flex items-center justify-between p-4 border rounded-lg"
-											>
-												<div className="flex items-center gap-3">
-													{document.icon}
-													<div>
-														<h3 className="font-medium text-gray-900">
-															{document.title}
-														</h3>
-														<p className="text-sm text-gray-500">
-															{document.description}
-														</p>
+										{downloadableDocs.map((doc, index) => {
+											const title = doc.fields.title;
+											const description = doc.fields.description;
+											const fileUrl = `https:${doc.fields.file.fields.file.url}`; // Contentful returns relative URLs
+
+											return (
+												<div
+													key={index}
+													className="flex items-center justify-between p-4 border rounded-lg"
+												>
+													<div className="flex items-center gap-3">
+														{/* <FileText className="h-5 w-5 text-pink-600" /> */}
+														<div>
+															<h3 className="font-medium text-gray-900">
+																{title}
+															</h3>
+															{description && (
+																<p className="text-sm text-gray-500">
+																	{description}
+																</p>
+															)}
+														</div>
 													</div>
+													<a
+														href={fileUrl}
+														download
+														target="_blank"
+														rel="noopener noreferrer"
+													>
+														<Button
+															variant="outline"
+															size="sm"
+															className="gap-1"
+														>
+															<Download className="h-4 w-4" />
+															Download
+														</Button>
+													</a>
 												</div>
-												<Button variant="outline" size="sm" className="gap-1">
-													<Download className="h-4 w-4" />
-													Download
-												</Button>
-											</div>
-										))}
+											);
+										})}
 									</div>
 								</CardContent>
 							</Card>
@@ -599,8 +586,9 @@ export default function ParentsPage({
 															<p className="font-bold">Staff Training</p>
 															<p>
 																All Tot Spot staff is trained in First Aid and
-																CPR as required by Children&apos;s Services. Our goal
-																is to keep students and staff healthy and safe.
+																CPR as required by Children&apos;s Services. Our
+																goal is to keep students and staff healthy and
+																safe.
 															</p>
 														</li>
 													</ol>
@@ -692,9 +680,11 @@ export default function ParentsPage({
 					</div>
 
 					<div className="mt-12 text-center">
-						<Button className="bg-pink-500 hover:bg-pink-700">
-							Contact Us to Volunteer
-						</Button>
+						<Link href="/contact">
+							<Button className="bg-pink-500 hover:bg-pink-700">
+								Contact Us to Volunteer
+							</Button>
+						</Link>
 					</div>
 				</div>
 			</section>

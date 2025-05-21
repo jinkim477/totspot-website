@@ -157,7 +157,7 @@ export default function ProgramPageClient({
 
 											let buttonText = "Register";
 											if (remainingSpots === 0) {
-												buttonText = "Join Waitlist";
+												buttonText = "Contact for Waitlist";
 											}
 
 											return (
@@ -233,19 +233,27 @@ export default function ProgramPageClient({
 														</p>
 													</div>
 													<div className="pt-4 mt-auto">
-														<Button
-															className="w-full bg-pink-500 hover:bg-pink-700"
-															onClick={() =>
-																openRegistration(
-																	"3 Year Old Program Option " + option,
-																	days,
-																	time,
-																	price
-																)
-															}
-														>
-															{buttonText}
-														</Button>
+														{buttonText === "Contact for Waitlist" ? (
+															<Link href="/contact">
+																<Button className="w-full bg-pink-500 hover:bg-pink-700">
+																	{buttonText}
+																</Button>
+															</Link>
+														) : (
+															<Button
+																className="w-full bg-pink-500 hover:bg-pink-700"
+																onClick={() =>
+																	openRegistration(
+																		"3 Year Old Program Option " + option,
+																		days,
+																		time,
+																		price
+																	)
+																}
+															>
+																{buttonText}
+															</Button>
+														)}
 													</div>
 												</Card>
 											);
@@ -390,7 +398,7 @@ export default function ProgramPageClient({
 
 											let buttonText = "Register";
 											if (remainingSpots === 0) {
-												buttonText = "Join Waitlist";
+												buttonText = "Contact for Waitlist";
 											}
 
 											return (
@@ -471,19 +479,27 @@ export default function ProgramPageClient({
 														</p>
 													</div>
 													<div className="pt-4 mt-auto">
-														<Button
-															className="w-full bg-pink-500 hover:bg-pink-700"
-															onClick={() =>
-																openRegistration(
-																	"4 Year Old Program Option " + option,
-																	days,
-																	time,
-																	price
-																)
-															}
-														>
-															{buttonText}
-														</Button>
+														{buttonText === "Contact for Waitlist" ? (
+															<Link href="/contact">
+																<Button className="w-full bg-pink-500 hover:bg-pink-700">
+																	{buttonText}
+																</Button>
+															</Link>
+														) : (
+															<Button
+																className="w-full bg-pink-500 hover:bg-pink-700"
+																onClick={() =>
+																	openRegistration(
+																		"4 Year Old Program Option " + option,
+																		days,
+																		time,
+																		price
+																	)
+																}
+															>
+																{buttonText}
+															</Button>
+														)}
 													</div>
 												</Card>
 											);
@@ -690,211 +706,8 @@ export default function ProgramPageClient({
 				</div>
 			</section>
 
-			{/* Tuition & Fees */}
-			<section id="fees" className="py-16">
-				<div className="container">
-					<motion.div
-						initial={{ opacity: 0 }}
-						whileInView={{ opacity: 1 }}
-						viewport={{ once: true }}
-						transition={{ duration: 0.5 }}
-						className="text-center mb-12"
-					>
-						<h2 className="text-3xl font-bold text-gray-900">Tuition & Fees</h2>
-						<div className="mt-2 h-1 w-20 bg-pink-500 mx-auto rounded-full"></div>
-						<p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-							Tot Spot strives to provide quality education at competitive
-							rates.
-						</p>
-					</motion.div>
-
-					<div className="max-w-4xl mx-auto">
-						<Card>
-							<CardContent className="pt-6">
-								<div className="grid md:grid-cols-2 gap-8">
-									<div>
-										<h3 className="text-xl font-bold text-gray-900 mb-4">
-											3 Year Old Programs
-										</h3>
-										<div className="space-y-3">
-											<div className="flex justify-between items-center pb-2 border-b">
-												<span className="text-gray-600">
-													Registration Fee (non-refundable)
-												</span>
-												<span className="font-medium">$100</span>
-											</div>
-											<div className="flex justify-between items-center pb-2 border-b">
-												<span className="text-gray-600">
-													Morning/Afternoon Program (monthly)
-												</span>
-												<span className="font-medium">$175</span>
-											</div>
-											<div className="flex justify-between items-center pb-2 border-b">
-												<span className="text-gray-600">
-													Extended Program (monthly)
-												</span>
-												<span className="font-medium">$195</span>
-											</div>
-											<div className="flex justify-between items-center pb-2 border-b">
-												<span className="text-gray-600">
-													Materials Fee (annual)
-												</span>
-												<span className="font-medium">$75</span>
-											</div>
-											<div className="flex justify-between items-center pt-2">
-												<span className="font-medium">
-													Total Annual Cost (Morning/Afternoon)
-												</span>
-												<span className="font-bold text-pink-600">$1,925</span>
-											</div>
-											<div className="flex justify-between items-center pt-2">
-												<span className="font-medium">
-													Total Annual Cost (Extended)
-												</span>
-												<span className="font-bold text-pink-600">$2,125</span>
-											</div>
-										</div>
-									</div>
-
-									<div>
-										<h3 className="text-xl font-bold text-gray-900 mb-4">
-											4 Year Old Programs
-										</h3>
-										<div className="space-y-3">
-											<div className="flex justify-between items-center pb-2 border-b">
-												<span className="text-gray-600">
-													Registration Fee (non-refundable)
-												</span>
-												<span className="font-medium">$100</span>
-											</div>
-											<div className="flex justify-between items-center pb-2 border-b">
-												<span className="text-gray-600">
-													Morning/Afternoon Program (monthly)
-												</span>
-												<span className="font-medium">$225</span>
-											</div>
-											<div className="flex justify-between items-center pb-2 border-b">
-												<span className="text-gray-600">
-													Extended Program (monthly)
-												</span>
-												<span className="font-medium">$275</span>
-											</div>
-											<div className="flex justify-between items-center pb-2 border-b">
-												<span className="text-gray-600">
-													Materials Fee (annual)
-												</span>
-												<span className="font-medium">$100</span>
-											</div>
-											<div className="flex justify-between items-center pt-2">
-												<span className="font-medium">
-													Total Annual Cost (Morning/Afternoon)
-												</span>
-												<span className="font-bold text-pink-600">$2,450</span>
-											</div>
-											<div className="flex justify-between items-center pt-2">
-												<span className="font-medium">
-													Total Annual Cost (Extended)
-												</span>
-												<span className="font-bold text-pink-600">$2,950</span>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div className="mt-8 p-4 bg-gray-50 rounded-lg">
-									<h3 className="text-lg font-medium text-gray-900 mb-2">
-										Payment Options
-									</h3>
-									<ul className="space-y-2">
-										<li className="flex items-start gap-2">
-											<div className="h-5 w-5 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 flex-shrink-0 mt-0.5">
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													viewBox="0 0 24 24"
-													fill="none"
-													stroke="currentColor"
-													strokeWidth="2"
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													className="h-3 w-3"
-												>
-													<polyline points="20 6 9 17 4 12"></polyline>
-												</svg>
-											</div>
-											<span className="text-gray-600">
-												Monthly payments due on the 1st of each month
-												(September-June)
-											</span>
-										</li>
-										<li className="flex items-start gap-2">
-											<div className="h-5 w-5 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 flex-shrink-0 mt-0.5">
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													viewBox="0 0 24 24"
-													fill="none"
-													stroke="currentColor"
-													strokeWidth="2"
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													className="h-3 w-3"
-												>
-													<polyline points="20 6 9 17 4 12"></polyline>
-												</svg>
-											</div>
-											<span className="text-gray-600">
-												5% discount for full year payment
-											</span>
-										</li>
-										<li className="flex items-start gap-2">
-											<div className="h-5 w-5 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 flex-shrink-0 mt-0.5">
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													viewBox="0 0 24 24"
-													fill="none"
-													stroke="currentColor"
-													strokeWidth="2"
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													className="h-3 w-3"
-												>
-													<polyline points="20 6 9 17 4 12"></polyline>
-												</svg>
-											</div>
-											<span className="text-gray-600">
-												10% sibling discount for families with multiple children
-												enrolled
-											</span>
-										</li>
-										<li className="flex items-start gap-2">
-											<div className="h-5 w-5 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 flex-shrink-0 mt-0.5">
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													viewBox="0 0 24 24"
-													fill="none"
-													stroke="currentColor"
-													strokeWidth="2"
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													className="h-3 w-3"
-												>
-													<polyline points="20 6 9 17 4 12"></polyline>
-												</svg>
-											</div>
-											<span className="text-gray-600">
-												Payment methods: e-transfer, credit card, or post-dated
-												cheques
-											</span>
-										</li>
-									</ul>
-								</div>
-							</CardContent>
-						</Card>
-					</div>
-				</div>
-			</section>
-
 			{/* FAQ */}
-			<section className="py-16 bg-gray-50">
+			<section className="py-16">
 				<div className="container">
 					<motion.div
 						initial={{ opacity: 0 }}
@@ -976,20 +789,24 @@ export default function ProgramPageClient({
 								at Tot Spot Preschool.
 							</p>
 							<div className="pt-4 flex flex-wrap justify-center gap-4">
-								<Button
-									size="lg"
-									className="bg-white text-pink-600 hover:bg-pink-100"
-								>
-									Register Now
-								</Button>
-								<Button
-									size="lg"
-									variant="outline"
-									className="text-black border-white hover:bg-pink-700 hover:text-white"
-									asChild
-								>
-									<Link href="/contact">Contact Us</Link>
-								</Button>
+								<Link href="/programs#programs">
+									<Button
+										size="lg"
+										className="bg-white text-pink-600 hover:bg-pink-100"
+									>
+										Register Now
+									</Button>
+								</Link>
+								<Link href="/contact">
+									<Button
+										size="lg"
+										variant="outline"
+										className="text-black border-white hover:bg-pink-700 hover:text-white"
+										asChild
+									>
+										<Link href="/contact">Contact Us</Link>
+									</Button>
+								</Link>
 							</div>
 						</motion.div>
 					</div>
