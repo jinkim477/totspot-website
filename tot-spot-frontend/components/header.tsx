@@ -9,8 +9,11 @@ import { cn } from "@/lib/utils";
 
 export function Header() {
 	const [scrolled, setScrolled] = useState(false);
+	const [hasMounted, setHasMounted] = useState(false);
 
 	useEffect(() => {
+		setHasMounted(true);
+
 		const handleScroll = () => {
 			setScrolled(window.scrollY > 10);
 		};
@@ -18,6 +21,8 @@ export function Header() {
 		window.addEventListener("scroll", handleScroll);
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
+
+	if (!hasMounted) return null;
 
 	const navItems = [
 		{ name: "Home", href: "/" },
