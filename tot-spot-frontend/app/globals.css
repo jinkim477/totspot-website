@@ -78,3 +78,9 @@
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
+
+/* Safari backdrop blur compatibility */
+.safari-blur {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}

@@ -31,8 +31,9 @@ export function Header() {
 	return (
 		<header
 			className={cn(
-				"sticky top-0 z-50 w-full transition-all duration-200",
-				scrolled ? "bg-white shadow-md" : "bg-white/80 backdrop-blur-md"
+				"sticky top-0 z-50 w-full transition-all duration-200 backdrop-blur-md",
+				scrolled ? "bg-white shadow-md" : "bg-white/80",
+				"supports-[backdrop-filter]:bg-white/80 safari-blur"
 			)}
 		>
 			<div className="container flex h-16 items-center justify-between">
