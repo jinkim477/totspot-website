@@ -9,11 +9,8 @@ import { cn } from "@/lib/utils";
 
 export function Header() {
 	const [scrolled, setScrolled] = useState(false);
-	const [hasMounted, setHasMounted] = useState(false);
 
 	useEffect(() => {
-		setHasMounted(true);
-
 		const handleScroll = () => {
 			setScrolled(window.scrollY > 10);
 		};
@@ -21,8 +18,6 @@ export function Header() {
 		window.addEventListener("scroll", handleScroll);
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
-
-	if (!hasMounted) return null;
 
 	const navItems = [
 		{ name: "Home", href: "/" },
@@ -36,9 +31,7 @@ export function Header() {
 	return (
 		<header
 			className={cn(
-				"sticky top-0 z-50 w-full transition-all duration-200 backdrop-blur-md",
-				scrolled ? "bg-white shadow-md" : "bg-white/80",
-				"supports-[backdrop-filter]:bg-white/80 safari-blur"
+				"sticky top-0 z-50 w-full transition-all duration-200 bg-white"
 			)}
 		>
 			<div className="container flex h-16 items-center justify-between">
