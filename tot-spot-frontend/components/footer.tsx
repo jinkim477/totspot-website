@@ -66,31 +66,31 @@ export function Footer({ contactInfo }: { contactInfo: any }) {
           </div>
 
           <div>
-            <h3 className="font-medium text-gray-900 mb-4">Programs</h3>
+            <h3 className="font-medium text-gray-900 mb-4">Details</h3>
             <ul className="space-y-2">
-              <li>
-                <Link href="/programs#morning" className="text-sm text-gray-600 hover:text-pink-600">
-                  Morning Program
-                </Link>
-              </li>
-              <li>
-                <Link href="/programs#afternoon" className="text-sm text-gray-600 hover:text-pink-600">
-                  Afternoon Program
-                </Link>
-              </li>
               <li>
                 <Link href="/programs#registration" className="text-sm text-gray-600 hover:text-pink-600">
                   Registration Process
                 </Link>
               </li>
               <li>
-                <Link href="/programs#fees" className="text-sm text-gray-600 hover:text-pink-600">
-                  Tuition & Fees
+                <Link href="/updates#updates" className="text-sm text-gray-600 hover:text-pink-600">
+                  Monthly Updates
                 </Link>
               </li>
               <li>
-                <Link href="/programs#calendar" className="text-sm text-gray-600 hover:text-pink-600">
-                  School Calendar
+                <Link href="/updates#dates" className="text-sm text-gray-600 hover:text-pink-600">
+                  Important Dates
+                </Link>
+              </li>
+              <li>
+                <Link href="/about#facility" className="text-sm text-gray-600 hover:text-pink-600">
+                  Our Facility
+                </Link>
+              </li>
+              <li>
+                <Link href="/parents#resources" className="text-sm text-gray-600 hover:text-pink-600">
+                  Policies
                 </Link>
               </li>
             </ul>

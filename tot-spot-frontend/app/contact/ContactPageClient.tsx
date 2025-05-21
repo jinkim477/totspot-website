@@ -22,8 +22,9 @@ export default function ContactPage({
 }) {
 	const { addressLineOne, addressLineTwo, phone, email, mapsLink } =
 		contactInfo.fields;
-  
-  const landingPhotoUrl = contactPagePhotos[0].fields.landingPhoto.fields.file.url;
+
+	const landingPhotoUrl =
+		contactPagePhotos[0].fields.landingPhoto.fields.file.url;
 
 	return (
 		<div className="min-h-screen">
@@ -306,8 +307,27 @@ export default function ContactPage({
 							{[
 								{
 									question: "How can I schedule a tour?",
-									answer:
-										"You can schedule a tour by filling out our contact form, calling our office at (403) 236-1268, or sending an email to info@totspotpreschool.ca. Tours are typically available Monday through Friday during office hours.",
+									answer: (
+										<>
+											You can schedule a tour by filling out our contact form,
+											calling our office at{" "}
+											<a
+												href={`tel:${phone}`}
+												className="text-pink-600 underline hover:text-pink-800"
+											>
+												{phone}
+											</a>
+											, or sending an email directly to{" "}
+											<a
+												href={`mailto:${email}`}
+												className="text-pink-600 underline hover:text-pink-800"
+											>
+												{email}
+											</a>
+											. Tours are typically available Monday through Friday
+											during office hours.
+										</>
+									),
 								},
 								{
 									question: "When should I register my child?",

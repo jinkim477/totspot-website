@@ -205,7 +205,7 @@ export default function AboutPageClient({
 			</section>
 
 			{/* Our Facility */}
-			<section className="py-16 bg-gray-50">
+			<section id="facility" className="py-16 bg-gray-50">
 				<div className="container">
 					<motion.div
 						initial={{ opacity: 0 }}

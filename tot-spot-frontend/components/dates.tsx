@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 
-export default function DatesSection({ dates }: { dates: any[] }) {
+export default function DatesSection({ id, dates }: { id: any, dates: any[] }) {
 	const getMonthKey = (dateStr: string) => {
 		const date = new Date(dateStr);
 		return date.toLocaleString("en-US", {
@@ -56,7 +56,7 @@ export default function DatesSection({ dates }: { dates: any[] }) {
 	};
 
 	return (
-		<section className="py-16 bg-gray-50">
+		<section id={id} className="py-16 bg-gray-50">
 			<div className="container">
 				<motion.div
 					initial={{ opacity: 0 }}

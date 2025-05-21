@@ -77,7 +77,7 @@ export default function UpdatesPage({
 			</section>
 
 			{/* Monthly Updates */}
-			<section className="py-16">
+			<section id="updates" className="py-16">
 				<div className="container">
 					<motion.div
 						initial={{ opacity: 0 }}
@@ -249,7 +249,7 @@ export default function UpdatesPage({
 				</div>
 			</section>
 
-			<DatesSection dates={dates} />
+			<DatesSection id="dates" dates={dates} />
 
 			{/* CTA Section */}
 			<section className="py-16 bg-pink-600 text-white">
