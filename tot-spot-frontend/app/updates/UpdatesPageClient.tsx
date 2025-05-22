@@ -36,14 +36,6 @@ export default function UpdatesPage({
 		(a, b) =>
 			new Date(b.fields.month).getTime() - new Date(a.fields.month).getTime()
 	);
-	console.log(
-		sortedUpdates.map((entry) => ({
-			id: entry.sys.id,
-			month: entry.fields.month,
-			title: entry.fields.title,
-			imageUrl: entry.fields.photo.fields.file.url,
-		}))
-	);
 
 	const latestUpdate = sortedUpdates[0];
 
