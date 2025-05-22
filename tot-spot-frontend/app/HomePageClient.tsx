@@ -11,6 +11,7 @@ import {
 	Users,
 	Phone,
 	Mail,
+	Check,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -22,6 +23,7 @@ import { CardHeader } from "@/components/ui/card";
 import { CardTitle } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import DatesSection from "@/components/dates";
+import { BLOCKS } from "@contentful/rich-text-types";
 import {
 	Dialog,
 	DialogContent,
@@ -29,6 +31,9 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 
 export default function Home({
 	programs,
@@ -95,6 +100,90 @@ export default function Home({
 		hidden: { opacity: 0, y: 20 },
 		show: { opacity: 1, y: 0 },
 	};
+
+	const options = {
+		renderNode: {
+			[BLOCKS.PARAGRAPH]: (node, children) => {
+				const isEmpty =
+					!children ||
+					(Array.isArray(children) &&
+						children.length === 1 &&
+						children[0] === "");
+				return isEmpty ? <div style={{ height: "1rem" }} /> : <p>{children}</p>;
+			},
+			[BLOCKS.OL_LIST]: (node, children) => (
+				<ol className="list-decimal pl-6 space-y-1">{children}</ol>
+			),
+			[BLOCKS.UL_LIST]: (node, children) => (
+				<ul className="list-disc pl-6 space-y-1">{children}</ul>
+			),
+			[BLOCKS.LIST_ITEM]: (node, children) => <li>{children}</li>,
+			[BLOCKS.QUOTE]: (node, children) => (
+				<blockquote className="border-l-4 border-gray-400 pl-4 italic text-gray-600 my-4">
+					{children}
+				</blockquote>
+			),
+		},
+	};
+
+	function getUTCMonthYear(dateString: string) {
+		const date = new Date(dateString);
+		const year = date.getUTCFullYear();
+		const month = date.toLocaleString("en-US", {
+			month: "long",
+			timeZone: "UTC",
+		});
+		return `${month} ${year}`;
+	}
+
+	const [formData, setFormData] = useState({
+		firstName: "",
+		lastName: "",
+		email: "",
+		phone: "",
+		subject: "",
+		message: "",
+	});
+
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [success, setSuccess] = useState(false);
+
+	function handleChange(
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	) {
+		setFormData({ ...formData, [e.target.id]: e.target.value });
+	}
+
+	async function handleSubmit(e: React.FormEvent) {
+		e.preventDefault();
+		setIsSubmitting(true);
+		setSuccess(false);
+
+		try {
+			const res = await fetch("/api/contact", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(formData),
+			});
+
+			if (!res.ok) throw new Error("Failed to send");
+
+			setSuccess(true);
+			setFormData({
+				firstName: "",
+				lastName: "",
+				email: "",
+				phone: "",
+				subject: "",
+				message: "",
+			});
+		} catch (err) {
+			console.error("❌ Email sending failed:", err);
+			alert("Something went wrong. Please try again.");
+		} finally {
+			setIsSubmitting(false);
+		}
+	}
 
 	return (
 		<div className="min-h-screen bg-gradient-to-b from-sky-50 to-white">
@@ -360,13 +449,7 @@ export default function Home({
 							)
 							.slice(0, 3)
 							.map((entry, index) => {
-								const date = new Date(entry.fields.month).toLocaleDateString(
-									"en-US",
-									{
-										month: "long",
-										year: "numeric",
-									}
-								);
+								const date = getUTCMonthYear(entry.fields.month);
 
 								return (
 									<motion.div
@@ -393,9 +476,12 @@ export default function Home({
 												<CardTitle>{date} – Monthly Update</CardTitle>
 											</CardHeader>
 											<CardContent className="flex-grow">
-												<p className="text-gray-600 line-clamp-5">
-													{entry.fields.description}
-												</p>
+												<div className="text-gray-600 line-clamp-5">
+													{documentToReactComponents(
+														entry.fields.description,
+														options
+													)}
+												</div>
 											</CardContent>
 											<div className="p-6 pt-0">
 												<Dialog>
@@ -426,7 +512,10 @@ export default function Home({
 																/>
 															</div>
 															<p className="text-gray-700 whitespace-pre-wrap">
-																{entry.fields.description}
+																{documentToReactComponents(
+																	entry.fields.description,
+																	options
+																)}
 															</p>
 														</div>
 													</DialogContent>
@@ -481,42 +570,135 @@ export default function Home({
 									</CardDescription>
 								</CardHeader>
 								<CardContent>
-									<form className="space-y-4">
-										<div className="grid gap-2">
-											<label htmlFor="name" className="text-sm font-medium">
-												Name
-											</label>
-											<input
-												id="name"
-												className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-												placeholder="Your name"
-											/>
-										</div>
-										<div className="grid gap-2">
-											<label htmlFor="email" className="text-sm font-medium">
-												Email
-											</label>
-											<input
-												id="email"
-												type="email"
-												className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-												placeholder="Your email"
-											/>
-										</div>
-										<div className="grid gap-2">
-											<label htmlFor="message" className="text-sm font-medium">
-												Message
-											</label>
-											<textarea
-												id="message"
-												className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-												placeholder="Your message"
-											/>
-										</div>
-										<Button className="w-full bg-pink-600 hover:bg-pink-700">
-											Send Message
-										</Button>
-									</form>
+									{success ? (
+										<motion.div
+											initial={{ opacity: 0, scale: 0.9 }}
+											animate={{ opacity: 1, scale: 1 }}
+											className="text-center py-10"
+										>
+											<div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+												<Check className="h-8 w-8 text-green-600" />
+											</div>
+											<h2 className="mt-6 text-2xl font-bold text-gray-900">
+												Message Sent!
+											</h2>
+											<p className="mt-2 text-gray-600">
+												Thank you for reaching out to Tot Spot Preschool. We've
+												received your message and will get back to you soon.
+											</p>
+										</motion.div>
+									) : (
+										<form className="space-y-4" onSubmit={handleSubmit}>
+											<div className="grid grid-cols-2">
+												<div className="grid gap-2 mr-2">
+													<label
+														htmlFor="firstName"
+														className="text-sm font-medium"
+													>
+														First Name <span className="text-pink-600">*</span>
+													</label>
+													<Input
+														id="firstName"
+														className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+														placeholder="Your First Name"
+														value={formData.firstName}
+														onChange={handleChange}
+														required
+													/>
+												</div>
+												<div className="grid gap-2 ml-2">
+													<label
+														htmlFor="lastName"
+														className="text-sm font-medium"
+													>
+														Last Name <span className="text-pink-600">*</span>
+													</label>
+													<Input
+														id="lastName"
+														className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+														placeholder="Your Last Name"
+														value={formData.lastName}
+														onChange={handleChange}
+														required
+													/>
+												</div>
+											</div>
+											<div className="grid grid-cols-2">
+												<div className="grid gap-2 mr-2">
+													<label
+														htmlFor="email"
+														className="text-sm font-medium"
+													>
+														Email <span className="text-pink-600">*</span>
+													</label>
+													<Input
+														id="email"
+														type="email"
+														className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+														placeholder="Your Email"
+														value={formData.email}
+														onChange={handleChange}
+														required
+													/>
+												</div>
+												<div className="grid gap-2 ml-2">
+													<label
+														htmlFor="phone"
+														className="text-sm font-medium"
+													>
+														Phone <span className="text-pink-600">*</span>
+													</label>
+													<Input
+														id="phone"
+														type="tel"
+														className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+														placeholder="Your Phone Number"
+														value={formData.phone}
+														onChange={handleChange}
+														required
+													/>
+												</div>
+											</div>
+											<div className="grid gap-2">
+												<label
+													htmlFor="subject"
+													className="text-sm font-medium"
+												>
+													Subject <span className="text-pink-600">*</span>
+												</label>
+												<Input
+													id="subject"
+													className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+													placeholder="Your Phone Number"
+													value={formData.subject}
+													onChange={handleChange}
+													required
+												/>
+											</div>
+											<div className="grid gap-2">
+												<label
+													htmlFor="message"
+													className="text-sm font-medium"
+												>
+													Message <span className="text-pink-600">*</span>
+												</label>
+												<Textarea
+													id="message"
+													className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+													placeholder="Your message"
+													value={formData.message}
+													onChange={handleChange}
+													required
+												/>
+											</div>
+											<Button
+												type="submit"
+												className="w-full bg-pink-600 hover:bg-pink-700"
+											>
+												Send Message
+											</Button>
+										</form>
+									)}
 								</CardContent>
 							</Card>
 						</motion.div>
@@ -526,7 +708,7 @@ export default function Home({
 							whileInView={{ opacity: 1, x: 0 }}
 							viewport={{ once: true }}
 							transition={{ duration: 0.5 }}
-							className="flex flex-col justify-between"
+							className="flex flex-col justify-start"
 						>
 							<Card className="mb-6">
 								<CardHeader>

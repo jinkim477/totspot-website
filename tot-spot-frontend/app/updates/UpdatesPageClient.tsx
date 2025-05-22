@@ -20,6 +20,8 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { BLOCKS } from "@contentful/rich-text-types";
 
 export default function UpdatesPage({
 	dates,
@@ -30,21 +32,62 @@ export default function UpdatesPage({
 	monthlyUpdates: any;
 	updatePagePhotos: any;
 }) {
-	const latestUpdate = [...monthlyUpdates].sort(
+	const sortedUpdates = [...monthlyUpdates].sort(
 		(a, b) =>
 			new Date(b.fields.month).getTime() - new Date(a.fields.month).getTime()
-	)[0];
-
-	const formattedDate = new Date(latestUpdate.fields.month).toLocaleDateString(
-		"en-US",
-		{
-			month: "long",
-			year: "numeric",
-		}
 	);
+	console.log(
+		sortedUpdates.map((entry) => ({
+			id: entry.sys.id,
+			month: entry.fields.month,
+			title: entry.fields.title,
+			imageUrl: entry.fields.photo.fields.file.url,
+		}))
+	);
+
+	const latestUpdate = sortedUpdates[0];
+
+	const restUpdates = sortedUpdates.slice(1);
+
+	function getUTCMonthYear(dateString: string) {
+		const date = new Date(dateString);
+		const year = date.getUTCFullYear();
+		const month = date.toLocaleString("en-US", {
+			month: "long",
+			timeZone: "UTC",
+		});
+		return `${month} ${year}`;
+	}
+
+	const formattedDate = getUTCMonthYear(latestUpdate.fields.month);
 
 	const landingPhotoUrl =
 		updatePagePhotos[0].fields.landingPhoto.fields.file.url;
+
+	const options = {
+		renderNode: {
+			[BLOCKS.PARAGRAPH]: (node, children) => {
+				const isEmpty =
+					!children ||
+					(Array.isArray(children) &&
+						children.length === 1 &&
+						children[0] === "");
+				return isEmpty ? <div style={{ height: "1rem" }} /> : <p>{children}</p>;
+			},
+			[BLOCKS.OL_LIST]: (node, children) => (
+				<ol className="list-decimal pl-6 space-y-1">{children}</ol>
+			),
+			[BLOCKS.UL_LIST]: (node, children) => (
+				<ul className="list-disc pl-6 space-y-1">{children}</ul>
+			),
+			[BLOCKS.LIST_ITEM]: (node, children) => <li>{children}</li>,
+			[BLOCKS.QUOTE]: (node, children) => (
+				<blockquote className="border-l-4 border-gray-400 pl-4 italic text-gray-600 my-4">
+					{children}
+				</blockquote>
+			),
+		},
+	};
 
 	return (
 		<div className="min-h-screen">
@@ -119,9 +162,12 @@ export default function UpdatesPage({
 											<CardTitle>{formattedDate} - Monthly Update</CardTitle>
 										</CardHeader>
 										<CardContent>
-											<p className="text-gray-600 line-clamp-6 mb-4">
-												{latestUpdate.fields.description}
-											</p>
+											<div className="text-gray-600 line-clamp-6 mb-4">
+												{documentToReactComponents(
+													latestUpdate.fields.description,
+													options
+												)}
+											</div>
 											<Dialog>
 												<DialogTrigger asChild>
 													<Button className="bg-pink-600 hover:bg-pink-700">
@@ -146,9 +192,12 @@ export default function UpdatesPage({
 																className="rounded-md"
 															/>
 														</div>
-														<p className="text-gray-700 whitespace-pre-wrap">
-															{latestUpdate.fields.description}
-														</p>
+														<div className="text-gray-700 whitespace-pre-wrap">
+															{documentToReactComponents(
+																latestUpdate.fields.description,
+																options
+															)}
+														</div>
 													</div>
 												</DialogContent>
 											</Dialog>
@@ -161,90 +210,81 @@ export default function UpdatesPage({
 
 					{/* Rest of Monthly Updates List */}
 					<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-						{[...monthlyUpdates]
-							.filter((entry) => entry.sys.id !== latestUpdate.sys.id) // Exclude the featured update
-							.sort(
-								(a, b) =>
-									new Date(b.fields.month).getTime() -
-									new Date(a.fields.month).getTime()
-							)
-							.map((entry, index) => {
-								const date = new Date(entry.fields.month).toLocaleDateString(
-									"en-US",
-									{
-										month: "long",
-										year: "numeric",
-									}
-								);
+						{restUpdates.map((entry, index) => {
+							const date = getUTCMonthYear(entry.fields.month);
 
-								return (
-									<motion.div
-										key={entry.sys.id}
-										initial={{ opacity: 0, y: 20 }}
-										whileInView={{ opacity: 1, y: 0 }}
-										viewport={{ once: true }}
-										transition={{ delay: index * 0.1 }}
-									>
-										<Card className="overflow-hidden h-full flex flex-col hover:scale-105 transition-transform transform duration-300">
-											<div className="h-48 relative">
-												<Image
-													src={entry.fields.photo.fields.file.url}
-													alt={entry.fields.photo.fields.title}
-													fill
-													className="object-cover"
-												/>
+							return (
+								<motion.div
+									key={entry.sys.id}
+									initial={{ opacity: 0, y: 20 }}
+									whileInView={{ opacity: 1, y: 0 }}
+									viewport={{ once: true }}
+									transition={{ delay: index * 0.1 }}
+								>
+									<Card className="overflow-hidden h-full flex flex-col hover:scale-105 transition-transform transform duration-300">
+										<div className="h-48 relative">
+											<Image
+												src={entry.fields.photo.fields.file.url}
+												alt={entry.fields.photo.fields.title}
+												fill
+												className="object-cover"
+											/>
+										</div>
+										<CardHeader>
+											<div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
+												<Calendar className="h-4 w-4" />
+												<span>{date}</span>
 											</div>
-											<CardHeader>
-												<div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
-													<Calendar className="h-4 w-4" />
-													<span>{date}</span>
-												</div>
-												<CardTitle>{date} – Monthly Update</CardTitle>
-											</CardHeader>
-											<CardContent className="flex-grow">
-												<p className="text-gray-600 line-clamp-5">
-													{entry.fields.description}
-												</p>
-											</CardContent>
-											<div className="p-6 pt-0">
-												<Dialog>
-													<DialogTrigger asChild>
-														<Button
-															variant="link"
-															className="p-0 h-auto text-pink-600"
-														>
-															Read more <ArrowRight className="ml-1 h-4 w-4" />
-														</Button>
-													</DialogTrigger>
-													<DialogContent className="max-w-4xl w-[90vw] max-h-[90vh] overflow-y-auto p-6 bg-white rounded-lg shadow-xl">
-														<DialogHeader className="text-center">
-															<div className="flex justify-center">
-																<DialogTitle>
-																	{date} – Monthly Update
-																</DialogTitle>
-															</div>
-														</DialogHeader>
-														<div className="space-y-4">
-															<div className="flex justify-center">
-																<Image
-																	src={entry.fields.photo.fields.file.url}
-																	alt={entry.fields.photo.fields.title}
-																	width={800}
-																	height={400}
-																	className="rounded-md"
-																/>
-															</div>
-															<p className="text-gray-700 whitespace-pre-wrap">
-																{entry.fields.description}
-															</p>
+											<CardTitle>{date} – Monthly Update</CardTitle>
+										</CardHeader>
+										<CardContent className="flex-grow">
+											<div className="text-gray-600 line-clamp-5">
+												{documentToReactComponents(
+													entry.fields.description,
+													options
+												)}
+											</div>
+										</CardContent>
+										<div className="p-6 pt-0">
+											<Dialog>
+												<DialogTrigger asChild>
+													<Button
+														variant="link"
+														className="p-0 h-auto text-pink-600"
+													>
+														Read more <ArrowRight className="ml-1 h-4 w-4" />
+													</Button>
+												</DialogTrigger>
+												<DialogContent className="max-w-4xl w-[90vw] max-h-[90vh] overflow-y-auto p-6 bg-white rounded-lg shadow-xl">
+													<DialogHeader className="text-center">
+														<div className="flex justify-center">
+															<DialogTitle>{date} – Monthly Update</DialogTitle>
 														</div>
-													</DialogContent>
-												</Dialog>
-											</div>
-										</Card>
-									</motion.div>
-								);
-							})}
+													</DialogHeader>
+													<div className="space-y-4">
+														<div className="flex justify-center">
+															<Image
+																src={entry.fields.photo.fields.file.url}
+																alt={entry.fields.photo.fields.title}
+																width={800}
+																height={400}
+																className="rounded-md"
+															/>
+														</div>
+														<div className="text-gray-700 whitespace-pre-wrap">
+															{documentToReactComponents(
+																entry.fields.description,
+																options
+															)}
+														</div>
+													</div>
+												</DialogContent>
+											</Dialog>
+										</div>
+									</Card>
+								</motion.div>
+							);
+						})}
 					</div>
 				</div>
 			</section>

@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Check, Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -25,6 +26,55 @@ export default function ContactPage({
 
 	const landingPhotoUrl =
 		contactPagePhotos[0].fields.landingPhoto.fields.file.url;
+
+	const [formData, setFormData] = useState({
+		firstName: "",
+		lastName: "",
+		email: "",
+		phone: "",
+		subject: "",
+		message: "",
+	});
+
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [success, setSuccess] = useState(false);
+
+	function handleChange(
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	) {
+		setFormData({ ...formData, [e.target.id]: e.target.value });
+	}
+
+	async function handleSubmit(e: React.FormEvent) {
+		e.preventDefault();
+		setIsSubmitting(true);
+		setSuccess(false);
+
+		try {
+			const res = await fetch("/api/contact", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(formData),
+			});
+
+			if (!res.ok) throw new Error("Failed to send");
+
+			setSuccess(true);
+			setFormData({
+				firstName: "",
+				lastName: "",
+				email: "",
+				phone: "",
+				subject: "",
+				message: "",
+			});
+		} catch (err) {
+			console.error("❌ Email sending failed:", err);
+			alert("Something went wrong. Please try again.");
+		} finally {
+			setIsSubmitting(false);
+		}
+	}
 
 	return (
 		<div className="min-h-screen">
@@ -71,63 +121,112 @@ export default function ContactPage({
 									<CardTitle>Send Us a Message</CardTitle>
 								</CardHeader>
 								<CardContent>
-									<form className="grid gap-6">
-										<div className="grid md:grid-cols-2 gap-4">
-											<div className="space-y-2">
-												<Label htmlFor="first-name">First Name</Label>
-												<Input
-													id="first-name"
-													placeholder="Enter your first name"
-												/>
-											</div>
-											<div className="space-y-2">
-												<Label htmlFor="last-name">Last Name</Label>
-												<Input
-													id="last-name"
-													placeholder="Enter your last name"
-												/>
-											</div>
-										</div>
-										<div className="grid md:grid-cols-2 gap-4">
-											<div className="space-y-2">
-												<Label htmlFor="email">Email</Label>
-												<Input
-													id="email"
-													type="email"
-													placeholder="Enter your email"
-												/>
-											</div>
-											<div className="space-y-2">
-												<Label htmlFor="phone">Phone</Label>
-												<Input
-													id="phone"
-													type="tel"
-													placeholder="Enter your phone number"
-												/>
-											</div>
-										</div>
-										<div className="space-y-2">
-											<Label htmlFor="subject">Subject</Label>
-											<Input
-												id="subject"
-												placeholder="What is this regarding?"
-											/>
-										</div>
-										<div className="space-y-2">
-											<Label htmlFor="message">Message</Label>
-											<Textarea
-												id="message"
-												placeholder="Enter your message"
-												className="min-h-[150px]"
-											/>
-										</div>
-										<Button
-											type="submit"
-											className="w-full bg-pink-600 hover:bg-pink-700"
+									{success ? (
+										<motion.div
+											initial={{ opacity: 0, scale: 0.9 }}
+											animate={{ opacity: 1, scale: 1 }}
+											className="text-center py-10"
 										>
-											Send Message
-										</Button>
-									</form>
+											<div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+												<Check className="h-8 w-8 text-green-600" />
+											</div>
+											<h2 className="mt-6 text-2xl font-bold text-gray-900">
+												Message Sent!
+											</h2>
+											<p className="mt-2 text-gray-600">
+												Thank you for reaching out to Tot Spot Preschool. We've
+												received your message and will get back to you soon.
+											</p>
+										</motion.div>
+									) : (
+										<form className="grid gap-6" onSubmit={handleSubmit}>
+											<div className="grid md:grid-cols-2 gap-4">
+												<div className="space-y-2">
+													<Label htmlFor="first-name">
+														First Name <span className="text-pink-600">*</span>
+													</Label>
+													<Input
+														id="firstName"
+														placeholder="Enter your first name"
+														value={formData.firstName}
+														onChange={handleChange}
+														required
+													/>
+												</div>
+												<div className="space-y-2">
+													<Label htmlFor="last-name">
+														Last Name <span className="text-pink-600">*</span>
+													</Label>
+													<Input
+														id="lastName"
+														placeholder="Enter your last name"
+														value={formData.lastName}
+														onChange={handleChange}
+														required
+													/>
+												</div>
+											</div>
+											<div className="grid md:grid-cols-2 gap-4">
+												<div className="space-y-2">
+													<Label htmlFor="email">
+														Email <span className="text-pink-600">*</span>
+													</Label>
+													<Input
+														id="email"
+														type="email"
+														placeholder="Enter your email"
+														value={formData.email}
+														onChange={handleChange}
+														required
+													/>
+												</div>
+												<div className="space-y-2">
+													<Label htmlFor="phone">
+														Phone <span className="text-pink-600">*</span>
+													</Label>
+													<Input
+														id="phone"
+														type="tel"
+														placeholder="Enter your phone number"
+														value={formData.phone}
+														onChange={handleChange}
+														required
+													/>
+												</div>
+											</div>
+											<div className="space-y-2">
+												<Label htmlFor="subject">
+													Subject <span className="text-pink-600">*</span>
+												</Label>
+												<Input
+													id="subject"
+													placeholder="What is this regarding?"
+													value={formData.subject}
+													onChange={handleChange}
+													required
+												/>
+											</div>
+											<div className="space-y-2">
+												<Label htmlFor="message">
+													Message <span className="text-pink-600">*</span>
+												</Label>
+												<Textarea
+													id="message"
+													placeholder="Enter your message"
+													className="min-h-[150px]"
+													value={formData.message}
+													onChange={handleChange}
+													required
+												/>
+											</div>
+											<Button
+												type="submit"
+												className="w-full bg-pink-600 hover:bg-pink-700"
+											>
+												Send Message
+											</Button>
+										</form>
+									)}
 								</CardContent>
 							</Card>
 						</motion.div>

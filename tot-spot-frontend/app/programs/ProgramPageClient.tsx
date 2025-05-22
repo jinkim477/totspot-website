@@ -166,7 +166,7 @@ export default function ProgramPageClient({
 													className="border rounded-lg p-5 h-full flex flex-col"
 												>
 													<h3 className="text-xl font-bold text-gray-900 mb-4">
-														Option {option}
+														{age} Years / Option {option}
 													</h3>
 													<div className="space-y-4 flex-grow">
 														<div className="flex items-start gap-2">
@@ -803,14 +803,14 @@ export default function ProgramPageClient({
 										Register Now
 									</Button>
 								</Link>
+								
 								<Link href="/contact">
 									<Button
 										size="lg"
 										variant="outline"
 										className="text-black border-white hover:bg-pink-700 hover:text-white"
-										asChild
 									>
-										<Link href="/contact">Contact Us</Link>
+										Contact Us
 									</Button>
 								</Link>
 							</div>

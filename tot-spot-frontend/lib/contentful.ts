@@ -77,3 +77,8 @@ export async function getDownloadableDocs() {
   const entries = await client.getEntries({ content_type: 'downloadableDocument' })
   return entries.items
 }
+
+export async function getPolicies() {
+  const entries = await client.getEntries({ content_type: 'policies' })
+  return entries.items
+}

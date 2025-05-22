@@ -1,28 +1,38 @@
-
-import { Resend } from 'resend';
+import { NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function POST(req: Request) {
-  const body = await req.json();
-  const { name, email, phone, subject, message } = body;
-
+export async function POST(req: NextRequest) {
   try {
-    const data = await resend.emails.send({
-      from: 'Tot Spot Contact Form <your@verifieddomain.com>',
-      to: ['info@totspotpreschool.ca'],
-      subject: `New Contact: ${subject}`,
-      html: `
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone}</p>
-        <p><strong>Message:</strong><br/>${message}</p>
-      `,
+    const { firstName, lastName, email, phone, subject, message } = await req.json();
+
+    const html = `
+      <h2>New Contact Form Submission</h2>
+      <p><strong>Name:</strong> ${firstName} ${lastName}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Phone:</strong> ${phone}</p>
+      <p><strong>Subject:</strong> ${subject}</p>
+      <p><strong>Message:</strong></p>
+      <p>${message}</p>
+    `;
+
+    const { error } = await resend.emails.send({
+      from: "Tot Spot Contact Web Message<info@totspotpreschool.ca>",
+      to: "info@totspotpreschool.ca",
+      subject: `${firstName} ${lastName} - ${subject || "New message"}`,
+      replyTo: email,
+      html,
     });
 
-    return Response.json({ success: true });
+    if (error) {
+      console.error("❌ Resend Email Error:", error);
+      return NextResponse.json({ error: "Email sending failed" }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true });
   } catch (error) {
-    console.error(error);
-    return Response.json({ success: false }, { status: 500 });
+    console.error("❌ Server Error:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
