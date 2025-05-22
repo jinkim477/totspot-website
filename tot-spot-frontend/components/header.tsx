@@ -38,8 +38,13 @@ export function Header() {
 		>
 			<div className="container flex h-16 items-center justify-between">
 				<Link href="/" className="flex items-center gap-2">
-					<div className="h-10 w-10 rounded-full bg-pink-600"></div>
+					{/* <div className="h-10 w-10 rounded-full bg-pink-600"></div> */}
+					<img
+						src="/images/tot-spot-logo.png"
+						alt="Tot Spot Logo"
+						className="h-10 w-10 rounded-full"/>
 					<span className="text-xl font-bold text-pink-600">Tot Spot</span>
+					
 				</Link>
 				<nav className="hidden md:flex gap-1 lg:gap-2">
 					{navItems.map((item) => (

@@ -11,7 +11,11 @@ export function Footer({ contactInfo }: { contactInfo: any }) {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="h-10 w-10 rounded-full bg-pink-600"></div>
+              {/* <div className="h-10 w-10 rounded-full bg-pink-600"></div> */}
+              <img
+                src="/images/tot-spot-logo.png"
+                alt="Tot Spot Logo"
+                className="h-10 w-10 rounded-full"/>
               <span className="text-xl font-bold text-pink-600">Tot Spot</span>
             </div>
             <p className="text-sm text-gray-600 max-w-xs">
