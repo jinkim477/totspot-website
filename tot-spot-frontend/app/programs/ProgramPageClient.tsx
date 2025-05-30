@@ -24,9 +24,11 @@ import { RegistrationDialog } from "@/components/registration-dialog";
 export default function ProgramPageClient({
 	programs,
 	programsPagePhotos,
+	downloadableDocs,
 }: {
 	programs: any[];
 	programsPagePhotos: any[];
+	downloadableDocs: any[];
 }) {
 	const [registrationOpen, setRegistrationOpen] = useState(false);
 	const [selectedProgram, setSelectedProgram] = useState("");
@@ -72,6 +74,7 @@ export default function ProgramPageClient({
 				programDays={selectedProgramDays}
 				programTime={selectedProgramTime}
 				programPrice={selectedProgramPrice}
+				downloadableDocs={downloadableDocs}
 			/>
 
 			{/* Hero Section */}
@@ -708,70 +711,6 @@ export default function ProgramPageClient({
 								</motion.div>
 							))}
 						</div>
-					</div>
-				</div>
-			</section>
-
-			{/* FAQ */}
-			<section className="py-16">
-				<div className="container">
-					<motion.div
-						initial={{ opacity: 0 }}
-						whileInView={{ opacity: 1 }}
-						viewport={{ once: true }}
-						transition={{ duration: 0.5 }}
-						className="text-center mb-12"
-					>
-						<h2 className="text-3xl font-bold text-gray-900">
-							Frequently Asked Questions
-						</h2>
-						<div className="mt-2 h-1 w-20 bg-pink-500 mx-auto rounded-full"></div>
-					</motion.div>
-
-					<div className="max-w-3xl mx-auto">
-						<Accordion type="single" collapsible className="w-full">
-							{[
-								{
-									question: "Does my child need to be potty trained?",
-									answer:
-										"Yes, all children must be fully potty trained before starting at Tot Spot. We understand occasional accidents happen, but children should be able to use the bathroom independently.",
-								},
-								{
-									question: "What is your teacher-to-student ratio?",
-									answer:
-										"Our 3-year-old program maintains an 8:1 student-to-teacher ratio, while our 4-year-old program has a 10:1 ratio. This ensures each child receives the attention they need while learning valuable social skills.",
-								},
-								{
-									question: "Do you provide snacks?",
-									answer:
-										"Parents are responsible for providing a healthy, nut-free snack each day. We encourage nutritious options like fruits, vegetables, cheese, and crackers. Water is always available for children.",
-								},
-								{
-									question: "What is your illness policy?",
-									answer:
-										"Children should not attend preschool if they have a fever, vomiting, diarrhea, or any contagious illness. Children must be symptom-free for 24 hours before returning to school.",
-								},
-								{
-									question: "Do parents volunteer in the classroom?",
-									answer:
-										"Parent involvement is welcomed but not required. We offer various opportunities throughout the year for parents who wish to volunteer for special events, field trips, or classroom activities.",
-								},
-								{
-									question: "What is your cancellation policy?",
-									answer:
-										"We require one month's written notice for withdrawal from the program. The registration fee is non-refundable. Tuition for the current month is also non-refundable once the month has begun.",
-								},
-							].map((faq, index) => (
-								<AccordionItem key={index} value={`item-${index}`}>
-									<AccordionTrigger className="text-left font-medium text-gray-900">
-										{faq.question}
-									</AccordionTrigger>
-									<AccordionContent className="text-gray-600">
-										{faq.answer}
-									</AccordionContent>
-								</AccordionItem>
-							))}
-						</Accordion>
 					</div>
 				</div>
 			</section>

@@ -8,15 +8,19 @@ import { Card } from "@/components/ui/card";
 import { CardContent } from "@/components/ui/card";
 import { CardHeader } from "@/components/ui/card";
 import { CardTitle } from "@/components/ui/card";
+import { BLOCKS } from "@contentful/rich-text-types";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 
 export default function AboutPageClient({
 	staff,
 	facilities,
 	aboutPagePhotos,
+	aboutPageDetails,
 }: {
 	staff: any[];
 	facilities: any[];
 	aboutPagePhotos: any[];
+	aboutPageDetails: any;
 }) {
 	const container = {
 		hidden: { opacity: 0 },
@@ -37,6 +41,31 @@ export default function AboutPageClient({
 		aboutPagePhotos[0].fields.landingPhoto.fields.file.url;
 	const philosophyPhotoUrl =
 		aboutPagePhotos[0].fields.philosophyPhoto.fields.file.url;
+
+	const options = {
+			renderNode: {
+				[BLOCKS.PARAGRAPH]: (node, children) => {
+					const isEmpty =
+						!children ||
+						(Array.isArray(children) &&
+							children.length === 1 &&
+							children[0] === "");
+					return isEmpty ? <div style={{ height: "1rem" }} /> : <p>{children}</p>;
+				},
+				[BLOCKS.OL_LIST]: (node, children) => (
+					<ol className="list-decimal pl-6 space-y-1">{children}</ol>
+				),
+				[BLOCKS.UL_LIST]: (node, children) => (
+					<ul className="list-disc pl-6 space-y-1">{children}</ul>
+				),
+				[BLOCKS.LIST_ITEM]: (node, children) => <li>{children}</li>,
+				[BLOCKS.QUOTE]: (node, children) => (
+					<blockquote className="border-l-4 border-gray-400 pl-4 italic text-gray-600 my-4">
+						{children}
+					</blockquote>
+				),
+			},
+		};
 
 	return (
 		<div className="min-h-screen">
@@ -60,10 +89,9 @@ export default function AboutPageClient({
 						<h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
 							About Tot Spot
 						</h1>
-						<p className="mt-6 text-lg text-white/90 max-w-xl">
-							Learn about our philosophy, our team, and what makes Tot Spot
-							special.
-						</p>
+						<div className="mt-6 text-lg text-white/90 max-w-xl">
+							{documentToReactComponents(aboutPageDetails[0].fields.landingText, options)}
+						</div>
 					</motion.div>
 				</div>
 			</section>
@@ -104,47 +132,10 @@ export default function AboutPageClient({
 							transition={{ duration: 0.5 }}
 							className="space-y-6"
 						>
-							<p className="text-gray-600">
-								Tot Spot is a nurturing school. We take pride in providing
-								children with a warm and caring atmosphere. We firmly believe
-								that play is of utmost importance at this stage of your
-								child&apos;s life. We work hard to achieve an appropriate
-								balance between free play, which is so vital to your
-								preschooler&apos;s development, and structure, which provides
-								the tools and organization by which your child learns.
-							</p>
-							<p className="text-gray-600">
-								In recent years, educators have discussed the damage that can be
-								done when children are pressured too early to do
-								non-age-appropriate activities. They stress that learning should
-								be interest-based, fun, and should happen naturally through
-								participation in a wide variety of activities. Indeed, through
-								“just play,” these young children learn and develop intellectual
-								and emotional and social skills. We offer a separate program for
-								our three-year-olds and four-year-olds to address their
-								different developmental needs. We have created several distinct
-								play areas for children to experience each day.
-							</p>
-							<p className="text-gray-600">
-								Each space provides various activities designed to develop a
-								wide variety of skills. We also include gym time, snacks,
-								stories and songs each day. Tot Spot is a pre-school that values
-								and requires family participation. Your active assistance
-								enriches our program and delights your child. We hope that one
-								of the reasons you chose Tot Spot as your children&apos;s
-								pre-school is your desire to be actively involved in your
-								child&apos;s educational experience. Studies have shown that
-								early and constant parental involvement increases your
-								child&apos;s degree of success in school. We suggest you try to
-								volunteer in your child&apos;s class about once a month or as
-								needed.
-							</p>
-							<p className="text-gray-600">
-								We realize that it is not always possible for you to help in the
-								classroom, so you are welcome to have other significant people
-								in your child&apos;s life, such as grandparents, aunts, uncles,
-								or nannies, participate.
-							</p>
+							<div className="text-gray-600">
+								{documentToReactComponents(aboutPageDetails[0].fields.philosophyMessage, options)}
+							</div>
+							
 						</motion.div>
 					</div>
 				</div>

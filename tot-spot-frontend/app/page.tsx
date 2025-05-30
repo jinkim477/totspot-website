@@ -1,12 +1,13 @@
-import { getPrograms, getDates, getMonthlyUpdates, getContactInfo, getHomePagePhotos } from "@/lib/contentful"
+import { getPrograms, getDates, getMonthlyUpdates, getContactInfo, getHomePagePhotos, getHomePageDetails } from "@/lib/contentful"
 import HomePageClient from "./HomePageClient"
 
-export default async function AboutPage() {
+export default async function HomePage() {
   const programs = await getPrograms();
   const dates = await getDates();
   const monthlyUpdates = await getMonthlyUpdates();
   const contactInfo = await getContactInfo();
   const homePagePhotos = await getHomePagePhotos();
+  const homePageDetails = await getHomePageDetails();
 
-  return <HomePageClient programs={programs} dates={dates} monthlyUpdates={monthlyUpdates} contactInfo={contactInfo} homePagePhotos={homePagePhotos}/>
+  return <HomePageClient programs={programs} dates={dates} monthlyUpdates={monthlyUpdates} contactInfo={contactInfo} homePagePhotos={homePagePhotos} homePageDetails={homePageDetails}/>
 }

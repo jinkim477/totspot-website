@@ -14,12 +14,14 @@ export function RegistrationForm({
 	programDays,
 	programTime,
 	programPrice,
+	downloadableDocs,
 	onClose,
 }: {
 	programName: string;
 	programDays: string;
 	programTime: string;
 	programPrice: string;
+	downloadableDocs: any[];
 	onClose: () => void;
 }) {
 	const [step, setStep] = useState(1);
@@ -58,9 +60,7 @@ export function RegistrationForm({
 	// ...existing code...
 
 	const isStep1Valid = () =>
-		childFirstName.trim() &&
-		dob.trim() &&
-		gender.trim();
+		childFirstName.trim() && dob.trim() && gender.trim();
 
 	const isStep2Valid = () =>
 		street.trim() &&
@@ -78,7 +78,12 @@ export function RegistrationForm({
 		signature.trim() &&
 		date.trim();
 
-	// ...existing code...
+	const preAuthDebitDoc = downloadableDocs.find(
+		(doc) =>
+			doc.fields &&
+			doc.fields.title &&
+			doc.fields.title.toLowerCase().includes("pre-authorized debit")
+	);
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		// console.log("Handle Submit Triggered at Step:", step);
@@ -523,6 +528,20 @@ export function RegistrationForm({
 												Postdated Cheques
 											</label>
 										</div>
+										{monthlyFeeMethod === "Pre-authorized Debit" &&
+											preAuthDebitDoc && (
+												<div className="mt-4">
+													<a
+														href={preAuthDebitDoc.fields.file.fields.file.url}
+														download
+														target="_blank"
+														rel="noopener noreferrer"
+														className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+													>
+														Download Pre-Authorized Debit Form
+													</a>
+												</div>
+											)}
 									</div>
 								</div>
 								<div className="mb-4">

@@ -10,6 +10,7 @@ export function RegistrationDialog({
   programDays,
   programTime,
   programPrice,
+  downloadableDocs,
 }: {
   isOpen: boolean
   onClose: () => void
@@ -17,7 +18,7 @@ export function RegistrationDialog({
   programDays: string
   programTime: string
   programPrice: string
-  
+  downloadableDocs: any[];
 }) {
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
@@ -27,7 +28,7 @@ export function RegistrationDialog({
             Registration for {programName}
           </DialogTitle>
         </DialogHeader>
-        <RegistrationForm programName={programName} programDays={programDays} programTime={programTime} programPrice={programPrice} onClose={onClose} />
+        <RegistrationForm programName={programName} programDays={programDays} programTime={programTime} programPrice={programPrice} onClose={onClose} downloadableDocs={downloadableDocs}/>
       </DialogContent>
     </Dialog>
   )

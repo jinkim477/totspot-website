@@ -28,12 +28,14 @@ export default function ParentsPage({
 	parentsPagePhotos,
 	downloadableDocs,
 	policies,
+	faq
 }: {
 	dates: any[];
 	testimonials: any[];
 	parentsPagePhotos: any[];
 	downloadableDocs: any[];
 	policies: any[];
+	faq: any[];
 }) {
 	const landingPhotoUrl =
 		parentsPagePhotos[0].fields.landingPhoto.fields.file.url;
@@ -456,28 +458,16 @@ export default function ParentsPage({
 
 					<div className="max-w-3xl mx-auto">
 						<div className="grid gap-6">
-							{[
-								{
-									question: "What should my child bring to school each day?",
-									answer:
-										"Children should bring a backpack with a healthy, nut-free snack, a water bottle, and a complete change of clothes. Please label all items with your child's name.",
-								},
-								{
-									question: "How can I stay updated on classroom activities?",
-									answer:
-										"We send weekly newsletters via email, maintain a parent bulletin board, and use a parent communication app. Teachers are also available for brief conversations at drop-off and pick-up times.",
-								},
-								{
-									question: "What is your illness policy?",
-									answer:
-										"Children should not attend preschool if they have a fever, vomiting, diarrhea, or any contagious illness. Children must be symptom-free for 24 hours before returning to school.",
-								},
-								{
-									question: "How do you handle birthdays and celebrations?",
-									answer:
-										"We celebrate each child's birthday with a special crown and song. Parents may send a small, non-food treat for classmates (stickers, pencils, etc.). Please coordinate with your child's teacher in advance.",
-								},
-							].map((faq, index) => (
+							{faq
+								.filter((item) => item.fields.question && item.fields.answer)
+								.map((item) => ({
+									question: item.fields.question,
+									answer: documentToReactComponents(
+										item.fields.answer,
+										options
+									),
+								})) // Ensure both question and answer exist
+							.map((faq, index) => (
 								<motion.div
 									key={index}
 									initial={{ opacity: 0, y: 20 }}

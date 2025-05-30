@@ -82,3 +82,18 @@ export async function getPolicies() {
   const entries = await client.getEntries({ content_type: 'policies' })
   return entries.items
 }
+
+export async function getHomePageDetails() {
+  const entries = await client.getEntries({ content_type: 'homePageDetails' })
+  return entries.items
+}
+
+export async function getAboutPageDetails() {
+  const entries = await client.getEntries({ content_type: 'aboutPageDetails' })
+  return entries.items
+}
+
+export async function getFAQ() {
+  const entries = await client.getEntries({ content_type: 'faq' })
+  return entries.items
+}

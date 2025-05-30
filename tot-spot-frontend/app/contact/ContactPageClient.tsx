@@ -116,7 +116,7 @@ export default function ContactPage({
 							transition={{ duration: 0.5, delay: 0 }}
 							className="lg:col-span-2"
 						>
-							<Card>
+							<Card id="contact-form" >
 								<CardHeader>
 									<CardTitle>Send Us a Message</CardTitle>
 								</CardHeader>
@@ -385,87 +385,6 @@ export default function ContactPage({
 				</div>
 			</section>
 
-			{/* FAQ */}
-			<section className="py-16 bg-gray-50">
-				<div className="container">
-					<motion.div
-						initial={{ opacity: 0 }}
-						whileInView={{ opacity: 1 }}
-						viewport={{ once: true }}
-						transition={{ duration: 0.5 }}
-						className="text-center mb-12"
-					>
-						<h2 className="text-3xl font-bold text-gray-900">
-							Frequently Asked Questions
-						</h2>
-						<div className="mt-2 h-1 w-20 bg-pink-600 mx-auto rounded-full"></div>
-					</motion.div>
-
-					<div className="max-w-3xl mx-auto">
-						<div className="grid gap-6">
-							{[
-								{
-									question: "How can I schedule a tour?",
-									answer: (
-										<>
-											You can schedule a tour by filling out our contact form,
-											calling our office at{" "}
-											<a
-												href={`tel:${phone}`}
-												className="text-pink-600 underline hover:text-pink-800"
-											>
-												{phone}
-											</a>
-											, or sending an email directly to{" "}
-											<a
-												href={`mailto:${email}`}
-												className="text-pink-600 underline hover:text-pink-800"
-											>
-												{email}
-											</a>
-											. Tours are typically available Monday through Friday
-											during office hours.
-										</>
-									),
-								},
-								{
-									question: "When should I register my child?",
-									answer:
-										"Registration for the upcoming school year typically opens in January. We recommend registering early as spaces fill quickly, especially for our 4-year-old program.",
-								},
-								{
-									question: "Do you offer summer programs?",
-									answer:
-										"Tot Spot does not currently offer summer programs. Our regular preschool year runs from September to June, following the local school calendar.",
-								},
-								{
-									question: "How can I get involved as a parent?",
-									answer:
-										"We welcome parent involvement! You can volunteer for special events, join our parent committee, or help with classroom activities. Please speak with your child's teacher about specific opportunities.",
-								},
-							].map((faq, index) => (
-								<motion.div
-									key={index}
-									initial={{ opacity: 0, y: 20 }}
-									whileInView={{ opacity: 1, y: 0 }}
-									viewport={{ once: true }}
-									transition={{ delay: index * 0.1 }}
-								>
-									<Card>
-										<CardContent className="pt-6">
-											<h3 className="text-lg font-bold text-gray-900 mb-2">
-												{faq.question}
-											</h3>
-											<p className="text-gray-600">{faq.answer}</p>
-										</CardContent>
-									</Card>
-								</motion.div>
-							))}
-						</div>
-					</div>
-				</div>
-			</section>
-
 			{/* CTA Section */}
 			<section className="py-16 bg-pink-600 text-white">
 				<div className="container">
@@ -485,12 +404,14 @@ export default function ContactPage({
 								learn more about our programs.
 							</p>
 							<div className="pt-4">
-								<Button
-									size="lg"
-									className="bg-white text-pink-600 hover:bg-pink-50"
-								>
-									Schedule a Tour
-								</Button>
+								<Link href="/contact#contact-form">
+									<Button
+										size="lg"
+										className="bg-white text-pink-600 hover:bg-pink-50"
+									>
+										Schedule a Tour
+									</Button>
+								</Link>
 							</div>
 						</motion.div>
 					</div>

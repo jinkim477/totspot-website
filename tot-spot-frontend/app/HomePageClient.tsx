@@ -41,12 +41,14 @@ export default function Home({
 	monthlyUpdates,
 	contactInfo,
 	homePagePhotos,
+	homePageDetails,
 }: {
 	programs: any[];
 	dates: any[];
 	monthlyUpdates: any[];
 	contactInfo: any;
 	homePagePhotos: any[];
+	homePageDetails: any;
 }) {
 	const [scrollY, setScrollY] = useState(0);
 
@@ -185,6 +187,10 @@ export default function Home({
 		}
 	}
 
+	const landingTitle = homePageDetails[0].fields.landingTitle;
+	const [firstWord, ...restWords] = landingTitle.split(" ");
+	const restOfTitle = restWords.join(" ");
+
 	return (
 		<div className="min-h-screen bg-gradient-to-b from-sky-50 to-white">
 			{/* Hero Section */}
@@ -205,13 +211,11 @@ export default function Home({
 						className="max-w-2xl"
 					>
 						<h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-							<span className="text-yellow-400">Quality</span> Early Education
-							for Your Children
+							<span className="text-yellow-400">{firstWord}</span> {restOfTitle}
 						</h1>
-						<p className="mt-6 text-lg text-white/90 max-w-xl">
-							Located in Lake Bonavista, Tot Spot is one of the best, brightest
-							and most spacious preschools in south Calgary.
-						</p>
+						<div className="mt-6 text-lg text-white/90 max-w-xl">
+							{documentToReactComponents(homePageDetails[0].fields.landingMessage, options)}
+						</div>
 						<div className="mt-10 flex flex-wrap gap-4">
 							<Link href="/programs">
 								<Button size="lg" className="bg-pink-600 hover:bg-pink-700">
@@ -309,20 +313,11 @@ export default function Home({
 							className="space-y-6"
 						>
 							<h3 className="text-2xl font-bold text-gray-900">
-								A Nurturing Environment for Early Learning
+								{documentToReactComponents(homePageDetails[0].fields.welcomeTitle, options)}
 							</h3>
-							<p className="text-gray-600">
-								Tot Spot Preschool provides a warm, nurturing environment where
-								children can explore, learn, and grow. Our spacious facility in
-								Lake Bonavista offers the perfect setting for early childhood
-								education.
-							</p>
-							<p className="text-gray-600">
-								Our experienced teachers are dedicated to creating a positive
-								first school experience that fosters a love of learning. Through
-								play-based activities and age-appropriate curriculum, we help
-								children develop essential skills while having fun.
-							</p>
+							<div className="text-gray-600">
+								{documentToReactComponents(homePageDetails[0].fields.welcomeMessage, options)}
+							</div>
 							<div className="pt-4">
 								<Link
 									href="/about"
@@ -763,7 +758,7 @@ export default function Home({
 									<div className="space-y-2">
 										<div className="flex justify-between">
 											<span className="font-medium">Monday - Friday</span>
-											<span>7:30 AM - 6:00 PM</span>
+											<span>8:30 AM - 4:00 PM</span>
 										</div>
 										<div className="flex justify-between">
 											<span className="font-medium">Saturday</span>
