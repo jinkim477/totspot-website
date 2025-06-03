@@ -232,9 +232,8 @@ export default function UpdatesPage({
 										</CardHeader>
 										<CardContent className="flex-grow">
 											<div className="text-gray-600 line-clamp-5">
-												{documentToReactComponents(
-													entry.fields.description,
-													options
+												{documentToPlainTextString(
+													entry.fields.description
 												)}
 											</div>
 										</CardContent>
