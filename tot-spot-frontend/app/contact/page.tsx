@@ -1,4 +1,7 @@
 // app/about/page.tsx
+
+export const revalidate = 60; // Revalidate once every 60 seconds
+
 import { getContactInfo, getContactPagePhotos } from "@/lib/contentful"
 import ContactPageClient from "./ContactPageClient"
 

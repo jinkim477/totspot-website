@@ -103,7 +103,7 @@ export default function UpdatesPage({
 						className="max-w-2xl"
 					>
 						<h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-							News & Updates
+							News & Calendar
 						</h1>
 						<p className="mt-6 text-lg text-white/90 max-w-xl">
 							Stay up-to-date with the latest news and events from Tot Spot
@@ -124,7 +124,7 @@ export default function UpdatesPage({
 						className="text-center mb-12"
 					>
 						<h2 className="text-3xl font-bold text-gray-900">
-							Monthly Updates
+							Monthly Newsletters
 						</h2>
 						<div className="mt-2 h-1 w-20 bg-pink-600 mx-auto rounded-full"></div>
 					</motion.div>
@@ -153,7 +153,7 @@ export default function UpdatesPage({
 												<Calendar className="h-4 w-4" />
 												<span>{formattedDate}</span>
 											</div>
-											<CardTitle>{formattedDate} - Monthly Update</CardTitle>
+											<CardTitle>{formattedDate} at Tot Spot</CardTitle>
 										</CardHeader>
 										<CardContent>
 											<div className="text-gray-600 line-clamp-6 mb-4">
@@ -228,7 +228,7 @@ export default function UpdatesPage({
 												<Calendar className="h-4 w-4" />
 												<span>{date}</span>
 											</div>
-											<CardTitle>{date} – Monthly Update</CardTitle>
+											<CardTitle>{date} at Tot Spot</CardTitle>
 										</CardHeader>
 										<CardContent className="flex-grow">
 											<div className="text-gray-600 line-clamp-5">

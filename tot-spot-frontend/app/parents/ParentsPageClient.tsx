@@ -28,7 +28,7 @@ export default function ParentsPage({
 	parentsPagePhotos,
 	downloadableDocs,
 	policies,
-	faq
+	faq,
 }: {
 	dates: any[];
 	testimonials: any[];
@@ -350,25 +350,16 @@ export default function ParentsPage({
 						</h2>
 						<div className="mt-2 h-1 w-20 bg-pink-500 mx-auto rounded-full"></div>
 						<p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-							There are many ways for parents to get involved at Tot Spot
-							Preschool.
+							Tot Spot is a pre-school that values and requires family
+							participation.
+						</p>
+						<p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+							Sign up to volunteer at pick-up or drop-off.
 						</p>
 					</motion.div>
 
-					<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+					<div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
 						{[
-							{
-								title: "Volunteer Opportunities",
-								description:
-									"Help with special events, classroom activities, or field trips. Your time and talents enrich our program!",
-								icon: "👥",
-							},
-							{
-								title: "Parent Committee",
-								description:
-									"Join our parent committee to help plan events, fundraisers, and provide input on program decisions.",
-								icon: "🤝",
-							},
 							{
 								title: "Classroom Helper",
 								description:
@@ -380,18 +371,6 @@ export default function ParentsPage({
 								description:
 									"Share your profession, hobby, or cultural traditions with our students through special presentations.",
 								icon: "🎭",
-							},
-							{
-								title: "Fundraising",
-								description:
-									"Help with fundraising initiatives to support program enhancements and special activities.",
-								icon: "💰",
-							},
-							{
-								title: "Maintenance & Setup",
-								description:
-									"Assist with classroom setup, toy cleaning, or minor repairs to help maintain our facility.",
-								icon: "🔧",
 							},
 						].map((opportunity, index) => (
 							<motion.div
@@ -409,14 +388,6 @@ export default function ParentsPage({
 								<p className="text-gray-600">{opportunity.description}</p>
 							</motion.div>
 						))}
-					</div>
-
-					<div className="mt-12 text-center">
-						<Link href="/contact">
-							<Button className="bg-pink-500 hover:bg-pink-700">
-								Contact Us to Volunteer
-							</Button>
-						</Link>
 					</div>
 				</div>
 			</section>
@@ -467,24 +438,24 @@ export default function ParentsPage({
 										options
 									),
 								})) // Ensure both question and answer exist
-							.map((faq, index) => (
-								<motion.div
-									key={index}
-									initial={{ opacity: 0, y: 20 }}
-									whileInView={{ opacity: 1, y: 0 }}
-									viewport={{ once: true }}
-									transition={{ delay: index * 0.1 }}
-								>
-									<Card className="hover:scale-105 transition-transform transform duration-300">
-										<CardContent className="pt-6">
-											<h3 className="text-lg font-bold text-gray-900 mb-2">
-												{faq.question}
-											</h3>
-											<p className="text-gray-600">{faq.answer}</p>
-										</CardContent>
-									</Card>
-								</motion.div>
-							))}
+								.map((faq, index) => (
+									<motion.div
+										key={index}
+										initial={{ opacity: 0, y: 20 }}
+										whileInView={{ opacity: 1, y: 0 }}
+										viewport={{ once: true }}
+										transition={{ delay: index * 0.1 }}
+									>
+										<Card className="hover:scale-105 transition-transform transform duration-300">
+											<CardContent className="pt-6">
+												<h3 className="text-lg font-bold text-gray-900 mb-2">
+													{faq.question}
+												</h3>
+												<p className="text-gray-600">{faq.answer}</p>
+											</CardContent>
+										</Card>
+									</motion.div>
+								))}
 						</div>
 					</div>
 				</div>

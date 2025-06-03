@@ -121,6 +121,9 @@ export default function ProgramPageClient({
 							Tot Spot offers developmentally appropriate programs for children
 							ages 3-4 years old.
 						</p>
+						<p className="mt-4 text-gray-600 max-w-2xl mx-auto italic">
+							* Prices have already been reduced to reflect the Affordability Grant *
+						</p>
 					</motion.div>
 
 					<Tabs defaultValue="three-year" className="max-w-4xl mx-auto">
@@ -283,6 +286,25 @@ export default function ProgramPageClient({
 													</svg>
 												</div>
 												<span className="text-gray-600">
+													Focus on social skills, sharing, and making friends
+												</span>
+											</li>
+											<li className="flex items-start gap-2">
+												<div className="h-5 w-5 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 flex-shrink-0 mt-0.5">
+													<svg
+														xmlns="http://www.w3.org/2000/svg"
+														viewBox="0 0 24 24"
+														fill="none"
+														stroke="currentColor"
+														strokeWidth="2"
+														strokeLinecap="round"
+														strokeLinejoin="round"
+														className="h-3 w-3"
+													>
+														<polyline points="20 6 9 17 4 12"></polyline>
+													</svg>
+												</div>
+												<span className="text-gray-600">
 													Introduction to classroom routines and group
 													activities
 												</span>
@@ -303,7 +325,7 @@ export default function ProgramPageClient({
 													</svg>
 												</div>
 												<span className="text-gray-600">
-													Focus on social skills, sharing, and making friends
+													Development of fine and gross motor skills
 												</span>
 											</li>
 											<li className="flex items-start gap-2">
@@ -322,27 +344,7 @@ export default function ProgramPageClient({
 													</svg>
 												</div>
 												<span className="text-gray-600">
-													Development of fine and gross motor skills through
-													play
-												</span>
-											</li>
-											<li className="flex items-start gap-2">
-												<div className="h-5 w-5 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 flex-shrink-0 mt-0.5">
-													<svg
-														xmlns="http://www.w3.org/2000/svg"
-														viewBox="0 0 24 24"
-														fill="none"
-														stroke="currentColor"
-														strokeWidth="2"
-														strokeLinecap="round"
-														strokeLinejoin="round"
-														className="h-3 w-3"
-													>
-														<polyline points="20 6 9 17 4 12"></polyline>
-													</svg>
-												</div>
-												<span className="text-gray-600">
-													Introduction to letters, numbers, shapes, and colors
+													Introduction to shapes, colours, and numbers
 												</span>
 											</li>
 											<li className="flex items-start gap-2">
@@ -548,7 +550,7 @@ export default function ProgramPageClient({
 													</svg>
 												</div>
 												<span className="text-gray-600">
-													Enhanced focus on early literacy and phonics awareness
+													Development of self-help skills and independence
 												</span>
 											</li>
 											<li className="flex items-start gap-2">
@@ -567,8 +569,7 @@ export default function ProgramPageClient({
 													</svg>
 												</div>
 												<span className="text-gray-600">
-													Introduction to basic math concepts and
-													problem-solving
+													Enhanced focus on early literacy
 												</span>
 											</li>
 											<li className="flex items-start gap-2">
@@ -606,7 +607,7 @@ export default function ProgramPageClient({
 													</svg>
 												</div>
 												<span className="text-gray-600">
-													Development of self-help skills and independence
+													Introduction to basic math concepts
 												</span>
 											</li>
 										</ul>
@@ -742,7 +743,7 @@ export default function ProgramPageClient({
 										Register Now
 									</Button>
 								</Link>
-								
+
 								<Link href="/contact">
 									<Button
 										size="lg"

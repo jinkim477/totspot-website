@@ -385,7 +385,7 @@ export default function Home({
 													<ul className="space-y-1 text-sm text-gray-600">
 														<li>
 															<strong>Days:</strong>{" "}
-															{program.fields.days.join(", ")}
+															{program.fields.days.join("/")}
 														</li>
 														<li>
 															<strong>Time:</strong> {program.fields.time}
@@ -757,15 +757,15 @@ export default function Home({
 								<CardContent>
 									<div className="space-y-2">
 										<div className="flex justify-between">
-											<span className="font-medium">Monday - Friday</span>
-											<span>8:30 AM - 4:00 PM</span>
+											<span className="font-medium">Mon/Wed/Fri</span>
+											<span>8:30 AM - 12:00 PM</span>
 										</div>
 										<div className="flex justify-between">
-											<span className="font-medium">Saturday</span>
-											<span>Closed</span>
+											<span className="font-medium">Tues/Thurs</span>
+											<span>8:30 AM - 3:45 PM</span>
 										</div>
 										<div className="flex justify-between">
-											<span className="font-medium">Sunday</span>
+											<span className="font-medium">Saturday/Sunday</span>
 											<span>Closed</span>
 										</div>
 									</div>

@@ -1,4 +1,7 @@
 // app/programs/page.tsx
+
+export const revalidate = 60; // Revalidate once every 60 seconds
+
 import { getDownloadableDocs, getPrograms, getProgramsPagePhotos } from "@/lib/contentful"
 import ProgramPageClient from "./ProgramPageClient"
 

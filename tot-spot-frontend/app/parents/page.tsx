@@ -1,3 +1,4 @@
+export const revalidate = 60; // Revalidate once every 60 seconds
 
 import { getDates, getParentsPagePhotos, getTestimonials, getDownloadableDocs, getPolicies, getFAQ } from "@/lib/contentful"
 import ParentsPageClient from "./ParentsPageClient"

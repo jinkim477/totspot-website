@@ -1,3 +1,5 @@
+export const revalidate = 60; // Revalidate once every 60 seconds
+
 import { getPrograms, getDates, getMonthlyUpdates, getContactInfo, getHomePagePhotos, getHomePageDetails } from "@/lib/contentful"
 import HomePageClient from "./HomePageClient"
 

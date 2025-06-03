@@ -1,4 +1,6 @@
 // app/about/page.tsx
+export const revalidate = 60; // Revalidate once every 60 seconds
+
 import { getStaff, getFacility, getAboutPagePhotos, getAboutPageDetails } from "@/lib/contentful"
 import AboutPageClient from "./AboutPageClient"
 
