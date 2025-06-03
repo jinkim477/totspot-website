@@ -22,6 +22,8 @@ import {
 } from "@/components/ui/dialog";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
+import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
+
 
 export default function UpdatesPage({
 	dates,
@@ -155,9 +157,8 @@ export default function UpdatesPage({
 										</CardHeader>
 										<CardContent>
 											<div className="text-gray-600 line-clamp-6 mb-4">
-												{documentToReactComponents(
+												{documentToPlainTextString(
 													latestUpdate.fields.description,
-													options
 												)}
 											</div>
 											<Dialog>

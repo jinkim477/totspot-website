@@ -32,6 +32,7 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 
@@ -472,9 +473,8 @@ export default function Home({
 											</CardHeader>
 											<CardContent className="flex-grow">
 												<div className="text-gray-600 line-clamp-5">
-													{documentToReactComponents(
+													{documentToPlainTextString(
 														entry.fields.description,
-														options
 													)}
 												</div>
 											</CardContent>
