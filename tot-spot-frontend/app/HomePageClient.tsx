@@ -556,7 +556,7 @@ export default function Home({
 					</div>
 					<div className="mt-12 text-center">
 						<Button asChild size="lg" className="bg-pink-600 hover:bg-pink-700">
-							<Link href="/updates">View All Updates</Link>
+							<Link href="/newsletters">View All Newsletters</Link>
 						</Button>
 					</div>
 				</div>

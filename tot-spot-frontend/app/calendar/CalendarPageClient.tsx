@@ -111,57 +111,60 @@ export default function CalendarPageClient({
 				<div className="container mx-auto w-full">
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 						{/* Calendar Dates */}
-						<Card>
-							<CardHeader>
-								<CardTitle className="text-2xl">Calendar Dates</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<div className="relative">
-									<div className="max-h-[500px] overflow-y-auto pr-2">
-										<ul>
-											{(calDates ?? [])
-												.sort(
-													(a, b) =>
-														new Date(a.fields.event).getTime() -
-														new Date(b.fields.event).getTime()
-												)
-												.map((entry) => {
-													const startDate = entry.fields.event;
-													const endDate = entry.fields.endDate;
-													const dateText = endDate
-														? `${formatUTCDate(startDate)} – ${formatUTCDate(endDate)}`
-														: formatUTCDate(startDate);
+						<div className="flex flex-col">
+							<Card>
+								<CardHeader>
+									<CardTitle className="text-2xl">Calendar Dates</CardTitle>
+								</CardHeader>
+								<CardContent>
+									<div className="relative">
+										<div className="max-h-[500px] overflow-y-auto pr-2">
+											<ul>
+												{(calDates ?? [])
+													.sort(
+														(a, b) =>
+															new Date(a.fields.event).getTime() -
+															new Date(b.fields.event).getTime()
+													)
+													.map((entry) => {
+														const startDate = entry.fields.event;
+														const endDate = entry.fields.endDate;
+														const dateText = endDate
+															? `${formatUTCDate(startDate)} – ${formatUTCDate(endDate)}`
+															: formatUTCDate(startDate);
 
-													return (
-														<li
-															key={entry.sys.id}
-															className="grid grid-cols-1 md:grid-cols-12 gap-2 py-4 border-b last:border-0 items-center"
-														>
-															<span className="md:col-span-3 font-medium text-pink-700">
-																{dateText}
-															</span>
-															<span className="md:col-span-3 font-semibold text-gray-900">
-																{entry.fields.title}
-															</span>
-															<span className="md:col-span-6 text-sm text-gray-600">
-																{entry.fields.description}
-															</span>
-														</li>
-													);
-												})}
-										</ul>
-										{/* Fade effect */}
-										<div className="pointer-events-none absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent" />
+														return (
+															<li
+																key={entry.sys.id}
+																className="grid grid-cols-1 md:grid-cols-12 gap-2 py-4 border-b last:border-0 items-center"
+															>
+																<span className="md:col-span-3 font-medium text-pink-700">
+																	{dateText}
+																</span>
+																<span className="md:col-span-3 font-semibold text-gray-900">
+																	{entry.fields.title}
+																</span>
+																<span className="md:col-span-6 text-sm text-gray-600">
+																	{entry.fields.description}
+																</span>
+															</li>
+														);
+													})}
+											</ul>
+											{/* Fade effect */}
+											<div className="pointer-events-none absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-white to-transparent" />
+										</div>
 									</div>
-									{/* Scroll indicator - now outside the scrollable area */}
-									<div className="absolute bottom-4 left-0 w-full flex justify-center pointer-events-none">
-										<span className="text-base font-semibold text-white bg-pink-600 px-4 rounded-lg animate-bounce">
-											Scroll for more ↓
-										</span>
-									</div>
-								</div>
-							</CardContent>
-						</Card>
+								</CardContent>
+							</Card>
+							{/* Scroll indicator BELOW the card */}
+							<div className="pt-6 flex justify-center">
+								<span className="text-base font-semibold text-white bg-pink-600 px-4 py-2 rounded-lg animate-bounce shadow-lg">
+									Scroll for more ↓
+								</span>
+							</div>
+						</div>
+
 						{/* School Events (inline, not a separate component) */}
 						<Card>
 							<CardHeader>
