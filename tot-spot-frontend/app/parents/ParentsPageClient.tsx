@@ -109,9 +109,8 @@ export default function ParentsPage({
 					</motion.div>
 
 					<Tabs defaultValue="forms" className="max-w-4xl mx-auto">
-						<TabsList className="grid w-full grid-cols-3">
+						<TabsList className="grid w-full grid-cols-2">
 							<TabsTrigger value="forms">Documents</TabsTrigger>
-							<TabsTrigger value="events">Events</TabsTrigger>
 							<TabsTrigger value="policies">Policies</TabsTrigger>
 						</TabsList>
 
@@ -171,119 +170,6 @@ export default function ParentsPage({
 							</Card>
 						</TabsContent>
 
-						<TabsContent value="events" className="mt-6">
-							<Card>
-								<CardHeader>
-									<CardTitle>This Month’s Events</CardTitle>
-									<CardDescription>
-										Stay up-to-date with Tot Spot events and important dates.
-									</CardDescription>
-								</CardHeader>
-								<CardContent>
-									{(() => {
-										const container = {
-											hidden: { opacity: 0 },
-											show: {
-												opacity: 1,
-												transition: {
-													staggerChildren: 0.1,
-												},
-											},
-										};
-
-										const item = {
-											hidden: { opacity: 0, y: 20 },
-											show: { opacity: 1, y: 0 },
-										};
-
-										const getMonthKey = (dateStr: string) => {
-											const date = new Date(dateStr);
-											return date.toLocaleString("en-US", {
-												month: "long",
-												year: "numeric",
-											});
-										};
-
-										// Sort and extract the latest month key
-										const sortedDates = [...events]
-											.filter((d) => d.fields?.event)
-											.sort(
-												(a, b) =>
-													new Date(b.fields.event).getTime() -
-													new Date(a.fields.event).getTime()
-											);
-
-										const latestMonthKey = getMonthKey(
-											sortedDates[0]?.fields?.event || ""
-										);
-
-										// Filter only events from that month
-										const eventsThisMonth = sortedDates.filter(
-											(entry) =>
-												getMonthKey(entry.fields.event) === latestMonthKey
-										);
-
-										if (eventsThisMonth.length === 0) {
-											return (
-												<p className="text-center text-gray-600">
-													No events this month.
-												</p>
-											);
-										}
-
-										return (
-											<motion.ul
-												variants={container}
-												initial="hidden"
-												whileInView="show"
-												viewport={{ once: true }}
-												className="space-y-3"
-											>
-												{eventsThisMonth.map((event, index) => {
-													const start = new Date(
-														event.fields.event
-													).toLocaleDateString("en-US", {
-														month: "short",
-														day: "numeric",
-													});
-
-													const end = event.fields.endDate
-														? new Date(event.fields.endDate).toLocaleDateString(
-																"en-US",
-																{
-																	month: "short",
-																	day: "numeric",
-																}
-															)
-														: null;
-
-													return (
-														<motion.li
-															key={event.sys.id}
-															variants={item}
-															className="flex gap-4 pb-3 border-b last:border-0"
-														>
-															<div className="w-20 flex-shrink-0 font-medium text-pink-600">
-																{end ? `${start} - ${end}` : start}
-															</div>
-															<div>
-																<div className="font-medium text-gray-900">
-																	{event.fields.title}
-																</div>
-																<div className="text-sm text-gray-600">
-																	{event.fields.description}
-																</div>
-															</div>
-														</motion.li>
-													);
-												})}
-											</motion.ul>
-										);
-									})()}
-								</CardContent>
-							</Card>
-						</TabsContent>
-
 						<TabsContent value="policies" className="mt-6">
 							<Card>
 								<CardHeader>
@@ -330,6 +216,19 @@ export default function ParentsPage({
 							</Card>
 						</TabsContent>
 					</Tabs>
+					{/* View Calendar Section */}
+					<div className="mt-10 flex justify-center">
+						<Button
+							asChild
+							size="lg"
+							className="bg-pink-600 text-white hover:bg-pink-700 transition"
+						>
+							<Link href="/calendar">
+								<Calendar className="mr-2 h-5 w-5" />
+								View Full Calendar
+							</Link>
+						</Button>
+					</div>
 				</div>
 			</section>
 
