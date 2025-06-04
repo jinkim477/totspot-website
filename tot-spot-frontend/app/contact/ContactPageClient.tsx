@@ -116,7 +116,7 @@ export default function ContactPage({
 							transition={{ duration: 0.5, delay: 0 }}
 							className="lg:col-span-2"
 						>
-							<Card id="contact-form" >
+							<Card id="contact-form">
 								<CardHeader>
 									<CardTitle>Send Us a Message</CardTitle>
 								</CardHeader>
@@ -290,7 +290,9 @@ export default function ContactPage({
 										<div className="space-y-1">
 											<div className="flex justify-between">
 												<span className="text-gray-600">Mon / Wed / Fri</span>
-												<span className="text-gray-600">8:30 AM - 12:00 PM</span>
+												<span className="text-gray-600">
+													8:30 AM - 12:00 PM
+												</span>
 											</div>
 											<div className="flex justify-between">
 												<span className="text-gray-600">Tues / Thurs</span>
@@ -300,61 +302,6 @@ export default function ContactPage({
 												<span className="text-gray-600">Saturday / Sunday</span>
 												<span className="text-gray-600">Closed</span>
 											</div>
-										</div>
-									</div>
-
-									<div className="pt-4">
-										<h3 className="font-medium text-gray-900 mb-2">
-											Connect With Us
-										</h3>
-										<div className="flex gap-4">
-											<a
-												href="#"
-												className="h-10 w-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 hover:bg-pink-200 transition-colors"
-											>
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													width="20"
-													height="20"
-													viewBox="0 0 24 24"
-													fill="none"
-													stroke="currentColor"
-													strokeWidth="2"
-													strokeLinecap="round"
-													strokeLinejoin="round"
-												>
-													<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-												</svg>
-												<span className="sr-only">Facebook</span>
-											</a>
-											<a
-												href="#"
-												className="h-10 w-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 hover:bg-pink-200 transition-colors"
-											>
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													width="20"
-													height="20"
-													viewBox="0 0 24 24"
-													fill="none"
-													stroke="currentColor"
-													strokeWidth="2"
-													strokeLinecap="round"
-													strokeLinejoin="round"
-												>
-													<rect
-														x="2"
-														y="2"
-														width="20"
-														height="20"
-														rx="5"
-														ry="5"
-													></rect>
-													<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-													<line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-												</svg>
-												<span className="sr-only">Instagram</span>
-											</a>
 										</div>
 									</div>
 								</CardContent>
