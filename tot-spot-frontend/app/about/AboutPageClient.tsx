@@ -10,17 +10,20 @@ import { CardHeader } from "@/components/ui/card";
 import { CardTitle } from "@/components/ui/card";
 import { BLOCKS } from "@contentful/rich-text-types";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import TestimonialCarousel from "@/components/testimonialCarousel";
 
 export default function AboutPageClient({
 	staff,
 	facilities,
 	aboutPagePhotos,
 	aboutPageDetails,
+	testimonials,
 }: {
 	staff: any[];
 	facilities: any[];
 	aboutPagePhotos: any[];
 	aboutPageDetails: any;
+	testimonials: any[];
 }) {
 	const container = {
 		hidden: { opacity: 0 },
@@ -67,10 +70,14 @@ export default function AboutPageClient({
 		},
 	};
 
+	const sortedStaff = [...staff].sort(
+		(a, b) => (a.fields.orderNumber ?? 0) - (b.fields.orderNumber ?? 0)
+	);
+
 	return (
 		<div className="min-h-screen">
 			{/* Hero Section */}
-			<section className="relative h-[400px] overflow-hidden">
+			<section className="relative h-[300px] overflow-hidden">
 				<div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30 z-10" />
 				<Image
 					src={landingPhotoUrl}
@@ -219,8 +226,8 @@ export default function AboutPageClient({
 						</p>
 					</motion.div>
 
-					<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-						{staff.map((staff: any, index: number) => {
+					<div className="grid md:grid-cols-3 lg:grid-cols-5 gap-8">
+						{sortedStaff.map((staff: any, index: number) => {
 							const { name, role, photo } = staff.fields;
 							const imageUrl = `https:${photo.fields.file.url}`;
 
@@ -232,7 +239,7 @@ export default function AboutPageClient({
 									viewport={{ once: true }}
 									transition={{ delay: index * 0.1 }}
 								>
-									<Card className="overflow-hidden h-full transform transition-transform duration-300 hover:scale-105">
+									<Card className="overflow-hidden h-auto w-56 mx-auto transform transition-transform duration-300 hover:scale-105">
 										<div className="aspect-square relative">
 											<Image
 												src={imageUrl}
@@ -252,6 +259,25 @@ export default function AboutPageClient({
 							);
 						})}
 					</div>
+				</div>
+			</section>
+
+			{/* Parent Testimonials */}
+			<section className="py-16">
+				<div className="container">
+					<motion.div
+						initial={{ opacity: 0 }}
+						whileInView={{ opacity: 1 }}
+						viewport={{ once: true }}
+						transition={{ duration: 0.5 }}
+						className="text-center mb-12"
+					>
+						<h2 className="text-3xl font-bold text-gray-900">
+							What Parents Say
+						</h2>
+						<div className="mt-2 h-1 w-20 bg-pink-500 mx-auto rounded-full"></div>
+					</motion.div>
+					<TestimonialCarousel testimonials={testimonials} />
 				</div>
 			</section>
 

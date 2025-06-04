@@ -38,14 +38,14 @@ import { Input } from "@/components/ui/input";
 
 export default function Home({
 	programs,
-	dates,
+	events,
 	monthlyUpdates,
 	contactInfo,
 	homePagePhotos,
 	homePageDetails,
 }: {
 	programs: any[];
-	dates: any[];
+	events: any[];
 	monthlyUpdates: any[];
 	contactInfo: any;
 	homePagePhotos: any[];
@@ -215,7 +215,10 @@ export default function Home({
 							<span className="text-yellow-400">{firstWord}</span> {restOfTitle}
 						</h1>
 						<div className="mt-6 text-lg text-white/90 max-w-xl">
-							{documentToReactComponents(homePageDetails[0].fields.landingMessage, options)}
+							{documentToReactComponents(
+								homePageDetails[0].fields.landingMessage,
+								options
+							)}
 						</div>
 						<div className="mt-10 flex flex-wrap gap-4">
 							<Link href="/programs">
@@ -314,10 +317,16 @@ export default function Home({
 							className="space-y-6"
 						>
 							<h3 className="text-2xl font-bold text-gray-900">
-								{documentToReactComponents(homePageDetails[0].fields.welcomeTitle, options)}
+								{documentToReactComponents(
+									homePageDetails[0].fields.welcomeTitle,
+									options
+								)}
 							</h3>
 							<div className="text-gray-600">
-								{documentToReactComponents(homePageDetails[0].fields.welcomeMessage, options)}
+								{documentToReactComponents(
+									homePageDetails[0].fields.welcomeMessage,
+									options
+								)}
 							</div>
 							<div className="pt-4">
 								<Link
@@ -419,7 +428,7 @@ export default function Home({
 				</div>
 			</section>
 
-			<DatesSection dates={dates} />
+			<DatesSection id="#events" events={events} />
 
 			{/* Monthly Updates Section */}
 			<section id="updates" className="py-16">
@@ -432,7 +441,7 @@ export default function Home({
 						className="text-center mb-12"
 					>
 						<h2 className="text-3xl font-bold text-gray-900">
-							Monthly Updates
+							Monthly Newsletters
 						</h2>
 						<div className="mt-2 h-1 w-20 bg-pink-600 mx-auto rounded-full"></div>
 					</motion.div>
@@ -469,13 +478,37 @@ export default function Home({
 													<Calendar className="h-4 w-4" />
 													<span>{date}</span>
 												</div>
-												<CardTitle>{date} – Monthly Update</CardTitle>
+												<CardTitle>{date} at Tot Spot</CardTitle>
+												<div className="pt-4 flex flex-wrap gap-3">
+													<div className="flex items-center gap-2 bg-pink-50 border border-pink-200 rounded-full hover:scale-105 transition duration-200 px-4 py-1">
+														<span className="text-pink-700 font-bold">
+															3-Year Theme:
+														</span>
+														<span className="text-gray-900 font-medium">
+															{entry.fields.threeYearTheme || (
+																<span className="italic text-gray-400">
+																	N/A
+																</span>
+															)}
+														</span>
+													</div>
+													<div className="flex items-center gap-2 bg-purple-50 border border-purple-200 rounded-full hover:scale-105 transition duration-200 px-4 py-1">
+														<span className="text-purple-700 font-bold">
+															4-Year Theme:
+														</span>
+														<span className="text-gray-900 font-medium">
+															{entry.fields.fourYearTheme || (
+																<span className="italic text-gray-400">
+																	N/A
+																</span>
+															)}
+														</span>
+													</div>
+												</div>
 											</CardHeader>
 											<CardContent className="flex-grow">
 												<div className="text-gray-600 line-clamp-5">
-													{documentToPlainTextString(
-														entry.fields.description,
-													)}
+													{documentToPlainTextString(entry.fields.description)}
 												</div>
 											</CardContent>
 											<div className="p-6 pt-0">
@@ -757,15 +790,15 @@ export default function Home({
 								<CardContent>
 									<div className="space-y-2">
 										<div className="flex justify-between">
-											<span className="font-medium">Mon/Wed/Fri</span>
+											<span className="font-medium">Mon / Wed / Fri</span>
 											<span>8:30 AM - 12:00 PM</span>
 										</div>
 										<div className="flex justify-between">
-											<span className="font-medium">Tues/Thurs</span>
+											<span className="font-medium">Tues / Thurs</span>
 											<span>8:30 AM - 3:45 PM</span>
 										</div>
 										<div className="flex justify-between">
-											<span className="font-medium">Saturday/Sunday</span>
+											<span className="font-medium">Saturday / Sunday</span>
 											<span>Closed</span>
 										</div>
 									</div>

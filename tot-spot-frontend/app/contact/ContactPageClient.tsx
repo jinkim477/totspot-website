@@ -79,7 +79,7 @@ export default function ContactPage({
 	return (
 		<div className="min-h-screen">
 			{/* Hero Section */}
-			<section className="relative h-[400px] overflow-hidden">
+			<section className="relative h-[300px] overflow-hidden">
 				<div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30 z-10" />
 				<Image
 					src={landingPhotoUrl}
@@ -289,15 +289,15 @@ export default function ContactPage({
 										</h3>
 										<div className="space-y-1">
 											<div className="flex justify-between">
-												<span className="text-gray-600">Mon/Wed/Fri</span>
+												<span className="text-gray-600">Mon / Wed / Fri</span>
 												<span className="text-gray-600">8:30 AM - 12:00 PM</span>
 											</div>
 											<div className="flex justify-between">
-												<span className="text-gray-600">Tues/Thurs</span>
+												<span className="text-gray-600">Tues / Thurs</span>
 												<span className="text-gray-600">8:30 AM - 3:45 PM</span>
 											</div>
 											<div className="flex justify-between">
-												<span className="text-gray-600">Saturday - Sunday</span>
+												<span className="text-gray-600">Saturday / Sunday</span>
 												<span className="text-gray-600">Closed</span>
 											</div>
 										</div>

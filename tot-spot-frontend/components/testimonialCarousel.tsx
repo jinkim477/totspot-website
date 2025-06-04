@@ -33,7 +33,7 @@ export default function TestimonialCarousel({ testimonials }: { testimonials: an
 
         const interval  = setInterval(() => {
             slider.current?.next();
-        }, 16000); // change every 16 seconds
+        }, 30000); // change every 30 seconds
 
         return () => clearInterval(interval);
     }, [slider]);

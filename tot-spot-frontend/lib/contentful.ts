@@ -28,7 +28,12 @@ export async function getPrograms() {
     return entries.items
 }
 
-export async function getDates() {
+export async function getEvents() {
+    const entries = await client.getEntries({ content_type: 'events' })
+    return entries.items
+}
+
+export async function getCalendarDates() {
     const entries = await client.getEntries({ content_type: 'dates' })
     return entries.items
 }
@@ -68,8 +73,13 @@ export async function getParentsPagePhotos() {
   return entries.items
 }
 
-export async function getUpdatePagePhotos() {
-  const entries = await client.getEntries({ content_type: 'updatePagePhotos' })
+export async function getNewsletterPagePhotos() {
+  const entries = await client.getEntries({ content_type: 'newsletterPagePhotos' })
+  return entries.items
+}
+
+export async function getCalendarPagePhotos() {
+  const entries = await client.getEntries({ content_type: 'calendarPagePhotos' })
   return entries.items
 }
 

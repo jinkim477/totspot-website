@@ -26,7 +26,8 @@ export function Header() {
 		{ name: "Programs & Registration", href: "/programs" },
 		{ name: "Contact", href: "/contact" },
 		{ name: "Parents", href: "/parents" },
-		{ name: "Newsletters", href: "/updates" },
+		{ name: "Newsletters", href: "/newsletters" },
+		{ name: "Calendar", href: "/calendar" },
 	];
 
 	return (

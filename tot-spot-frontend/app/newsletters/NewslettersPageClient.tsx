@@ -24,15 +24,14 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { BLOCKS } from "@contentful/rich-text-types";
 import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
 
-
-export default function UpdatesPage({
-	dates,
+export default function NewslettersPage({
+	events,
 	monthlyUpdates,
-	updatePagePhotos,
+	newsletterPagePhotos,
 }: {
-	dates: any;
+	events: any;
 	monthlyUpdates: any;
-	updatePagePhotos: any;
+	newsletterPagePhotos: any;
 }) {
 	const sortedUpdates = [...monthlyUpdates].sort(
 		(a, b) =>
@@ -56,7 +55,7 @@ export default function UpdatesPage({
 	const formattedDate = getUTCMonthYear(latestUpdate.fields.month);
 
 	const landingPhotoUrl =
-		updatePagePhotos[0].fields.landingPhoto.fields.file.url;
+		newsletterPagePhotos[0].fields.landingPhoto.fields.file.url;
 
 	const options = {
 		renderNode: {
@@ -86,7 +85,7 @@ export default function UpdatesPage({
 	return (
 		<div className="min-h-screen">
 			{/* Hero Section */}
-			<section className="relative h-[400px] overflow-hidden">
+			<section className="relative h-[300px] overflow-hidden">
 				<div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30 z-10" />
 				<Image
 					src={landingPhotoUrl}
@@ -154,11 +153,33 @@ export default function UpdatesPage({
 												<span>{formattedDate}</span>
 											</div>
 											<CardTitle>{formattedDate} at Tot Spot</CardTitle>
+											<div className="pt-4 flex flex-wrap gap-3">
+												<div className="flex items-center gap-2 bg-pink-50 border border-pink-200 rounded-full hover:scale-105 transition duration-200 px-4 py-1">
+													<span className="text-pink-700 font-bold">
+														3-Year Theme:
+													</span>
+													<span className="text-gray-900 font-medium">
+														{latestUpdate.fields.threeYearTheme || (
+															<span className="italic text-gray-400">N/A</span>
+														)}
+													</span>
+												</div>
+												<div className="flex items-center gap-2 bg-purple-50 border border-purple-200 rounded-full hover:scale-105 transition duration-200 px-4 py-1">
+													<span className="text-purple-700 font-bold">
+														4-Year Theme:
+													</span>
+													<span className="text-gray-900 font-medium">
+														{latestUpdate.fields.fourYearTheme || (
+															<span className="italic text-gray-400">N/A</span>
+														)}
+													</span>
+												</div>
+											</div>
 										</CardHeader>
 										<CardContent>
 											<div className="text-gray-600 line-clamp-6 mb-4">
 												{documentToPlainTextString(
-													latestUpdate.fields.description,
+													latestUpdate.fields.description
 												)}
 											</div>
 											<Dialog>
@@ -229,12 +250,32 @@ export default function UpdatesPage({
 												<span>{date}</span>
 											</div>
 											<CardTitle>{date} at Tot Spot</CardTitle>
+											<div className="pt-4 flex flex-wrap gap-3">
+												<div className="flex items-center gap-2 bg-pink-50 border border-pink-200 rounded-full hover:scale-105 transition duration-200 px-4 py-1">
+													<span className="text-pink-700 font-bold">
+														3-Year Theme:
+													</span>
+													<span className="text-gray-900 font-medium">
+														{entry.fields.threeYearTheme || (
+															<span className="italic text-gray-400">N/A</span>
+														)}
+													</span>
+												</div>
+												<div className="flex items-center gap-2 bg-purple-50 border border-purple-200 rounded-full hover:scale-105 transition duration-200 px-4 py-1">
+													<span className="text-purple-700 font-bold">
+														4-Year Theme:
+													</span>
+													<span className="text-gray-900 font-medium">
+														{entry.fields.fourYearTheme || (
+															<span className="italic text-gray-400">N/A</span>
+														)}
+													</span>
+												</div>
+											</div>
 										</CardHeader>
 										<CardContent className="flex-grow">
 											<div className="text-gray-600 line-clamp-5">
-												{documentToPlainTextString(
-													entry.fields.description
-												)}
+												{documentToPlainTextString(entry.fields.description)}
 											</div>
 										</CardContent>
 										<div className="p-6 pt-0">
@@ -281,7 +322,7 @@ export default function UpdatesPage({
 				</div>
 			</section>
 
-			<DatesSection id="dates" dates={dates} />
+			<DatesSection id="events" events={events} />
 
 			{/* CTA Section */}
 			<section className="py-16 bg-pink-600 text-white">

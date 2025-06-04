@@ -1,10 +1,24 @@
 "use client";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import {
+	Card,
+	CardHeader,
+	CardTitle,
+	CardDescription,
+	CardContent,
+} from "@/components/ui/card";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { Button } from "./ui/button";
 
-export default function DatesSection({ id, dates }: { id: any, dates: any[] }) {
+export default function DatesSection({
+	id,
+	events,
+}: {
+	id: any;
+	events: any[];
+}) {
 	const getMonthKey = (dateStr: string) => {
 		const date = new Date(dateStr);
 		return date.toLocaleString("en-US", {
@@ -13,18 +27,21 @@ export default function DatesSection({ id, dates }: { id: any, dates: any[] }) {
 		});
 	};
 
-	const grouped = dates.reduce((acc, entry) => {
-		const rawDate = entry.fields.event;
-		if (!rawDate) return acc;
+	const grouped = events.reduce(
+		(acc, entry) => {
+			const rawDate = entry.fields.event;
+			if (!rawDate) return acc;
 
-		const date = new Date(rawDate);
-		if (isNaN(date.getTime())) return acc;
+			const date = new Date(rawDate);
+			if (isNaN(date.getTime())) return acc;
 
-		const key = getMonthKey(rawDate);
-		if (!acc[key]) acc[key] = [];
-		acc[key].push(entry);
-		return acc;
-	}, {} as Record<string, any[]>);
+			const key = getMonthKey(rawDate);
+			if (!acc[key]) acc[key] = [];
+			acc[key].push(entry);
+			return acc;
+		},
+		{} as Record<string, any[]>
+	);
 
 	const latestThreeMonths = Object.entries(grouped)
 		.sort(
@@ -55,6 +72,16 @@ export default function DatesSection({ id, dates }: { id: any, dates: any[] }) {
 		show: { opacity: 1, y: 0 },
 	};
 
+	function formatUTCDate(dateString: string) {
+		const [year, month, day] = dateString.split("-").map(Number);
+		const date = new Date(Date.UTC(year, month - 1, day));
+		return date.toLocaleDateString("en-US", {
+			month: "short",
+			day: "numeric",
+			timeZone: "UTC",
+		});
+	}
+
 	return (
 		<section id={id} className="py-16 bg-gray-50">
 			<div className="container">
@@ -65,9 +92,7 @@ export default function DatesSection({ id, dates }: { id: any, dates: any[] }) {
 					transition={{ duration: 0.5 }}
 					className="text-center mb-12"
 				>
-					<h2 className="text-3xl font-bold text-gray-900">
-						Important Dates
-					</h2>
+					<h2 className="text-3xl font-bold text-gray-900">School Events</h2>
 					<div className="mt-2 h-1 w-20 bg-pink-600 mx-auto rounded-full"></div>
 				</motion.div>
 
@@ -107,23 +132,13 @@ export default function DatesSection({ id, dates }: { id: any, dates: any[] }) {
 													new Date(b.fields.event).getTime()
 											)
 											.map((entry, index) => {
-												const start = new Date(entry.fields.event);
 												const end = entry.fields.endDate
-													? new Date(entry.fields.endDate)
+													? entry.fields.endDate
 													: null;
 
 												const dateText = end
-													? `${start.toLocaleDateString("en-US", {
-															month: "short",
-															day: "numeric",
-														})} – ${end.toLocaleDateString("en-US", {
-															month: "short",
-															day: "numeric",
-														})}`
-													: start.toLocaleDateString("en-US", {
-															month: "short",
-															day: "numeric",
-														});
+													? `${formatUTCDate(entry.fields.event)} – ${formatUTCDate(entry.fields.endDate)}`
+													: formatUTCDate(entry.fields.event);
 
 												return (
 													<motion.li
@@ -148,6 +163,13 @@ export default function DatesSection({ id, dates }: { id: any, dates: any[] }) {
 									</motion.ul>
 								</CardContent>
 							</Card>
+							<div className="flex justify-center mt-6">
+								<Link href="/calendar">
+									<Button className="ml-2 bg-pink-600 hover:bg-pink-700">
+										View Calendar
+									</Button>
+								</Link>
+							</div>
 						</TabsContent>
 					))}
 				</Tabs>

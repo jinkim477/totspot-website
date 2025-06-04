@@ -78,7 +78,7 @@ export default function ProgramPageClient({
 			/>
 
 			{/* Hero Section */}
-			<section className="relative h-[400px] overflow-hidden">
+			<section className="relative h-[300px] overflow-hidden">
 				<div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30 z-10" />
 				<Image
 					src={landingPhotoUrl}

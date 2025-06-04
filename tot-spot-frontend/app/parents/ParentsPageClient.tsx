@@ -23,15 +23,13 @@ import {
 } from "@/components/ui/dialog";
 
 export default function ParentsPage({
-	dates,
-	testimonials,
+	events,
 	parentsPagePhotos,
 	downloadableDocs,
 	policies,
 	faq,
 }: {
-	dates: any[];
-	testimonials: any[];
+	events: any[];
 	parentsPagePhotos: any[];
 	downloadableDocs: any[];
 	policies: any[];
@@ -68,7 +66,7 @@ export default function ParentsPage({
 	return (
 		<div className="min-h-screen">
 			{/* Hero Section */}
-			<section className="relative h-[400px] overflow-hidden">
+			<section className="relative h-[300px] overflow-hidden">
 				<div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30 z-10" />
 				<Image
 					src={landingPhotoUrl}
@@ -113,7 +111,7 @@ export default function ParentsPage({
 					<Tabs defaultValue="forms" className="max-w-4xl mx-auto">
 						<TabsList className="grid w-full grid-cols-3">
 							<TabsTrigger value="forms">Documents</TabsTrigger>
-							<TabsTrigger value="calendar">Calendar</TabsTrigger>
+							<TabsTrigger value="events">Events</TabsTrigger>
 							<TabsTrigger value="policies">Policies</TabsTrigger>
 						</TabsList>
 
@@ -173,7 +171,7 @@ export default function ParentsPage({
 							</Card>
 						</TabsContent>
 
-						<TabsContent value="calendar" className="mt-6">
+						<TabsContent value="events" className="mt-6">
 							<Card>
 								<CardHeader>
 									<CardTitle>This Month’s Events</CardTitle>
@@ -207,7 +205,7 @@ export default function ParentsPage({
 										};
 
 										// Sort and extract the latest month key
-										const sortedDates = [...dates]
+										const sortedDates = [...events]
 											.filter((d) => d.fields?.event)
 											.sort(
 												(a, b) =>
@@ -353,7 +351,7 @@ export default function ParentsPage({
 							Tot Spot is a pre-school that values and requires family
 							participation.
 						</p>
-						<p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+						<p className="mt-4 text-gray-600 max-w-2xl italic mx-auto">
 							Sign up to volunteer at pick-up or drop-off.
 						</p>
 					</motion.div>
@@ -392,27 +390,8 @@ export default function ParentsPage({
 				</div>
 			</section>
 
-			{/* Parent Testimonials */}
-			<section className="py-16">
-				<div className="container">
-					<motion.div
-						initial={{ opacity: 0 }}
-						whileInView={{ opacity: 1 }}
-						viewport={{ once: true }}
-						transition={{ duration: 0.5 }}
-						className="text-center mb-12"
-					>
-						<h2 className="text-3xl font-bold text-gray-900">
-							What Parents Say
-						</h2>
-						<div className="mt-2 h-1 w-20 bg-pink-500 mx-auto rounded-full"></div>
-					</motion.div>
-					<TestimonialCarousel testimonials={testimonials} />
-				</div>
-			</section>
-
 			{/* FAQ */}
-			<section className="py-16 bg-gray-50">
+			<section className="py-16">
 				<div className="container">
 					<motion.div
 						initial={{ opacity: 0 }}
