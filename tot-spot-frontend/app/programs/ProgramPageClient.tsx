@@ -207,12 +207,12 @@ export default function ProgramPageClient({
 													</div>
 													{/* Availability Indicator */}
 													<div className="mt-2">
-														<div className="flex justify-between items-center mb-1">
+														<div className="flex justify-start items-center mt-2">
 															<h3 className="font-medium text-gray-900">
-																Availability
+																Availability:
 															</h3>
 															<span
-																className={`text-sm font-medium ${
+																className={`text-sm font-medium mx-2 ${
 																	remainingSpots <= 3
 																		? "text-amber-600"
 																		: "text-green-600"
@@ -225,15 +225,6 @@ export default function ProgramPageClient({
 																		: "Available"}
 															</span>
 														</div>
-														<Progress
-															value={availabilityPercentage}
-															className="h-2 bg-gray-100"
-															indicatorClassName={
-																remainingSpots === 0
-																	? "bg-red-500"
-																	: "bg-amber-500"
-															}
-														/>
 													</div>
 													<div className="pt-4 mt-auto">
 														{buttonText === "Contact for Waitlist" ? (
@@ -444,12 +435,12 @@ export default function ProgramPageClient({
 													</div>
 													{/* Availability Indicator */}
 													<div className="mt-2">
-														<div className="flex justify-between items-center mb-1">
+														<div className="flex justify-start items-center mt-2">
 															<h3 className="font-medium text-gray-900">
-																Availability
+																Availability:
 															</h3>
 															<span
-																className={`text-sm font-medium ${
+																className={`text-sm font-medium mx-2 ${
 																	remainingSpots <= 3
 																		? "text-amber-600"
 																		: "text-green-600"
@@ -467,15 +458,6 @@ export default function ProgramPageClient({
 																)}
 															</span>
 														</div>
-														<Progress
-															value={availabilityPercentage}
-															className="h-2 bg-gray-100"
-															indicatorClassName={
-																remainingSpots === 0
-																	? "bg-red-500"
-																	: "bg-amber-500"
-															}
-														/>
 													</div>
 													<div className="pt-4 mt-auto">
 														{buttonText === "Contact for Waitlist" ? (
