@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { getContactInfo } from "@/lib/contentful"
+import SupabasePinger from "@/components/supabase-pinger"
 
 export const metadata = {
   title: "Tot Spot Preschool | Lake Bonavista, Calgary",
@@ -46,6 +47,7 @@ export default async function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body>
+        <SupabasePinger />
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <div className="flex min-h-screen flex-col">
             <Header />

@@ -234,9 +234,6 @@ export default function ProgramPageClient({
 																	: "bg-amber-500"
 															}
 														/>
-														<p className="text-xs text-gray-500 mt-1">
-															{remainingSpots} of {capacity} spots remaining
-														</p>
 													</div>
 													<div className="pt-4 mt-auto">
 														{buttonText === "Contact for Waitlist" ? (
@@ -479,9 +476,6 @@ export default function ProgramPageClient({
 																	: "bg-amber-500"
 															}
 														/>
-														<p className="text-xs text-gray-500 mt-1">
-															{remainingSpots} of {capacity} spots remaining
-														</p>
 													</div>
 													<div className="pt-4 mt-auto">
 														{buttonText === "Contact for Waitlist" ? (

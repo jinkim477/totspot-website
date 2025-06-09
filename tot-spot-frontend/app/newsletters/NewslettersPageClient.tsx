@@ -102,7 +102,7 @@ export default function NewslettersPage({
 						className="max-w-2xl"
 					>
 						<h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-							News & Calendar
+							News
 						</h1>
 						<p className="mt-6 text-lg text-white/90 max-w-xl">
 							Stay up-to-date with the latest news and events from Tot Spot
