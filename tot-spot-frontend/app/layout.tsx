@@ -4,7 +4,6 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { getContactInfo } from "@/lib/contentful"
-import SupabasePinger from "@/components/supabase-pinger"
 
 export const metadata = {
   title: "Tot Spot Preschool | Lake Bonavista, Calgary",
@@ -12,11 +11,11 @@ export const metadata = {
   openGraph: {
     title: "Tot Spot Preschool",
     description: "Quality early education for your children in Lake Bonavista, south Calgary.",
-    url: "https://www.totspot-website.vercel.app",
+    url: "https://www.totspotpreschool.ca",
     type: "website",
     images: [
       {
-        url: "https://www.totspot-website.vercel.app/images/tot-spot-og.jpg", // Replace with actual hosted image
+        url: "https://www.totspotpreschool.ca/images/tot-spot-og.jpg", // Replace with actual hosted image
         width: 1200,
         height: 630,
         alt: "Tot Spot Preschool",
@@ -27,7 +26,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Tot Spot Preschool",
     description: "Quality early education for your children in Lake Bonavista, south Calgary.",
-    images: ["https://www.totspot-website.vercel.app/images/tot-spot-og.jpg"], // Same image
+    images: ["https://www.totspotpreschool.ca/images/tot-spot-og.jpg"], // Same image
   },
     author: 'Jin Kim'
   
