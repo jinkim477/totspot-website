@@ -105,6 +105,29 @@ export default function ProgramPageClient({
 				</div>
 			</section>
 
+				{/* Registration Notice */}
+				<section className="py-8 bg-pink-50">
+					<div className="container">
+						<Card className="border-pink-200 pt-5 bg-pink-50">
+							<CardContent>
+								<div className="text-sm text-gray-800 space-y-4">
+									<p>
+										<strong className="text-pink-600">Registration Opening (1) January 12th@ 9:00am</strong> - Early registration for the 2026-2027 school year opens for current & former Tot Spot families only. <b>Please note: Registrations received before 9:00 am on January 12th will not be processed until the afternoon.</b>
+									</p>
+
+									<p>
+										<strong className="text-pink-600">Registration Opening (2) January 19th@ 9:00am</strong> - Registration opens to the public for the 2026-2027 school year (Sept-June). <b>Please note:  Registrations received before 9:00 am on January 19th will not be processed until the afternoon.</b>
+									</p>
+
+									<p>
+										For information on availability for the current school year (2025-2026), please contact us at <a href="mailto:info@totspotpreschool.ca" className="text-pink-600 font-medium">info@totspotpreschool.ca</a>
+									</p>
+								</div>
+							</CardContent>
+						</Card>
+					</div>
+				</section>
+
 			{/* Programs Overview */}
 			<section id="programs" className="py-16 md:py-24">
 				<div className="container">

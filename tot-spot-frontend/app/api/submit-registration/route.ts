@@ -12,6 +12,13 @@ const supabase = createClient(
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
+// Company emails from environment (used for notification recipients and sender)
+const COMPANY_EMAIL = process.env.NEXT_PUBLIC_COMPANY_EMAIL || "";
+const SECONDARY_COMPANY_EMAIL = process.env.NEXT_PUBLIC_SECONDARY_COMPANY_EMAIL || "";
+
+// Notification recipients: include primary and secondary if present
+const NOTIFICATION_EMAILS = [COMPANY_EMAIL, SECONDARY_COMPANY_EMAIL].filter(Boolean);
+
 export async function POST(req: NextRequest) {
 	try {
 		const data = await req.json();
@@ -68,13 +75,9 @@ export async function POST(req: NextRequest) {
 			return NextResponse.json({ error: "Insert failed" }, { status: 500 });
 		}
 
-		// Send email using Resend
-		// 📧 Send notification email
-		const emailResult = await resend.emails.send({
-			from: "Tot Spot Registration <info@totspotpreschool.ca>",
-			to: "info@totspotpreschool.ca",
-			subject: "📬 New Registration Submitted",
-			html: `
+		// Send email using Resend to one or more notification recipients
+		// Set REGISTRATION_NOTIFICATION_EMAILS as a comma-separated list in your env (e.g. "info@...,admin@example.com").
+		const notificationHtml = `
 				<p>A new child has been registered!</p>
 				<p><strong>Name:</strong> ${newPayload.childFullName}</p>
 				<p><strong>Parent Email:</strong> ${newPayload.parentEmail}</p>
@@ -82,16 +85,22 @@ export async function POST(req: NextRequest) {
 					newPayload.programChoice3Yr || newPayload.programChoice4Yr
 				}</p>
 				<p><strong>Signature:</strong> <a href="${signatureUrl}" target="_blank">View Image</a></p>
-			`,
-		});
+			`;
 
-		if (emailResult.error) {
-			console.error("❌ Email Notification Error:", emailResult.error);
+		try {
+			await resend.emails.send({
+				from: `Tot Spot Registration <${COMPANY_EMAIL}>`,
+				to: NOTIFICATION_EMAILS,
+				subject: "📬 New Registration Submitted",
+				html: notificationHtml,
+			});
+		} catch (e) {
+			console.error("❌ Email Notification Error:", e);
 		}
 
 		// 📧 Send confirmation email to the registrant
 		await resend.emails.send({
-			from: "Tot Spot Preschool <info@totspotpreschool.ca>",
+			from: `Tot Spot Preschool <${COMPANY_EMAIL}>`,
 			to: newPayload.parentEmail,
 			subject: "✅ Registration Received",
 			html: `
