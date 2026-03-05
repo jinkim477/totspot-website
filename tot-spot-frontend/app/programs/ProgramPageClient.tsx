@@ -659,19 +659,19 @@ export default function ProgramPageClient({
 								},
 								{
 									step: "Step 3",
-									title: "Receive Confirmation",
-									description:
-										"Once your registration is processed, you'll receive a confirmation email with additional information.",
-									action: null,
-									href: null,
-								},
-								{
-									step: "Step 4",
 									title: "Complete Required Forms",
 									description:
 										"You'll need to complete and submit the Pre-Authorized Debit form if that is your payment method.",
 									action: "Download Forms",
 									href: "/parents#resources",
+								},
+								{
+									step: "Step 4",
+									title: "Receive Confirmation",
+									description:
+										"Once your registration is processed, you'll receive a confirmation email with enrollment details.",
+									action: null,
+									href: null,
 								},
 								{
 									step: "Step 5",
